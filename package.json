@@ -1,0 +1,27 @@
+{
+  "name": "rpi-data",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "next",
+    "build": "next build",
+    "start": "next start"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "fetch-everywhere": "^1.0.5",
+    "next": "^3.0.1-beta.21",
+    "next-redux-saga": "^1.0.1",
+    "next-redux-wrapper": "^1.3.2",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1",
+    "react-redux": "^5.0.5",
+    "redux": "^3.7.2",
+    "redux-saga": "^0.15.6",
+    "reduxsauce": "^0.6.0",
+    "seamless-immutable": "^7.1.2",
+    "unfetch": "^3.0.0"
+  }
+}
