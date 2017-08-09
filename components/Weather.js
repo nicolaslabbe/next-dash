@@ -26,8 +26,6 @@ class Weather extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log('* * * * * * * * * * * * * * * * * * * * * * * * * * * * *')
-  console.log('state', state)
   return {
     weather: state.weather
   }
