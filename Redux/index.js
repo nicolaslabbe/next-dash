@@ -1,13 +1,14 @@
-import { combineReducers } from 'redux'
-import configureStore from './CreateStore'
-import rootSaga from '../Sagas/'
+import { combineReducers } from 'redux';
 
-export default () => {
-	/* ------------- Assemble The Reducers ------------- */
+import configureStore from "./CreateStore";
+import rootSaga from "../Sagas";
+
+// creates the store
+export default (state) => {
+
 	const rootReducer = combineReducers({
 		weather: require('./WeatherRedux').reducer
 	})
 
-	// return rootReducer
-	return configureStore(rootReducer, rootSaga)
+	return configureStore(rootReducer, rootSaga, state)
 }

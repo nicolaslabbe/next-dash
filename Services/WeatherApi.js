@@ -5,7 +5,7 @@ const create = () => {
   return {
     get: (id) => {
     	return new Promise((resolve) => {
-			fetch(`http://api.openweathermap.org/data/2.5/forecast/${id}?units=metric&id=524901&APPID=9f93317bfb185b09deac174c8934eafe`)
+			fetch(`http://api.openweathermap.org/data/2.5/forecast/${id}?units=metric&id=524901&APPID=${process.env.OPEN_WEATHER}`)
 				.then((response) => response.json())
 				.then((responseJson) => {
 					var result = responseJson.list[0]
@@ -19,6 +19,7 @@ const create = () => {
 					})
 				})
 				.catch((error) => {
+					console.log('error', error)
 					resolve({
 						error: error
 					})
