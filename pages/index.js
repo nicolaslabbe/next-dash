@@ -11,6 +11,8 @@ import rootReducer from "../Redux";
 
 class Page extends React.Component {
 	static async getInitialProps ({ store, isServer }) {
+		console.log('* * * * * * * * * * * * * * * * * * * * * * * * * * * * *')
+		// console.log('ctx', ctx)
 		store.dispatch(WeatherActions.weatherRequest())
 		return {}
 	}
