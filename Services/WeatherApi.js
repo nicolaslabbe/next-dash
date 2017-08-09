@@ -11,7 +11,6 @@ const create = () => {
 				resolve(responseJson.result)
 			})
 			.catch((error) => {
-				console.log('error', error)
 				resolve({
 					error: error
 				})

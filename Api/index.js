@@ -1,4 +1,6 @@
 import Weather from './Weather'
+import News from './News'
+import Train from './Train'
 
 // export {
 // 	Weather
@@ -8,6 +10,8 @@ var router = express.Router();
 
 // define the home page route
 router.use('/weather', Weather);
+router.use('/news', News);
+router.use('/train', Train);
 
 // // define the home page route
 // router.get('/', function(req, res) {
