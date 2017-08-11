@@ -1,14 +1,12 @@
 import fetch from 'fetch-everywhere'
 import moment from 'moment'
+import Utils from '../Utils'
 
 var express = require('express')
 var router = express.Router()
 
 router.get('/', function(req, res) {
-	res.send({
-		status: 200,
-		result: null
-	})
+	Utils.status.success(res, 'ok')
 })
 
 router.get('/find/:stopId?/:direction?/:formatDate?', function(req, res) {
@@ -49,30 +47,13 @@ router.get('/find/:stopId?/:direction?/:formatDate?', function(req, res) {
 						})
 					}
 				})
-
-				res
-				.status(200)
-				.send({
-					status: 200,
-					result: formatted
-					// result: responseJson
-				})
+				Utils.status.success(res, formatted)
 			}catch(e) {
-				res
-				.status(400)
-				.send({
-					status: 400,
-					error: e
-				})
+				Utils.status.error(res, e)
 			}
 		})
 		.catch((error) => {
-			res
-			.status(400)
-			.send({
-				status: 400,
-				error: error
-			})
+			Utils.status.error(res, error)
 		})
 })
 

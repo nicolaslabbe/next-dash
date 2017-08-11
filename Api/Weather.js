@@ -4,10 +4,7 @@ var express = require('express');
 var router = express.Router();
 
 router.get('/', function(req, res) {
-	res.send({
-		status: 200,
-		result: null
-	});
+	Utils.status.success(res, 'ok')
 });
 
 router.get('/find/:id?', function(req, res) {
@@ -15,27 +12,17 @@ router.get('/find/:id?', function(req, res) {
 		.then((response) => response.json())
 		.then((responseJson) => {
 			var result = responseJson.list[0]
-			res
-			.status(200)
-			.send({
-				status: 200,
-				result: {
-					degree: result.main.temp,
-					humidity: result.main.humidity,
-					label: result.weather[0].main,
-					description: result.weather[0].description,
-					icon: result.weather[0].icon,
-					wind: result.wind.speed
-				}
+			Utils.status.success(res, {
+				degree: result.main.temp,
+				humidity: result.main.humidity,
+				label: result.weather[0].main,
+				description: result.weather[0].description,
+				icon: result.weather[0].icon,
+				wind: result.wind.speed
 			})
 		})
 		.catch((error) => {
-			res
-			.status(400)
-			.send({
-				status: 400,
-				error: error
-			})
+			Utils.status.success(res, error)
 		});
 });
 

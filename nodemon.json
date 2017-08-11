@@ -3,6 +3,7 @@
   "watch": [
     "server.js",
     "Api/*",
+    "Utils/*",
     ".env"
   ],
   "execMap": "babel-node --presets es2015,stage-2",

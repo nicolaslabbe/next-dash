@@ -1,13 +1,11 @@
 import fetch from 'fetch-everywhere'
+import Utils from '../Utils'
 
 var express = require('express');
 var router = express.Router();
 
 router.get('/', function(req, res) {
-	res.send({
-		status: 200,
-		result: null
-	});
+	Utils.status.success(res, 'ok')
 });
 
 router.get('/find/:source?/:sort?', function(req, res) {
@@ -16,21 +14,11 @@ router.get('/find/:source?/:sort?', function(req, res) {
 	fetch(`https://newsapi.org/v1/articles?source=${source}&sortBy=${sort}&apiKey=${process.env.NEWS_TOKEN}`)
 		.then((response) => response.json())
 		.then((responseJson) => {
-			res
-			.status(200)
-			.send({
-				status: 200,
-				result: responseJson.articles
-			})
+			Utils.status.success(res, responseJson.articles)
 		})
 		.catch((error) => {
-			res
-			.status(400)
-			.send({
-				status: 400,
-				error: error
-			})
-		});
-});
+			Utils.status.error(res, error)
+		})
+})
 
 module.exports = router;
