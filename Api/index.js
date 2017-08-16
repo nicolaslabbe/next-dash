@@ -2,6 +2,7 @@ import Weather from './Weather'
 import News from './News'
 import Train from './Train'
 import Db from './Db'
+import Fixture from './Fixture'
 
 // export {
 // 	Weather
@@ -14,6 +15,7 @@ router.use('/weather', Weather);
 router.use('/news', News);
 router.use('/train', Train);
 router.use('/db', Db);
+router.use('/fixture', Fixture);
 
 // // define the home page route
 // router.get('/', function(req, res) {

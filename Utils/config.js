@@ -1,5 +1,6 @@
 import path from 'path'
-import mkdirp from 'mkdirp'
+
+export const isDev = (process.env.NODE_ENV === 'development') ? true : false
 
 export const url = `${process.env.PROTOCOL}://${process.env.DOMAIN}:${process.env.PORT}`
 

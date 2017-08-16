@@ -1,10 +1,11 @@
 import fetch from 'fetch-everywhere'
+import Libs from '../Libs'
 
 var express = require('express');
 var router = express.Router();
 
 router.get('/', function(req, res) {
-	Utils.status.success(res, 'ok')
+	Libs.status.success(res, 'ok')
 });
 
 router.get('/find/:id?', function(req, res) {
@@ -12,7 +13,7 @@ router.get('/find/:id?', function(req, res) {
 		.then((response) => response.json())
 		.then((responseJson) => {
 			var result = responseJson.list[0]
-			Utils.status.success(res, {
+			Libs.status.success(res, {
 				degree: result.main.temp,
 				humidity: result.main.humidity,
 				label: result.weather[0].main,
@@ -22,7 +23,7 @@ router.get('/find/:id?', function(req, res) {
 			})
 		})
 		.catch((error) => {
-			Utils.status.success(res, error)
+			Libs.status.success(res, error)
 		});
 });
 

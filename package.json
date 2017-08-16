@@ -28,6 +28,7 @@
     "redux-saga": "^0.15.6",
     "reduxsauce": "^0.6.0",
     "seamless-immutable": "^7.1.2",
+    "semantic-ui-react": "^0.71.4",
     "unfetch": "^3.0.0"
   },
   "devDependencies": {

@@ -4,45 +4,39 @@ import Immutable from 'seamless-immutable'
 /* ------------- Types and Action Creators ------------- */
 
 const { Types, Creators } = createActions({
-  weatherRequest: null,
-  weatherSuccess: ['weather'],
-  weatherFailure: ['error']
+  trainRequest: null,
+  trainSuccess: ['stations'],
+  trainFailure: ['error']
 })
 
-export const WeatherTypes = Types
+export const TrainTypes = Types
 export default Creators
 
 /* ------------- Initial State ------------- */
 
 export const INITIAL_STATE = Immutable({
-	degree: null,
-	humidity: null,
-	label: null,
-	description: null,
-	icon: null,
-	wind: null,
-	error: null
+	stations: []
 })
 
 /* ------------- Reducers ------------- */
 
 // request the data from an api
-export const weatherRequest = (state) => {
+export const trainRequest = (state) => {
 	return state
 }
 
-export const weatherSuccess = (state, { weather }) => {
-	return state.merge({ ...weather })
+export const trainSuccess = (state, { stations }) => {
+	return state.merge({ stations: stations })
 }
 
-export const weatherFailure = (state, { error }) => {
+export const trainFailure = (state, { error }) => {
 	return state.merge({ error: error })
 }
 
 /* ------------- Hookup Reducers To Types ------------- */
 
 export const reducer = createReducer(INITIAL_STATE, {
-  [Types.WEATHER_REQUEST]: weatherRequest,
-  [Types.WEATHER_SUCCESS]: weatherSuccess,
-  [Types.WEATHER_FAILURE]: weatherFailure
+  [Types.TRAIN_REQUEST]: trainRequest,
+  [Types.TRAIN_SUCCESS]: trainSuccess,
+  [Types.TRAIN_FAILURE]: trainFailure
 })

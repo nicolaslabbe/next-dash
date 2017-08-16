@@ -3,6 +3,7 @@
   "watch": [
     "server.js",
     "Api/*",
+    "Libs/*",
     "Utils/*",
     ".env"
   ],

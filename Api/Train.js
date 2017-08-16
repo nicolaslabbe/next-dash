@@ -1,12 +1,12 @@
 import fetch from 'fetch-everywhere'
 import moment from 'moment'
-import Utils from '../Utils'
+import Libs from '../Libs'
 
 var express = require('express')
 var router = express.Router()
 
 router.get('/', function(req, res) {
-	Utils.status.success(res, 'ok')
+	Libs.status.success(res, 'ok')
 })
 
 router.get('/find/:stopId?/:direction?/:formatDate?', function(req, res) {
@@ -24,9 +24,7 @@ router.get('/find/:stopId?/:direction?/:formatDate?', function(req, res) {
 		.then((response) => response.json())
 		.then((responseJson) => {
 			try	{
-				var formatted = {
-					departures: []
-				}
+				var formatted = {}
 				Array.prototype.forEach.call(responseJson.departures, (departure) => {
 					if (departure.route.direction.name.toLowerCase().indexOf(direction.toLowerCase()) > -1) {
 						let formattedDate = moment(departure.stop_date_time.departure_date_time)
@@ -47,13 +45,13 @@ router.get('/find/:stopId?/:direction?/:formatDate?', function(req, res) {
 						})
 					}
 				})
-				Utils.status.success(res, formatted)
+				Libs.status.success(res, formatted)
 			}catch(e) {
-				Utils.status.error(res, e)
+				Libs.status.error(res, e)
 			}
 		})
 		.catch((error) => {
-			Utils.status.error(res, error)
+			Libs.status.error(res, error)
 		})
 })
 

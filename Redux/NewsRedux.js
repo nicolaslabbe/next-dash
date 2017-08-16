@@ -4,45 +4,39 @@ import Immutable from 'seamless-immutable'
 /* ------------- Types and Action Creators ------------- */
 
 const { Types, Creators } = createActions({
-  weatherRequest: null,
-  weatherSuccess: ['weather'],
-  weatherFailure: ['error']
+  newsRequest: null,
+  newsSuccess: ['articles'],
+  newsFailure: ['error']
 })
 
-export const WeatherTypes = Types
+export const NewsTypes = Types
 export default Creators
 
 /* ------------- Initial State ------------- */
 
 export const INITIAL_STATE = Immutable({
-	degree: null,
-	humidity: null,
-	label: null,
-	description: null,
-	icon: null,
-	wind: null,
-	error: null
+	articles: []
 })
 
 /* ------------- Reducers ------------- */
 
 // request the data from an api
-export const weatherRequest = (state) => {
+export const newsRequest = (state) => {
 	return state
 }
 
-export const weatherSuccess = (state, { weather }) => {
-	return state.merge({ ...weather })
+export const newsSuccess = (state, { articles }) => {
+	return state.merge({ articles: articles })
 }
 
-export const weatherFailure = (state, { error }) => {
+export const newsFailure = (state, { error }) => {
 	return state.merge({ error: error })
 }
 
 /* ------------- Hookup Reducers To Types ------------- */
 
 export const reducer = createReducer(INITIAL_STATE, {
-  [Types.WEATHER_REQUEST]: weatherRequest,
-  [Types.WEATHER_SUCCESS]: weatherSuccess,
-  [Types.WEATHER_FAILURE]: weatherFailure
+  [Types.NEWS_REQUEST]: newsRequest,
+  [Types.NEWS_SUCCESS]: newsSuccess,
+  [Types.NEWS_FAILURE]: newsFailure
 })

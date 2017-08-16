@@ -2,14 +2,10 @@ import React from 'react'
 import { connect } from 'react-redux'
 
 class Weather extends React.Component {
-  componentWillMount () {
-    // this.props.weatherRequest()
-  }  
-
   render () {
     return (
       <div>
-      Weather:
+      <h2>Weather</h2>
       {this.props.weather
         ? <ul>
           <li>degree: {this.props.weather.degree}</li>

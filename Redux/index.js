@@ -7,7 +7,10 @@ import rootSaga from "../Sagas";
 export default (state) => {
 
 	const rootReducer = combineReducers({
-		weather: require('./WeatherRedux').reducer
+		weather: require('./WeatherRedux').reducer,
+		train: require('./TrainRedux').reducer,
+		news: require('./NewsRedux').reducer,
+		notes: require('./NotesRedux').reducer
 	})
 
 	return configureStore(rootReducer, rootSaga, state)

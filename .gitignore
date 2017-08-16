@@ -1,4 +1,6 @@
+*.sublime-workspace
 node_modules/
 data/
 .next/
 .env
+*.sublime-project
