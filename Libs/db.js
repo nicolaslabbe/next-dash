@@ -60,12 +60,8 @@ export const removeAll = (name) => {
 export const add = (name, data) => {
 	return new Promise((resolve, reject) => {
 		const filepath = path.join(Utils.config.pathData, `${name}.json`)
-		console.log('* * * * * * * * * * * * * * * * * * * * * * * * * * * * *')
-		console.log('filepath', filepath)
 		filesystem.read(filepath)
 			.then((oldData) => {
-				console.log('* * * * * * * * * * * * * * * * * * * * * * * * * * * * *')
-				console.log('oldData', oldData)
 				filesystem.write(filepath, [
 					...oldData,
 					{
@@ -77,12 +73,6 @@ export const add = (name, data) => {
 					(error) => reject(error))
 			},
 			(err) => {
-				console.log('* * * * * * * * * * * * * * * * * * * * * * * * * * * * *')
-				console.log('err', err)
-				console.log('data', [{
-						...data,
-						id: 0
-					}])
 				filesystem.write(filepath, [{
 						...data,
 						id: 0

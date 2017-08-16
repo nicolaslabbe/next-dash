@@ -31,22 +31,6 @@ router.post('/:name?', function(req, res) {
 	}
 });
 
-router.put('/:name?', function(req, res) {
-	if (Libs.req.param(req, res, 'name')) {
-		Libs.filesystem.update(Utils.config.pathData, `${req.params.name}.json`, req.body)
-			.then((data) => Libs.status.success(res, data),
-			(error) => Libs.status.error(res, error))
-	}
-});
-
-router.patch('/:name?', function(req, res) {
-	if (Libs.req.param(req, res, 'name')) {
-		Libs.filesystem.merge(Utils.config.pathData, `${req.params.name}.json`, req.body)
-			.then((data) => Libs.status.success(res, data),
-			(error) => Libs.status.error(res, error))
-	}
-});
-
 router.delete('/:name?/:key?/:value?', function(req, res) {
 	if (Libs.req.param(req, res, 'name')) {
 		if (req.params.key && req.params.value) {
