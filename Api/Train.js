@@ -37,7 +37,7 @@ router.get('/find/:stopId?/:direction?/:formatDate?', function(req, res) {
 							}
 						}
 						formatted[departure.display_informations.direction].departures.push({
-							time: departure.stop_date_time.arrival_date_time,
+							time: moment(departure.stop_date_time.arrival_date_time).valueOf(),
 							formatted: (req.params.formatDate) ? formattedDate.format(req.params.formatDate) : formattedDate,
 							direction: departure.route.direction.name,
 							line: departure.route.line.code,

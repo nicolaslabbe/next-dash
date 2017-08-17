@@ -24,7 +24,7 @@ class Page extends React.Component {
 		store.dispatch(WeatherActions.weatherRequest())
 		store.dispatch(TrainActions.trainRequest())
 		store.dispatch(NewsActions.newsRequest())
-		store.dispatch(DataActions.dataRequest('blablabla'))
+		store.dispatch(DataActions.dataRequest('notes'))
 		return {}
 	}
 
@@ -34,7 +34,7 @@ class Page extends React.Component {
 				<Weather/>
 				<Train/>
 				<News/>
-				<EditableList name="blablabla" />
+				<EditableList name="notes" />
 			</div>
     	)
 	}
