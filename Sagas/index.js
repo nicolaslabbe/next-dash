@@ -8,14 +8,14 @@ import Utils from '../Utils'
 import { WeatherTypes } from '../Redux/WeatherRedux'
 import { TrainTypes } from '../Redux/TrainRedux'
 import { NewsTypes } from '../Redux/NewsRedux'
-import { NotesTypes } from '../Redux/NotesRedux'
+import { DataTypes } from '../Redux/DataRedux'
 
 /* ------------- Sagas ------------- */
 
 import * as weatherSagas from './WeatherSagas'
 import * as trainSagas from './TrainSagas'
 import * as newsSagas from './NewsSagas'
-import * as notesSagas from './NotesSagas'
+import * as dataSagas from './DataSagas'
 
 /* ------------- API ------------- */
 const api = Utils.config.isDev ? ApiFixture.create() : Api.create()
@@ -26,7 +26,9 @@ export default function * root () {
 		takeLatest(WeatherTypes.WEATHER_REQUEST, weatherSagas.request, api),
 		takeLatest(TrainTypes.TRAIN_REQUEST, trainSagas.request, api),
 		takeLatest(NewsTypes.NEWS_REQUEST, newsSagas.request, api),
-		takeLatest(NotesTypes.NOTES_REQUEST, notesSagas.request, api),
-		takeLatest(NotesTypes.NOTES_ADD, notesSagas.add, api)
+		takeLatest(DataTypes.DATA_REQUEST, dataSagas.request, api),
+		takeLatest(DataTypes.DATA_ADD, dataSagas.add, api),
+		takeLatest(DataTypes.DATA_REMOVE, dataSagas.remove, api),
+		takeLatest(DataTypes.DATA_REMOVE_ALL, dataSagas.removeAll, api)
 	])
 }

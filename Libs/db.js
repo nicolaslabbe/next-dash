@@ -62,11 +62,15 @@ export const add = (name, data) => {
 		const filepath = path.join(Utils.config.pathData, `${name}.json`)
 		filesystem.read(filepath)
 			.then((oldData) => {
+				var id = 0
+				if (oldData.length > 0) {
+					id = parseInt(oldData[oldData.length - 1].id) + 1
+				}
 				filesystem.write(filepath, [
 					...oldData,
 					{
 						...data,
-						id: parseInt(oldData[oldData.length - 1].id) + 1
+						id: id
 					}
 					])
 					.then((newData) => resolve(newData),

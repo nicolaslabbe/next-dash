@@ -11,20 +11,20 @@ import rootReducer from "../Redux";
 import WeatherActions from '../Redux/WeatherRedux'
 import TrainActions from '../Redux/TrainRedux'
 import NewsActions from '../Redux/NewsRedux'
-import NotesActions from '../Redux/NotesRedux'
+import DataActions from '../Redux/DataRedux'
 
 // Components
 import Weather from '../components/Weather'
 import Train from '../components/Train'
 import News from '../components/News'
-import Notes from '../components/Notes'
+import EditableList from '../components/EditableList'
 
 class Page extends React.Component {
 	static async getInitialProps ({ store, isServer }) {
 		store.dispatch(WeatherActions.weatherRequest())
 		store.dispatch(TrainActions.trainRequest())
 		store.dispatch(NewsActions.newsRequest())
-		store.dispatch(NotesActions.notesRequest())
+		store.dispatch(DataActions.dataRequest('blablabla'))
 		return {}
 	}
 
@@ -34,7 +34,7 @@ class Page extends React.Component {
 				<Weather/>
 				<Train/>
 				<News/>
-				<Notes/>
+				<EditableList name="blablabla" />
 			</div>
     	)
 	}

@@ -31,17 +31,11 @@ const create = () => {
         return Api.create().get(url)
       }
     },
-    put: (url, data) => {
-      return Api.create().put(url, data)
-    },
     post: (url, data) => {
       return Api.create().post(url, data)
     },
     delete: (url) => {
-      return Api.create().delete(url, data)
-    },
-    patch: (url, data) => {
-      return Api.create().patch(url, data)
+      return Api.create().delete(url)
     }
   }
 }

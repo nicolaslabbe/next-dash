@@ -7,27 +7,11 @@ const create = () => {
 			fetch(url)
 			.then((response) => response.json())
 			.then((responseJson) => {
-				resolve(responseJson.result)
-			})
-			.catch((error) => {
-				resolve({
-					error: error
-				})
-			})
-    	})
-    },
-    put: (url, data) => {
-    	return new Promise((resolve) => {
-			fetch(url, {
-			    method: "PUT",
-				headers: {
-					'Content-Type': 'application/json'
-				},
-				body: JSON.stringify(data)
-			})
-			.then((response) => response.json())
-			.then((responseJson) => {
-				resolve(responseJson.result)
+				if (responseJson.error) {
+					resolve(responseJson)
+				}else {
+					resolve(responseJson.result)
+				}
 			})
 			.catch((error) => {
 				resolve({
@@ -39,7 +23,7 @@ const create = () => {
     post: (url, data) => {
     	return new Promise((resolve) => {
 			fetch(url, {
-			    method: "PUT",
+			    method: "POST",
 				headers: {
 					'Content-Type': 'application/json'
 				},
@@ -47,7 +31,11 @@ const create = () => {
 			})
 			.then((response) => response.json())
 			.then((responseJson) => {
-				resolve(responseJson.result)
+				if (responseJson.error) {
+					resolve(responseJson)
+				}else {
+					resolve(responseJson.result)
+				}
 			})
 			.catch((error) => {
 				resolve({
@@ -58,31 +46,19 @@ const create = () => {
     },
     delete: (url) => {
     	return new Promise((resolve) => {
-			fetch(url)
-			.then((response) => response.json())
-			.then((responseJson) => {
-				resolve(responseJson.result)
-			})
-			.catch((error) => {
-				resolve({
-					error: error
-				})
-			})
-    	})
-    },
-    patch: (url, data) => {
-    	console.log(url, data)
-    	return new Promise((resolve) => {
 			fetch(url, {
-			    method: "PATCH",
+			    method: "DELETE",
 				headers: {
 					'Content-Type': 'application/json'
-				},
-				body: JSON.stringify(data)
+				}
 			})
 			.then((response) => response.json())
 			.then((responseJson) => {
-				resolve(responseJson.result)
+				if (responseJson.error) {
+					resolve(responseJson)
+				}else {
+					resolve(responseJson.result)
+				}
 			})
 			.catch((error) => {
 				resolve({
