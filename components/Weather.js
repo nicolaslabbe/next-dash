@@ -1,19 +1,23 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
+// Stylesheet
+import styles from './Styles/WeatherStyles.scss'
+
 class Weather extends React.Component {
   render () {
     return (
-      <div>
-      <h2>Weather</h2>
+      <div className="weather">
+      <style dangerouslySetInnerHTML={{ __html: styles }} />
+      <h2 className="title">Weather</h2>
       {this.props.weather
         ? <ul>
-          <li>degree: {this.props.weather.degree}</li>
-          <li>humidity: {this.props.weather.humidity}</li>
-          <li>label: {this.props.weather.label}</li>
-          <li>description: {this.props.weather.description}</li>
-          <li>icon: {this.props.weather.icon}</li>
-          <li>wind: {this.props.weather.wind}</li>
+          <li className="text">degree: {this.props.weather.degree}</li>
+          <li className="text">humidity: {this.props.weather.humidity}</li>
+          <li className="text">label: {this.props.weather.label}</li>
+          <li className="text">description: {this.props.weather.description}</li>
+          <li className="text">icon: {this.props.weather.icon}</li>
+          <li className="text">wind: {this.props.weather.wind}</li>
         </ul>
         : null}
       </div>

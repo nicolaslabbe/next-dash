@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
+import Icon from "./Icon"
 import Utils from "../Utils"
 
 class News extends React.Component {
@@ -12,6 +13,7 @@ class News extends React.Component {
       {articles
         ? articles.map((article, i) => {
           return <ul key={i}>
+              <li><Icon name="assignment" /></li>
               <li>{article.title}</li>
               <li>Date: {Utils.date.timestampToHumain(article.publishedAt)}</li>
               <li><img src={article.urlToImage} width="100" /></li>
