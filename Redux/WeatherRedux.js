@@ -32,11 +32,11 @@ export const weatherRequest = (state) => {
 }
 
 export const weatherSuccess = (state, { weather }) => {
-	return state.merge({ ...weather })
+	return {...state, weather}
 }
 
 export const weatherFailure = (state, { error }) => {
-	return state.merge({ error: error })
+	return {...state, error}
 }
 
 /* ------------- Hookup Reducers To Types ------------- */

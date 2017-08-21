@@ -3,6 +3,7 @@ import {createStore, applyMiddleware} from 'redux'
 import createSagaMiddleware from 'redux-saga'
 import withRedux from 'next-redux-wrapper'
 import withReduxSaga from 'next-redux-saga'
+import Link from 'next/link'
 
 // Redux
 import rootReducer from "../Redux";
@@ -12,12 +13,6 @@ import WeatherActions from '../Redux/WeatherRedux'
 import TrainActions from '../Redux/TrainRedux'
 import NewsActions from '../Redux/NewsRedux'
 import DataActions from '../Redux/DataRedux'
-
-// Components
-import Weather from '../components/Weather'
-import Train from '../components/Train'
-import News from '../components/News'
-import EditableList from '../components/EditableList'
 
 class Page extends React.Component {
 	static async getInitialProps ({ store, isServer }) {
@@ -31,10 +26,12 @@ class Page extends React.Component {
 	render () {
     	return (
 			<div>
-				<Weather/>
-				<Train/>
-				<News/>
-				<EditableList name="notes" />
+				<ul>
+					<li><Link href="/train"><a>train</a></Link></li>
+					<li><Link href="/news"><a>news</a></Link></li>
+					<li><Link href="/weather"><a>weather</a></Link></li>
+					<li><Link href="/notes"><a>notes</a></Link></li>
+				</ul>
 			</div>
     	)
 	}

@@ -2,7 +2,7 @@ import Document, { Head, Main, NextScript } from 'next/document'
 import flush from 'styled-jsx/server'
 
 // import _documentStyles from './Styles/_document.scss'
-import globalStylesheet from '../static/styles/global.css'
+import globalStylesheet from '../static/styles/global.scss'
 
 export default class MyDocument extends Document {
   static getInitialProps ({ renderPage }) {

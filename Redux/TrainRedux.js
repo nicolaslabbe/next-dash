@@ -26,11 +26,11 @@ export const trainRequest = (state) => {
 }
 
 export const trainSuccess = (state, { stations }) => {
-	return state.merge({ stations: stations })
+  return {...state, stations}
 }
 
 export const trainFailure = (state, { error }) => {
-	return state.merge({ error: error })
+  return {...state, error}
 }
 
 /* ------------- Hookup Reducers To Types ------------- */

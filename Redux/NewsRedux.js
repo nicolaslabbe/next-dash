@@ -26,11 +26,11 @@ export const newsRequest = (state) => {
 }
 
 export const newsSuccess = (state, { articles }) => {
-	return state.merge({ articles: articles })
+  return {...state, articles}
 }
 
 export const newsFailure = (state, { error }) => {
-	return state.merge({ error: error })
+  return {...state, ...error}
 }
 
 /* ------------- Hookup Reducers To Types ------------- */

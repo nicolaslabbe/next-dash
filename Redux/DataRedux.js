@@ -60,7 +60,7 @@ export const dataSuccess = (state, { name, items }) => {
 }
 
 export const dataFailure = (state, { error }) => {
-	return state.merge({ error: error })
+  return {...state, error}
 }
 
 /* ------------- Hookup Reducers To Types ------------- */
