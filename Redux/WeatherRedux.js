@@ -32,7 +32,7 @@ export const weatherRequest = (state) => {
 }
 
 export const weatherSuccess = (state, { weather }) => {
-	return {...state, weather}
+	return {...state, ...weather}
 }
 
 export const weatherFailure = (state, { error }) => {

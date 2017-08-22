@@ -1,1 +1,24 @@
-@import '../../node_modules/material-design-icons/iconfont/material-icons.css';
+@import '../../node_modules/normalize.css/normalize.css';
+@import '../../node_modules/flexboxgrid/dist/flexboxgrid.min.css';
+
+@import './modules/var';
+@import './modules/mixins';
+@import './modules/material-icons';
+@import './modules/button.scss';
+@import './modules/header.scss';
+@import './modules/icon.scss';
+@import './modules/weather-icon.scss';
+@import './modules/text.scss';
+@import './modules/title.scss';
+
+@include font-face('Roboto', '/Roboto/Roboto-Medium', null, null, ttf);
+@include font-face('Roboto Light', '/Roboto/Roboto-Light', '300', 'normal', ttf);
+@include font-face('Roboto Thin', '/Roboto/Roboto-Thin', '100', 'normal', ttf);
+
+body {
+	font-family: $ff;
+	font-size: $fz;
+	padding: 0px;
+    margin-right: .5rem;
+    margin-left: .5rem;
+}

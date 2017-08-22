@@ -1,0 +1,17 @@
+// Icon.scss
+.button {
+	display: inline-block;
+	cursor: pointer;
+	
+	.dark {
+		color: $color-dark;
+	}
+	.light {
+		color: $color-light;
+	}
+
+	.big {
+		font-size: $fz-text;
+	}
+
+}

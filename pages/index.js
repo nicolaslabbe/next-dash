@@ -14,23 +14,24 @@ import TrainActions from '../Redux/TrainRedux'
 import NewsActions from '../Redux/NewsRedux'
 import DataActions from '../Redux/DataRedux'
 
+// Components
+import { Header } from '../components/ui'
+
 class Page extends React.Component {
 	static async getInitialProps ({ store, isServer }) {
-		store.dispatch(WeatherActions.weatherRequest())
-		store.dispatch(TrainActions.trainRequest(process.env.TRAIN_STOPS))
-		store.dispatch(NewsActions.newsRequest())
-		store.dispatch(DataActions.dataRequest('notes'))
 		return {}
 	}
 
 	render () {
     	return (
 			<div>
+				<Header
+					title="index"/>
 				<ul>
-					<li><Link href="/train"><a>train</a></Link></li>
-					<li><Link href="/news"><a>news</a></Link></li>
-					<li><Link href="/weather"><a>weather</a></Link></li>
-					<li><Link href="/notes"><a>notes</a></Link></li>
+					<li><Link prefetch href="/train"><a>train</a></Link></li>
+					<li><Link prefetch href="/news"><a>news</a></Link></li>
+					<li><Link prefetch href="/weather"><a>weather</a></Link></li>
+					<li><Link prefetch href="/notes"><a>notes</a></Link></li>
 				</ul>
 			</div>
     	)

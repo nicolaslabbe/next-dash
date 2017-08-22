@@ -13,6 +13,7 @@ import NewsActions from '../../Redux/NewsRedux'
 
 // Components
 import News from '../../components/News'
+import { Header } from '../../components/ui'
 
 class Page extends React.Component {
 	static async getInitialProps ({ store, isServer }) {
@@ -23,7 +24,9 @@ class Page extends React.Component {
 	render () {
     	return (
 			<div>
-				<Link href="/"><a>back</a></Link>
+				<Header
+					title="news"
+					close />
 				<News/>
 			</div>
     	)

@@ -11,6 +11,7 @@ app.prepare()
 .then(() => {
   const server = express()
   server.use(express.static('./node_modules/material-design-icons/iconfont/'));
+  server.use(express.static('./static/fonts/'));
   server.use( bodyParser.json() )
   server.use(bodyParser.urlencoded({
     extended: true

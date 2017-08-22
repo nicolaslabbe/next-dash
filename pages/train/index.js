@@ -3,7 +3,6 @@ import {createStore, applyMiddleware} from 'redux'
 import createSagaMiddleware from 'redux-saga'
 import withRedux from 'next-redux-wrapper'
 import withReduxSaga from 'next-redux-saga'
-import Link from 'next/link'
 
 // Redux
 import rootReducer from "../../Redux";
@@ -13,6 +12,7 @@ import TrainActions from '../../Redux/TrainRedux'
 
 // Components
 import Train from '../../components/Train'
+import { Header } from '../../components/ui'
 
 class Page extends React.Component {
 	static async getInitialProps ({ store, isServer }) {
@@ -23,7 +23,9 @@ class Page extends React.Component {
 	render () {
     	return (
 			<div>
-				<Link href="/"><a>back</a></Link>
+				<Header
+					title="train"
+					close />
 				<Train/>
 			</div>
     	)

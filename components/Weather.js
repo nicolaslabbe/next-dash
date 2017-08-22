@@ -1,25 +1,30 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
-// Stylesheet
-import styles from './Styles/WeatherStyles.scss'
+import WeatherIcon from "./ui/WeatherIcon"
+import MainWeather from "./weather/MainWeather"
 
 class Weather extends React.Component {
+
   render () {
     return (
       <div className="weather">
-      <style dangerouslySetInnerHTML={{ __html: styles }} />
-      <h2 className="title">Weather</h2>
+      <h2 className="title">Now</h2>
       {this.props.weather
-        ? <ul>
-          <li className="text">degree: {this.props.weather.degree}</li>
-          <li className="text">humidity: {this.props.weather.humidity}</li>
-          <li className="text">label: {this.props.weather.label}</li>
-          <li className="text">description: {this.props.weather.description}</li>
-          <li className="text">icon: {this.props.weather.icon}</li>
-          <li className="text">wind: {this.props.weather.wind}</li>
-        </ul>
+        ? <MainWeather weather={this.props.weather}/>
         : null}
+        <h2 className="title">Later</h2>
+        {this.props.weather && this.props.weather.futur
+          ? this.props.weather.futur.map((weather, i) => {
+            return <ul key={i}>
+              <li className="text">
+                <WeatherIcon name={weather.icon} />
+              </li>
+              <li className="text">{weather.time}</li>
+              <li className="text">{weather.degree} / {weather.wind}</li>
+            </ul>
+          })
+          : null}
       </div>
     )
   }

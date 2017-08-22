@@ -1,4 +1,5 @@
 import fetch from 'fetch-everywhere'
+import moment from 'moment'
 import Libs from '../Libs'
 
 var express = require('express');
@@ -13,14 +14,32 @@ router.get('/find/:id?', function(req, res) {
 		.then((response) => response.json())
 		.then((responseJson) => {
 			var result = responseJson.list[0]
-			Libs.status.success(res, {
+			responseJson.list.shift()
+
+			result = {
 				degree: result.main.temp,
 				humidity: result.main.humidity,
 				label: result.weather[0].main,
 				description: result.weather[0].description,
+				time: moment(result.dt_txt),
 				icon: result.weather[0].icon,
-				wind: result.wind.speed
+				wind: result.wind.speed,
+				futur: []
+			}
+
+			Array.prototype.forEach.call(responseJson.list, (value) => {
+				result.futur.push({
+					degree: value.main.temp,
+					humidity: value.main.humidity,
+					label: value.weather[0].main,
+					description: value.weather[0].description,
+					icon: value.weather[0].icon,
+					time: moment(value.dt_txt),
+					wind: value.wind.speed
+				})
 			})
+
+			Libs.status.success(res, result)
 		})
 		.catch((error) => {
 			Libs.status.success(res, error)

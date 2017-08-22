@@ -1,0 +1,30 @@
+// Header.scss
+.header {
+	$close-button-size: 30px;
+	$margin: 5px;
+	
+	height: 50px;
+	margin-top: $margin;
+	position: relative;
+
+	.title {
+		font-size: $fz-title;
+		display: inline;
+		text-transform: uppercase;
+	}
+
+	.close {
+		background:$color-light;
+		position: absolute;
+		left: $margin;
+		width: $close-button-size;
+		height: $close-button-size;
+
+		i {
+			width: $close-button-size;
+			height: $close-button-size;
+			line-height: $close-button-size;
+			text-align: center;
+		}
+	}
+}
