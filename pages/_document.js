@@ -1,7 +1,6 @@
 import Document, { Head, Main, NextScript } from 'next/document'
 import flush from 'styled-jsx/server'
 
-// import _documentStyles from './Styles/_document.scss'
 import globalStylesheet from '../static/styles/global.scss'
 
 export default class MyDocument extends Document {
@@ -12,7 +11,6 @@ export default class MyDocument extends Document {
   }
 
   render () {
-    // <style dangerouslySetInnerHTML={{ __html: _documentStyles }} />
     return (
      <html>
        <Head>

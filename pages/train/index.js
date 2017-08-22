@@ -16,7 +16,7 @@ import Train from '../../components/Train'
 
 class Page extends React.Component {
 	static async getInitialProps ({ store, isServer }) {
-		store.dispatch(TrainActions.trainRequest())
+		store.dispatch(TrainActions.trainRequest(process.env.TRAIN_STOPS))
 		return {}
 	}
 

@@ -17,7 +17,7 @@ import DataActions from '../Redux/DataRedux'
 class Page extends React.Component {
 	static async getInitialProps ({ store, isServer }) {
 		store.dispatch(WeatherActions.weatherRequest())
-		store.dispatch(TrainActions.trainRequest())
+		store.dispatch(TrainActions.trainRequest(process.env.TRAIN_STOPS))
 		store.dispatch(NewsActions.newsRequest())
 		store.dispatch(DataActions.dataRequest('notes'))
 		return {}

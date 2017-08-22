@@ -10,16 +10,17 @@ class Train extends React.Component {
       <div>
       <h2>Train</h2>
       {stations
-        ? Object.keys(stations).map((name, i) => {
-          const { departures } = stations[name]
-          return <div key={i}>
-              <div>{name}</div>
+        ? stations.map((station, i) => {
+          return station.map((item, i) => {
+            return <div key={i}>
+              <div>{item.name}</div>
               <ul>
-              {departures.map((departure, j) => {
+              {item.departures.map((departure, j) => {
                 return <li key={j}>time: {Utils.date.remaining(departure.time)}</li>
               })}
             </ul>
           </div>
+          })
         })
         : null}
       </div>
@@ -28,6 +29,7 @@ class Train extends React.Component {
 }
 
 const mapStateToProps = (state) => {
+  console.log('state', state)
   return {
     stations: state.train.stations || {}
   }
