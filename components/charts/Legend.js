@@ -4,7 +4,9 @@ class Legend extends React.Component {
 
   render () {
     return (
-      <div className="legend">
+      <div
+        className="legend"
+        style={{width: this.props.width}}>
           {this.props.data
             ? this.props.data.map((item, i) => {
                 return <div key={i}>

@@ -1,0 +1,18 @@
+// Text.scss
+.data-list {
+	border-top: 1px solid $text-light;
+
+	.line {
+		line-height: 2.2rem;
+	}
+	.left {
+		text-align: left;
+		color: $text-lighter;
+		font-size: $fz-text;
+	}
+	.right {
+		text-align: right;
+		color: $text-dark;
+		font-size: $fz-text;
+	}
+}

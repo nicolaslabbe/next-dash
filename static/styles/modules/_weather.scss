@@ -1,0 +1,27 @@
+// weather.scss
+.weather {
+  margin-top: 20px;
+  
+  .main {
+    .detail {
+      display: inline-block;
+      vertical-align: top;
+      text-align: right;
+
+      .degree {
+        color: $medium-red-violet;
+        font-size: $fz-big;
+      }
+      .wind {
+        padding-right: 11px;
+        color: $quartz;
+        font-size: $fz-small;
+      }
+      .humidity {
+        padding-right: 11px;
+        color: $dark-blue;
+        font-size: $fz-small;
+      }
+    }
+  }
+}

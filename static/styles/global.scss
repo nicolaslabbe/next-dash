@@ -8,8 +8,10 @@
 @import './modules/header.scss';
 @import './modules/icon.scss';
 @import './modules/weather-icon.scss';
+@import './modules/weather.scss';
 @import './modules/text.scss';
 @import './modules/title.scss';
+@import './modules/data-list.scss';
 
 @import './modules/charts/legend.scss';
 
@@ -17,10 +19,18 @@
 @include font-face('Roboto Light', '/Roboto/Roboto-Light', '300', 'normal', ttf);
 @include font-face('Roboto Thin', '/Roboto/Roboto-Thin', '100', 'normal', ttf);
 
-body {
+body,
+html {
 	font-family: $ff;
 	font-size: $fz;
 	padding: 0px;
-    margin-right: .5rem;
-    margin-left: .5rem;
+    margin: 0px;
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.row {
+    margin-right: 0rem;
+    margin-left: 0rem;
 }

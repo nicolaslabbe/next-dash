@@ -65,9 +65,14 @@ class Icon extends React.Component {
   render () {
   	const { className } = this.props
     return (
-      <i className={`${className ? className : ''} icon weather-icons ${
-      			this.props.dark ? 'dark' : ''}`
-      	}>
+      <i
+      	style={{
+      		width: this.props.size,
+      		height: this.props.size,
+      		fontSize: this.props.size,
+      		color: this.props.color
+      	}}
+      	className={`${className ? className : ''} icon weather-icons ${this.props.dark ? 'dark' : ''}`}>
       	{this.convertIcon(this.props.name)}</i>
     )
   }

@@ -1,6 +1,8 @@
 // Legend.scss
 .legend {
+	display: inline-block;
 	margin: 10px;
+	text-align: left;
 	
 	.color {
 		display: inline-block;

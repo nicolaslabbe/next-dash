@@ -2,6 +2,7 @@
 .header {
 	$close-button-size: 30px;
 	$margin: 5px;
+    border-bottom: 1px solid $text-light;
 	
 	height: 50px;
 	margin-top: $margin;
@@ -11,6 +12,9 @@
 		font-size: $fz-title;
 		display: inline;
 		text-transform: uppercase;
+		height: 30px;
+		display: inline-block;
+		line-height: 30px;
 	}
 
 	.close {
