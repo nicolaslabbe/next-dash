@@ -1,3 +1,4 @@
+ecosystem.config.js
 *.sublime-workspace
 node_modules/
 data/

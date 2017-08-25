@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "nodemon server.js",
     "build": "next build",
-    "start": "NODE_ENV=production node server.js"
+    "start": "NODE_ENV=production node server.js",
+    "prod": "npm run build && pm2 startOrRestart ecosystem.config.js --env production"
   },
   "author": "",
   "license": "ISC",
@@ -31,6 +32,7 @@
     "node-sass": "^4.5.3",
     "normalize.css": "^7.0.0",
     "object-merge-advanced": "^6.5.0",
+    "pm2": "^2.6.1",
     "postcss-copy": "^7.1.0",
     "postcss-easy-import": "^2.1.0",
     "postcss-loader": "^2.0.6",

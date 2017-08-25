@@ -1,0 +1,25 @@
+module.exports = {
+  apps : [
+    {
+      name      : 'RPI-DATA',
+      script    : 'server.js',
+      env: {
+        COMMON_VARIABLE: 'true'
+      },
+      env_production : {
+        NODE_ENV: 'production'
+      }
+    }
+  ],
+
+  deploy : {
+    production : {
+      user : 'node',
+      host : '192.168.1.1',
+      ref  : 'origin/master',
+      repo : 'git@github.com:nicolaslabbe/next-dash.git',
+      path : '/path/to/project/rpi-data',
+      'post-deploy' : 'npm install && npm run build && pm2 reload ecosystem.config.js --env production'
+    }
+  }
+};

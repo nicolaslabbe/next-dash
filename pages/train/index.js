@@ -16,7 +16,7 @@ import { Header } from '../../components/ui'
 
 class Page extends React.Component {
 	static async getInitialProps ({ store, isServer }) {
-		store.dispatch(TrainActions.trainRequest(process.env.TRAIN_STOPS))
+		store.dispatch(TrainActions.trainRequest(JSON.parse(process.env.TRAIN_STOPS)))
 		return {}
 	}
 
