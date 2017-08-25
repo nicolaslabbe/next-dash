@@ -3,7 +3,7 @@ const filesystem = require('./filesystem')
 const status = require('./status')
 const Utils = require('../Utils')
 
-module.exports.all = (name) => {
+const all = (name) => {
 	return new Promise((resolve, reject) => {
 		filesystem.read(path.join(Utils.config.pathData, `${name}.json`))
 			.then((data) => {
@@ -15,7 +15,7 @@ module.exports.all = (name) => {
 	})
 }
 
-module.exports.find = (name, key, value) => {
+const find = (name, key, value) => {
 	return new Promise((resolve, reject) => {
 		var result = []
 		filesystem.read(path.join(Utils.config.pathData, `${name}.json`))
@@ -31,7 +31,7 @@ module.exports.find = (name, key, value) => {
 	})
 }
 
-module.exports.remove = (name, key, value) => {
+const remove = (name, key, value) => {
 	return new Promise((resolve, reject) => {
 		var result = []
 		filesystem.read(path.join(Utils.config.pathData, `${name}.json`))
@@ -49,7 +49,7 @@ module.exports.remove = (name, key, value) => {
 	})
 }
 
-module.exports.removeAll = (name) => {
+const removeAll = (name) => {
 	return new Promise((resolve, reject) => {
 		filesystem.remove(path.join(Utils.config.pathData, `${name}.json`))
 			.then(() => resolve('ok'),
@@ -57,7 +57,7 @@ module.exports.removeAll = (name) => {
 	})
 }
 
-module.exports.add = (name, data) => {
+const add = (name, data) => {
 	return new Promise((resolve, reject) => {
 		const filepath = path.join(Utils.config.pathData, `${name}.json`)
 		filesystem.read(filepath)
@@ -73,7 +73,10 @@ module.exports.add = (name, data) => {
 						id: id
 					}
 					])
-					.then((newData) => resolve(newData),
+					.then((newData) => resolve({
+						...data,
+						id: id
+					}),
 					(error) => reject(error))
 			},
 			(err) => {
@@ -81,8 +84,18 @@ module.exports.add = (name, data) => {
 						...data,
 						id: 0
 					}])
-					.then((newData) => resolve(newData),
+					.then((newData) => resolve({
+						...data,
+						id: 0
+					}),
 					(error) => reject(error))
 			})
 	})
+}
+module.exports = {
+	all,
+	find,
+	remove,
+	removeAll,
+	add
 }

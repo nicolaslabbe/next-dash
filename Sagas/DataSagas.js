@@ -18,7 +18,7 @@ export function * add (api, { name, item }) {
 	if (json.error) {
 		yield put(DataActions.dataFailure(json.error))
 	}else {
-		yield put(DataActions.dataSuccess(name, json))
+		yield put(DataActions.dataAddSuccess(name, json))
 	}
 }
 

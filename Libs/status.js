@@ -1,4 +1,4 @@
-module.exports.success = (res, data) => {
+const success = (res, data) => {
 	res
 		.status(200)
 		.send({
@@ -7,11 +7,16 @@ module.exports.success = (res, data) => {
 		})
 }
 
-module.exports.error = (res, err) => {
+const error = (res, err) => {
 	res
 		.status(400)
 		.send({
 			status: 400,
 			error: err
 		})
+}
+
+module.exports = {
+	success,
+	error
 }

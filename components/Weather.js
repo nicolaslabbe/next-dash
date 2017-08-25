@@ -12,7 +12,7 @@ import {
   Content
 } from './layout'
 
-// Layout
+// ui
 import {
   DataList
 } from './ui'
@@ -99,11 +99,13 @@ class Weather extends React.Component {
             </Column>
           </Row>
           <DataList data={[
-            {left: "Time", right: moment(this.props.weather.time).format('hh:mm')},
-            {left: "Degree", right: `${this.props.weather.degree}°`},
-            {left: "Wind", right: this.props.weather.wind},
-            {left: "Humidity", right: this.props.weather.humidity},
-          ]}/>
+              {title: "Time", value: moment(this.props.weather.time).format('hh:mm')},
+              {title: "Degree", value: `${this.props.weather.degree}°`},
+              {title: "Wind", value: this.props.weather.wind},
+              {title: "Humidity", value: this.props.weather.humidity},
+            ]}
+            left="title"
+            right="value"/>
           <Row
             alignXs="center"
             valignXs="middle">

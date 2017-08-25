@@ -4,6 +4,12 @@ import { connect } from 'react-redux'
 import Utils from "../Utils"
 import DataActions from '../Redux/DataRedux'
 
+// ui
+import {
+  DataList,
+  BottomInput
+} from './ui'
+
 class EditableList extends React.Component {
 
   constructor(props) {
@@ -12,15 +18,9 @@ class EditableList extends React.Component {
     this.state = {};
   }
 
-  handleChange(event) {
-    this.setState({
-      currentValue: event.target.value
-    })
-  }
-
-  handleSave() {
+  handleSubmit(value) {
     this.props.save(this.props.name, {
-      title: this.state.currentValue
+      title: value
     })
   }
 
@@ -36,21 +36,15 @@ class EditableList extends React.Component {
     const { name, data } = this.props
     const items = data[name] || []
     return (
-      <div>
-      <h2>{name}</h2>
-      <span style={{marginLeft: '10px', cursor: 'pointer'}} onClick={() => this.handleRemoveAll()}>Delete All</span>
-      {items
-        ? items.map((item, i) => {
-          return <ul key={i}>
-              <li>
-                {item.title}
-                <span style={{marginLeft: '10px', cursor: 'pointer'}} onClick={() => this.handleRemove(item.id)}>x</span>
-              </li>
-          </ul>
-        })
-        : null}
-        <input type="text" onChange={(event) => this.handleChange(event)} />
-        <input type="submit" onClick={() => this.handleSave()} />
+      <div className="editable-list">
+        <span style={{marginLeft: '10px', cursor: 'pointer'}} onClick={() => this.handleRemoveAll()}>Delete All</span>
+
+        <DataList data={items}
+          left="title"
+          icon="close"
+          onClick={(item) => this.handleRemove(item.id)} />
+        <BottomInput
+          onSubmit={(value) => this.handleSubmit(value)} />
       </div>
     )
   }

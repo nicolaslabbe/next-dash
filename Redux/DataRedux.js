@@ -6,6 +6,7 @@ import Immutable from 'seamless-immutable'
 const { Types, Creators } = createActions({
   dataRequest: ['name'],
   dataAdd: ['name', 'item'],
+  dataAddSuccess: ['name', 'item'],
   dataRemove: ['name', 'id'],
   dataRemoveAll: ['name'],
   dataSuccess: ['name', 'items'],
@@ -29,10 +30,7 @@ export const dataRequest = (state, { name }) => {
 }
 
 export const dataAdd = (state, { name, item }) => {
-  var newData = {}
-  newData[name] = state[name] || []
-  newData[name].push({item})
-  return {...state, ...newData}
+  return state
 }
 
 export const dataRemove = (state, { name, id }) => {
@@ -54,8 +52,19 @@ export const dataRemoveAll = (state, { name }) => {
 }
 
 export const dataSuccess = (state, { name, items }) => {
+  if (items) {
+    var successData = {}
+    successData[name] = [...state[name] || [], ...items]
+    return {...state, ...successData}
+  }else {
+    return state
+  }
+}
+
+export const dataAddSuccess = (state, { name, item }) => {
   var successData = {}
-  successData[name] = [...state[name] || [], ...items]
+  successData[name] = state[name] || []
+  successData[name].push(item)
   return {...state, ...successData}
 }
 
@@ -71,5 +80,6 @@ export const reducer = createReducer(INITIAL_STATE, {
   [Types.DATA_REMOVE]: dataRemove,
   [Types.DATA_REMOVE_ALL]: dataRemoveAll,
   [Types.DATA_SUCCESS]: dataSuccess,
+  [Types.DATA_ADD_SUCCESS]: dataAddSuccess,
   [Types.DATA_FAILURE]: dataFailure
 })
