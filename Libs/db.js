@@ -1,9 +1,9 @@
-import path from 'path'
-import * as filesystem from './filesystem'
-import status from './status'
-import Utils from '../Utils'
+const path = require('path')
+const filesystem = require('./filesystem')
+const status = require('./status')
+const Utils = require('../Utils')
 
-export const all = (name) => {
+module.exports.all = (name) => {
 	return new Promise((resolve, reject) => {
 		filesystem.read(path.join(Utils.config.pathData, `${name}.json`))
 			.then((data) => {
@@ -15,7 +15,7 @@ export const all = (name) => {
 	})
 }
 
-export const find = (name, key, value) => {
+module.exports.find = (name, key, value) => {
 	return new Promise((resolve, reject) => {
 		var result = []
 		filesystem.read(path.join(Utils.config.pathData, `${name}.json`))
@@ -31,7 +31,7 @@ export const find = (name, key, value) => {
 	})
 }
 
-export const remove = (name, key, value) => {
+module.exports.remove = (name, key, value) => {
 	return new Promise((resolve, reject) => {
 		var result = []
 		filesystem.read(path.join(Utils.config.pathData, `${name}.json`))
@@ -49,7 +49,7 @@ export const remove = (name, key, value) => {
 	})
 }
 
-export const removeAll = (name) => {
+module.exports.removeAll = (name) => {
 	return new Promise((resolve, reject) => {
 		filesystem.remove(path.join(Utils.config.pathData, `${name}.json`))
 			.then(() => resolve('ok'),
@@ -57,7 +57,7 @@ export const removeAll = (name) => {
 	})
 }
 
-export const add = (name, data) => {
+module.exports.add = (name, data) => {
 	return new Promise((resolve, reject) => {
 		const filepath = path.join(Utils.config.pathData, `${name}.json`)
 		filesystem.read(filepath)

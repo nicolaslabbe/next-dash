@@ -1,8 +1,9 @@
-import fetch from 'fetch-everywhere'
-import moment from 'moment'
-import Libs from '../Libs'
+const fetch = require('fetch-everywhere')
+const moment = require('moment')
+const Libs = require('../Libs')
 
-export const find = (stopId, directions, bearer, limit = 10) => {
+module.exports.find = (stopId, directions, bearer, l) => {
+	var limit = l || 10
 	const date = new Date().toISOString().replace(/-|:/g, '').split('.')[0]
 	return new Promise((resolve, reject) => {
 		fetch(`https://api.sncf.com/v1/coverage/sncf/stop_areas/stop_area:OCE:SA:${stopId}/departures?datetime=${date}&data_freshness=realtime&count=100`,

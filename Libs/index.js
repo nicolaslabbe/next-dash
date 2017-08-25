@@ -1,10 +1,10 @@
-import * as filesystem from "./filesystem"
-import * as status from "./status"
-import * as req from "./req"
-import * as db from "./db"
-import * as sncf from "./sncf"
+const filesystem = require("./filesystem")
+const status = require("./status")
+const req = require("./req")
+const db = require("./db")
+const sncf = require("./sncf")
 
-export default {
+module.exports = {
 	db,
 	filesystem,
 	status,

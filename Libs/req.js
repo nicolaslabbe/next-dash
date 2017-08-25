@@ -1,6 +1,6 @@
-import * as status from "./status"
+const status = require("./status")
 
-export const param = (req, res, name) => {
+module.exports.param = (req, res, name) => {
 	if (!req.params[name]) {
 		Utils.status.error(res, 'missing parameter `${name}`')
 		return false

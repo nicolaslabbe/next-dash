@@ -1,4 +1,4 @@
-export const success = (res, data) => {
+module.exports.success = (res, data) => {
 	res
 		.status(200)
 		.send({
@@ -7,7 +7,7 @@ export const success = (res, data) => {
 		})
 }
 
-export const error = (res, err) => {
+module.exports.error = (res, err) => {
 	res
 		.status(400)
 		.send({

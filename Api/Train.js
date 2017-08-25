@@ -1,6 +1,6 @@
-import fetch from 'fetch-everywhere'
-import moment from 'moment'
-import Libs from '../Libs'
+const fetch = require('fetch-everywhere')
+const moment = require('moment')
+const Libs = require('../Libs')
 
 var express = require('express')
 var router = express.Router()

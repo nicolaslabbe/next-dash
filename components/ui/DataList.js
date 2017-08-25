@@ -16,7 +16,7 @@ class DataList extends React.Component {
       <div className="data-list">
       {data
         ? data.map((item, i) => {
-          return <Row className="line">
+          return <Row className="line" key={i}>
           <Column xs={6} className="left">
             <Content>
               {item.left}

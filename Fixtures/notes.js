@@ -1,4 +1,4 @@
-export default [
+module.exports = [
 	"hello",
 	"hello 1",
 	"hello 2",

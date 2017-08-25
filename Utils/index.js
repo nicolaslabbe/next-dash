@@ -1,7 +1,7 @@
-import * as config from "./config"
-import * as date from "./date"
+const config = require("./config")
+const date = require("./date")
 
-export default {
+module.exports = {
 	config,
 	date
 }

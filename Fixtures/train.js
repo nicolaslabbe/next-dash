@@ -9,7 +9,7 @@ function add(i, iso) {
   }
 }
 
-export default () => {
+module.exports = () => {
   var date = new Date()
 
   return [

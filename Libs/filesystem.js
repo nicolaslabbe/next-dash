@@ -1,10 +1,9 @@
-import path from 'path'
-import jetpack from 'fs-jetpack'
-import mergeAdvanced from 'object-merge-advanced'
+const path = require('path')
+const jetpack = require('fs-jetpack')
+const mergeAdvanced = require('object-merge-advanced')
+const Utils = require('../Utils')
 
-import Utils from '../Utils'
-
-export const exist = (file) => {
+module.exports.exist = (file) => {
 	return new Promise((resolve, reject) => {
 		jetpack.fileAsync(file)
 			.then(() => resolve())
@@ -12,7 +11,7 @@ export const exist = (file) => {
 	})
 }
 
-export const write = (filepath, originalData) => {
+module.exports.write = (filepath, originalData) => {
 	return new Promise((resolve, reject) => {
 		jetpack.fileAsync(filepath, { mode: '777', content: originalData })
 			.then((data) => resolve(originalData))
@@ -20,7 +19,7 @@ export const write = (filepath, originalData) => {
 	})
 }
 
-export const remove = (filepath) => {
+module.exports.remove = (filepath) => {
 	return new Promise((resolve, reject) => {
 		exist(filepath)
 			.then(() => {
@@ -37,7 +36,7 @@ export const remove = (filepath) => {
 	})
 }
 
-export const read = (filepath) => {
+module.exports.read = (filepath) => {
 	return new Promise((resolve, reject) => {
 		exist(filepath)
 			.then(() => {
@@ -52,11 +51,11 @@ export const read = (filepath) => {
 	})
 }
 
-export const update = (filepath, originalData) => {
+module.exports.update = (filepath, originalData) => {
 	return write(filepath, originalData)
 }
 
-export const merge = (filepath, originalData) => {
+module.exports.merge = (filepath, originalData) => {
 	return new Promise((resolve, reject) => {
 		jetpack.readAsync(filepath, 'json')
 			.then((dataOld) => {

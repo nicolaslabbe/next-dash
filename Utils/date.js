@@ -1,8 +1,8 @@
-import moment from 'moment'
+const moment = require('moment')
 
-export const timestampToHumain = (str) => moment(str).fromNow()
+module.exports.timestampToHumain = (str) => moment(str).fromNow()
 
-export const remaining = (str) => {
+module.exports.remaining = (str) => {
 	const time = moment(parseInt(str))
 	const now = moment()
 	let diff = time.diff(now, 'minutes')

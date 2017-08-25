@@ -1,7 +1,7 @@
-import path from 'path'
+const path = require('path')
 
-export const isDev = (process.env.NODE_ENV === 'development') ? true : false
+module.exports.isDev = (process.env.NODE_ENV === 'development') ? true : false
 
-export const url = `${process.env.PROTOCOL}://${process.env.DOMAIN}:${process.env.PORT}`
+module.exports.url = `${process.env.PROTOCOL}://${process.env.DOMAIN}:${process.env.PORT}`
 
-export const pathData = path.join(process.cwd(), 'data')
+module.exports.pathData = path.join(process.cwd(), 'data')

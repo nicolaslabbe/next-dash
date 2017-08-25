@@ -1,5 +1,5 @@
-import fetch from 'fetch-everywhere'
-import Libs from '../Libs'
+const fetch = require('fetch-everywhere')
+const Libs = require('../Libs')
 
 var express = require('express');
 var router = express.Router();

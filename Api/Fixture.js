@@ -1,6 +1,6 @@
-import Libs from '../Libs'
+const Libs = require('../Libs')
 
-var express = require('express');
+var express = require('express')
 var router = express.Router();
 
 router.get('/:name?', function(req, res) {
