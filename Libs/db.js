@@ -66,28 +66,16 @@ const add = (name, data) => {
 				if (oldData.length > 0) {
 					id = parseInt(oldData[oldData.length - 1].id) + 1
 				}
-				filesystem.write(filepath, [
-					...oldData,
-					{
-						...data,
-						id: id
-					}
-					])
-					.then((newData) => resolve({
-						...data,
-						id: id
-					}),
+				data.id = id
+				oldData = oldData.concat([data])
+				filesystem.write(filepath, oldData)
+					.then((newData) => resolve(data),
 					(error) => reject(error))
 			},
 			(err) => {
-				filesystem.write(filepath, [{
-						...data,
-						id: 0
-					}])
-					.then((newData) => resolve({
-						...data,
-						id: 0
-					}),
+				data.id = 0
+				filesystem.write(filepath, [data])
+					.then((newData) => resolve(data),
 					(error) => reject(error))
 			})
 	})

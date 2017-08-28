@@ -17,9 +17,11 @@ import EditableList from '../../components/EditableList'
 import { Header } from '../../components/ui'
 
 class Page extends React.Component {
-	static async getInitialProps ({ store, isServer }) {
+	static async getInitialProps ({ store, query, isServer }) {
 		store.dispatch(DataActions.dataRequest('notes'))
-		return {}
+		return {
+			id: query.id
+		}
 	}
 
 	onSave = (name, item) => {
@@ -35,23 +37,28 @@ class Page extends React.Component {
 		this.props.removeAll(name, id)
 	}
 
-	onClick = (item, i) => {
-		Router.push(`/notes/detail?id=${i}`)
+	onClick = (item) => {
+		Router.push(`/notes/detail?id=${item.id}`)
 	}
 
 	render () {
+		var detail = []
+		if (this.props.data
+			&& this.props.data.notes
+			&& this.props.data.notes[this.props.id]) {
+			detail = this.props.data.notes[this.props.id].detail
+		}
     	return (
 			<div>
 				<Header
-					title="notes"
+					title="note"
 					close />
 				<EditableList
-					data={this.props.data.notes}
-					onClick={(item, i) => this.onClick(item, i)}
+					data={detail}
+					onClick={(item) => this.onClick(item)}
 					onSave={(name, item) => this.onSave(name, item)}
 					onRemove={(name, id) => this.onRemove(name, id)}
-					onRemoveAll={(name, id) => this.onRemoveAll(name, id)}
-					name="notes" />
+					onRemoveAll={(name, id) => this.onRemoveAll(name, id)} />
 			</div>
     	)
 	}

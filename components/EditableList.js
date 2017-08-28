@@ -18,31 +18,36 @@ class EditableList extends React.Component {
     this.state = {};
   }
 
+  handleClick(item, i) {
+    this.props.onClick(item, i)
+  }
+
   handleSubmit(value) {
-    this.props.save(this.props.name, {
+    this.props.onSave(this.props.name, {
       title: value
     })
   }
 
-  handleRemove(id) {
-    this.props.remove(this.props.name, id)
+  handleRemove(item) {
+    this.props.onRemove(this.props.name, item.id)
   }
 
   handleRemoveAll() {
-    this.props.removeAll(this.props.name)
+    this.props.onRemoveAll(this.props.name)
   }
 
   render () {
     const { name, data } = this.props
-    const items = data[name] || []
     return (
       <div className="editable-list">
         <span style={{marginLeft: '10px', cursor: 'pointer'}} onClick={() => this.handleRemoveAll()}>Delete All</span>
 
-        <DataList data={items}
+        <DataList
+          data={data}
           left="title"
           icon="close"
-          onClick={(item) => this.handleRemove(item.id)} />
+          onClick={(item, i) => this.handleClick(item, i)}
+          onClickIcon={(item) => this.handleRemove(item)} />
         <BottomInput
           onSubmit={(value) => this.handleSubmit(value)} />
       </div>
@@ -50,18 +55,4 @@ class EditableList extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    data: state.data || {}
-  }
-}
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    save: (name, item) => dispatch(DataActions.dataAdd(name, item)),
-    remove: (name, id) => dispatch(DataActions.dataRemove(name, id)),
-    removeAll: (name, id) => dispatch(DataActions.dataRemoveAll(name))
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(EditableList)
+export default EditableList

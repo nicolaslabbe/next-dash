@@ -14,7 +14,8 @@ class Row extends React.Component {
   		valignLg
   	} = this.props
     return (
-		<div className={`${className ? className : ''} row ${
+		<div onClick={() => this.props.onClick && this.props.onClick()}
+      className={`${className ? className : ''} row ${
   			alignXs ? alignXs + '-xs' : ''} ${
 			alignSm ? alignSm + '-sm' : ''} ${
 			alignMd ? alignMd + '-md' : ''} ${
