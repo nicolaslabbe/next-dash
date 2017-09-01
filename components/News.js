@@ -1,25 +1,41 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
-import Icon from "./ui/Icon"
+import { Icon, Card } from "./ui"
 import Utils from "../Utils"
 
+// Reduceurs
+import DataActions from '../Redux/DataRedux'
+
 class News extends React.Component {
+
+  openLink = (url) => {
+    if(typeof window !== 'undefined') {
+      window.open(url)
+    }
+  }
+
+  saveLink = (article) => {
+    this.props.save('articles', article)
+  }
+
   render () {
     const { articles } = this.props
     return (
-      <div>
-      <h2>News</h2>
-      {articles
-        ? articles.map((article, i) => {
-          return <ul key={i}>
-              <li><Icon name="assignment" /></li>
-              <li>{article.title}</li>
-              <li>Date: {Utils.date.timestampToHumain(article.publishedAt)}</li>
-              <li><img src={article.urlToImage} width="100" /></li>
-          </ul>
-        })
-        : null}
+      <div className="news">
+        {articles
+          ? articles.map((article, i) => {
+            return <Card
+                      key={i}
+                      icon="assignment"
+                      title={article.title}
+                      description={article.description}
+                      date={Utils.date.timestampToHumain(article.publishedAt)}
+                      onSave={() => this.saveLink(article)}
+                      onOpen={(url) => this.openLink(article.url)}
+                      image={article.urlToImage} />
+          })
+          : null}
       </div>
     )
   }
@@ -33,7 +49,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    
+    save: (name, item) => dispatch(DataActions.dataAdd(name, item))
   }
 }
 

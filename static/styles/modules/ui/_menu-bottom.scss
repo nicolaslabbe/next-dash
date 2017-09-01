@@ -45,7 +45,7 @@ $AppIconItemOpen: translate(0px, 0px) scale(1);
 
 .menu-bottom {
 	width: calc(#{$AppIconSize} + 10px);
-	position: absolute;
+	position: fixed;
 	bottom: 10px;
 	right: 10px;
 

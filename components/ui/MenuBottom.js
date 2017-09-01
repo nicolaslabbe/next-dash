@@ -14,7 +14,8 @@ class Header extends React.Component {
 	  super(props);
 	
 	  this.state = {
-	  	open: null
+	  	open: null,
+	  	windowClick: this.handleClick.bind(this)
 	  }
 	}
 
@@ -26,7 +27,14 @@ class Header extends React.Component {
 
     componentWillMount = () => {
     	if (typeof document !== 'undefined') {
-    		document.addEventListener('click', (e) => this.handleClick(e), false);
+    		document.addEventListener('click', this.state.windowClick, false);
+    	}
+    }
+
+    componentWillUnmount = () => {
+    	if (typeof document !== 'undefined') {
+    		debugger
+    		document.removeEventListener('click', this.state.windowClick, false);
     	}
     }
 

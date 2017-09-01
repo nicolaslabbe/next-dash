@@ -8,6 +8,8 @@ import BottomInput from "./BottomInput"
 import AppIcon from "./AppIcon"
 import Modal from "./Modal"
 import MenuBottom from "./MenuBottom"
+import Card from "./Card"
+import ButtonText from "./ButtonText"
 
 export {
 	Header,
@@ -19,5 +21,7 @@ export {
 	BottomInput,
 	AppIcon,
 	Modal,
-	MenuBottom
+	MenuBottom,
+	Card,
+	ButtonText
 }

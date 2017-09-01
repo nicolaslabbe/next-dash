@@ -18,6 +18,8 @@
 @import './modules/ui/app-icon.scss';
 @import './modules/ui/modal.scss';
 @import './modules/ui/menu-bottom.scss';
+@import './modules/ui/card.scss';
+@import './modules/ui/button-text.scss';
 
 @include font-face('Roboto', '/Roboto/Roboto-Medium', null, null, ttf);
 @include font-face('Roboto Light', '/Roboto/Roboto-Light', '300', 'normal', ttf);
