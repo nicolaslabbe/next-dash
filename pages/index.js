@@ -34,7 +34,7 @@ class Page extends React.Component {
     						<Link prefetch href="/train">
     							<a>
 									<AppIcon
-										className={`${process.env.COLOR_TRAIN}`}
+										className="train"
 										name="train" />
 								</a>
 							</Link>
@@ -45,7 +45,7 @@ class Page extends React.Component {
     						<Link prefetch href="/weather">
     							<a>
 									<AppIcon
-										className={`${process.env.COLOR_WEATHER}`}
+										className="weather"
 										name="wb_sunny" />
 								</a>
 							</Link>
@@ -56,8 +56,8 @@ class Page extends React.Component {
     						<Link prefetch href="/news">
     							<a>
 									<AppIcon
-										className={`${process.env.COLOR_NOTE}`}
-										name="assignment" />
+										className="news"
+										name="live_tv" />
 								</a>
 							</Link>
 						</Content>
@@ -67,8 +67,19 @@ class Page extends React.Component {
     						<Link prefetch href="/notes">
     							<a>
 									<AppIcon
-										className={`${process.env.COLOR_NEWS}`}
-										name="note_add" />
+										className="notes"
+										name="list" />
+								</a>
+							</Link>
+						</Content>
+					</Column>
+					<Column>
+    					<Content>
+    						<Link prefetch href="/favorites">
+    							<a>
+									<AppIcon
+										className="favorites"
+										name="stars" />
 								</a>
 							</Link>
 						</Content>

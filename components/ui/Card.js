@@ -22,16 +22,15 @@ class Card extends React.Component {
             <Text className="description">{this.props.description && this.props.description.replace(/<\/?[^>]+(>|$)/g, "")}</Text>
           </div>
           <div className="card-footer">
-            <ButtonText
-              color="regular"
-              onClick={() => this.props.onOpen && this.props.onOpen()}>
-            Read
-            </ButtonText>
-            <ButtonText
-              color="regular"
-              onClick={() => this.props.onSave && this.props.onSave(this.props)}>
-            Later
-            </ButtonText>
+          {this.props.actions
+            ? this.props.actions.map((action, i) => {
+              return <ButtonText
+                color="regular"
+                onClick={() => action.fn && action.fn()}>
+              {action.name}
+              </ButtonText>
+            })
+            : null}
           </div>
         </div>
       </div>

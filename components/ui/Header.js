@@ -11,7 +11,8 @@ import {
 // ui
 import {
 	Title,
-	Button
+	Button,
+	ContextMenu
 } from '../ui'
 
 class Header extends React.Component {
@@ -35,6 +36,9 @@ class Header extends React.Component {
 							onClick={() => this.goBack()}
 							dark/>}
 						<Title>{this.props.title}</Title>
+						<ContextMenu
+							actions={this.props.menu}
+							right />
 					</Content>
 				</Column>
 			</Row>

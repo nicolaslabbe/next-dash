@@ -48,6 +48,6 @@ export function * removeAll (api, { name }) {
 	if (json.error) {
 		yield put(DataActions.dataFailure(json.error))
 	}else {
-		yield put(DataActions.dataRemoveSuccess(name, []))
+		yield put(DataActions.dataSuccess(name, []))
 	}
 }

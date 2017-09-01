@@ -14,7 +14,7 @@ import DataActions from '../../Redux/DataRedux'
 
 // Components
 import EditableList from '../../components/EditableList'
-import { Header, MenuBottom } from '../../components/ui'
+import { Header, MenuBottom, Modal } from '../../components/ui'
 
 class Page extends React.Component {
 	static async getInitialProps ({ store, isServer }) {
@@ -22,21 +22,38 @@ class Page extends React.Component {
 		return {}
 	}
 
-	onSave = (name, item) => {
+	constructor(props) {
+	  super(props);
+	
+	  this.state = {
+	  	modalVisible: false
+	  }
+	}
+
+	save = (name, item) => {
 		item.detail = []
 		this.props.save(name, item)
 	}
 
-	onRemove = (name, id) => {
+	remove = (name, id) => {
 		this.props.remove(name, id)
 	}
 
-	onRemoveAll = (name, id) => {
-		this.props.removeAll(name, id)
+	removeAll = () => {
+		this.props.removeAll('notes')
+		this.setState({ modalVisible: false })
+	}
+
+	comfirmRemoveAll = () => {
+		this.setState({ modalVisible: true })
 	}
 
 	onClick = (item, i) => {
 		Router.push(`/notes/detail?id=${i}`)
+	}
+
+	onEdit = () => {
+		alert('edit')
 	}
 
 	render () {
@@ -44,16 +61,29 @@ class Page extends React.Component {
 			<div>
 				<Header
 					title="notes"
-					close />
+					close
+					menu={[{
+						name: 'edit',
+						fn: () => this.onEdit(article)
+					},
+					{
+						name: 'remove all',
+						fn: () => this.comfirmRemoveAll()
+					}]} />
 				<EditableList
 					data={this.props.data.notes}
 					onClick={(item, i) => this.onClick(item, i)}
-					onSave={(name, item) => this.onSave(name, item)}
-					onRemove={(name, id) => this.onRemove(name, id)}
-					onRemoveAll={(name, id) => this.onRemove(name, id)}
+					onSave={(name, item) => this.save(name, item)}
+					onRemove={(name, id) => this.remove(name, id)}
+					onRemoveAll={(name, id) => this.remove(name, id)}
 					name="notes" />
 				<MenuBottom
 					current="notes" />
+				<Modal
+		          ref="modal"
+		          visible={this.state.modalVisible}
+		          onCancel={(() => this.setState({ modalVisible: false }))}
+		          onValid={(() => this.removeAll())} />
 			</div>
     	)
 	}

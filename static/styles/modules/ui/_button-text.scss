@@ -2,10 +2,12 @@
 .button-text {
 	font-family: $ff;
 	display: inline-block;
-	padding: 10px 15px;
+	padding: 10px;
+	margin: 5px 5px;
 	text-transform: uppercase;
 	font-weight: 900;
     font-size: 15px;
+    cursor: pointer;
 
 	.text {
 		color: $medium-red-violet;
@@ -21,5 +23,9 @@
 
 	&.dark {
 		color: $dark-blue;
+	}
+
+	&:hover {
+		background: $alice-blue;
 	}
 }

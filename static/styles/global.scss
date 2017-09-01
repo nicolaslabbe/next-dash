@@ -20,6 +20,7 @@
 @import './modules/ui/menu-bottom.scss';
 @import './modules/ui/card.scss';
 @import './modules/ui/button-text.scss';
+@import './modules/ui/context-menu.scss';
 
 @include font-face('Roboto', '/Roboto/Roboto-Medium', null, null, ttf);
 @include font-face('Roboto Light', '/Roboto/Roboto-Light', '300', 'normal', ttf);

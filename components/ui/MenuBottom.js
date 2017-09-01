@@ -53,7 +53,7 @@ class Header extends React.Component {
 						<Link prefetch href="/train">
 							<a className="item">
 				    			<AppIcon
-									className={`${process.env.COLOR_TRAIN} item`}
+									className={`train item`}
 									name="train" />
 							</a>
 						</Link>
@@ -62,7 +62,7 @@ class Header extends React.Component {
 						<Link prefetch href="/weather">
 							<a className="item">
 				    			<AppIcon
-									className={`${process.env.COLOR_WEATHER} item`}
+									className={`weather item`}
 									name="wb_sunny" />
 							</a>
 						</Link>
@@ -71,8 +71,8 @@ class Header extends React.Component {
 						<Link prefetch href="/news">
 							<a className="item">
 				    			<AppIcon
-									className={`${process.env.COLOR_NOTE} item`}
-									name="assignment" />
+									className={`news item`}
+									name="live_tv" />
 							</a>
 						</Link>
 					: null}
@@ -80,8 +80,17 @@ class Header extends React.Component {
 						<Link prefetch href="/notes">
 							<a className="item">
 				    			<AppIcon
-									className={`${process.env.COLOR_NEWS} item`}
-									name="note_add" />
+									className={`notes item`}
+									name="list" />
+							</a>
+						</Link>
+					: null}
+	    			{this.props.current !== 'favorites' ?
+						<Link prefetch href="/favorites">
+							<a className="item">
+				    			<AppIcon
+									className={`favorites item`}
+									name="stars" />
 							</a>
 						</Link>
 					: null}

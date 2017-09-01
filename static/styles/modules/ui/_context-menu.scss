@@ -1,0 +1,92 @@
+// context-menu.scss
+
+@keyframes open-context-menu-actions {
+    0% {
+		max-height: 0px;
+		max-width: 0px;
+    }
+    50% {
+		max-height: 100px;
+		max-width: 300px;
+    }
+    100% {
+		max-height: 300px;
+		max-width: 300px;
+    }
+}
+
+@keyframes close-context-menu-actions {
+    0% {
+		max-height: 300px;
+		max-width: 300px;
+    }
+    50% {
+		max-height: 100px;
+		max-width: 300px;
+    }
+    100% {
+		max-height: 0px;
+		max-width: 0px;
+    }
+}
+
+.context-menu {
+	position: absolute;
+	text-align: right;
+
+	:after {
+		content: '\2807';
+		font-size: 30px;
+	}
+
+	&.context-menu-open {
+		.context-menu-actions {
+			animation-timing-function: ease-out;
+			animation-name: open-context-menu-actions;
+			animation-duration: 0.9s;
+			max-height: 500px;
+			max-width: 500px;
+		}
+	}
+
+	&.context-menu-close {
+		.context-menu-actions {
+			animation-timing-function: ease-out;
+			animation-name: close-context-menu-actions;
+			animation-duration: 0.9s;
+			max-height: 0px;
+			max-width: 0px;
+		}
+	}
+
+	&.right {
+		top: 10px;
+		right: 10px;
+		width: 30px;
+		height: 30px;
+	}
+
+	.context-menu-actions {
+		overflow: hidden;
+		max-height: 0;
+		background: white;
+		position: absolute;
+		color: black;
+		top: 5px;
+		right: 12px;
+		box-shadow: 0px 3px 4px rgba(0,0,0,0.2);
+		border-radius: 2px;
+
+		.context-menu-action {
+			font-family: $ff;
+			display: block;
+			padding: 10px 15px;
+			font-weight: 900;
+		    font-size: 15px;
+		    cursor: pointer;
+		    color: $eminence;
+    		text-transform: capitalize;
+    		white-space: nowrap;
+		}
+	}
+}

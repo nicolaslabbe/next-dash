@@ -138,17 +138,6 @@ class Weather extends React.Component {
   }
 
   // <h2 className="title">Later</h2>
-  // {this.props.weather && this.props.weather.futur
-  //   ? this.props.weather.futur.map((weather, i) => {
-  //     return <ul key={i}>
-  //       <li className="text">
-  //         <WeatherIcon name={weather.icon} />
-  //       </li>
-  //       <li className="text">{weather.time}</li>
-  //       <li className="text">{weather.degree} / {weather.wind}</li>
-  //     </ul>
-  //   })
-  //   : null}
 }
 
 const mapStateToProps = (state) => {

@@ -26,6 +26,18 @@ $AppIconBorderSize: 10px;
 		}
     }
 
+    &.blue {
+		background: #2196F3;
+
+		&:before {
+			background: #1976D2;
+		}
+
+		.icon {
+			border-color: #2196F3;
+		}
+    }
+
     &.amber {
 		background: #FFC107;
 
@@ -60,6 +72,22 @@ $AppIconBorderSize: 10px;
 		.icon {
 			border-color: #607D8B;
 		}
+    }
+
+    &.train {
+    	@extend .app-icon.red;
+    }
+    &.news {
+    	@extend .app-icon.blue_grey;
+    }
+    &.favorites {
+    	@extend .app-icon.amber;
+    }
+    &.weather {
+    	@extend .app-icon.blue;
+    }
+    &.notes {
+    	@extend .app-icon.deep_purple;
     }
 
 	&:before {

@@ -36,22 +36,22 @@ class EditableList extends React.Component {
     this.props.onRemove(this.props.name, item.id)
   }
 
+  handleConfirmDelete() {
+    this.setState({modalVisible: true})
+  }
+
   handleDeleteAll() {
     this.setState({ multiSelect: false })
     var ids = this.refs.dataList.state.selected.map((i) => {
       return this.props.data[i].id
     })
-    this.props.onRemove(this.props.name, ids)
+    if (ids.length > 0) {
+      this.props.onRemove(this.props.name, ids)
+    }
+    this.setState({ modalVisible: false })
   }
 
   render () {
-    // <DataList
-    //       multiSelect={this.state.multiSelect}
-    //       data={data}
-    //       left="title"
-    //       icon="close"
-    //       onClick={(item, i) => this.handleClick(item, i)}
-    //       onClickIcon={(item) => this.handleRemove(item)} />
     const { name, data } = this.props
     return (
       <div className="editable-list">
@@ -59,7 +59,7 @@ class EditableList extends React.Component {
           ? <span style={{marginLeft: '10px', cursor: 'pointer'}} onClick={() => this.setState({ multiSelect: true })}>Edit</span>
           : null}
         {this.state.multiSelect
-          ? <span style={{marginLeft: '10px', cursor: 'pointer'}} onClick={(ids) => this.handleDeleteAll()}>Delete</span>
+          ? <span style={{marginLeft: '10px', cursor: 'pointer'}} onClick={(ids) => this.handleConfirmDelete()}>Delete</span>
           : null}
         <DataList
           ref="dataList"
@@ -73,7 +73,7 @@ class EditableList extends React.Component {
           ref="modal"
           visible={this.state.modalVisible}
           onCancel={(() => this.setState({ modalVisible: false }))}
-          onValid={(() => alert('ok'))} />
+          onValid={(() => this.handleDeleteAll())} />
       </div>
     )
   }

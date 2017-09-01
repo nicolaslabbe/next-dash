@@ -9,22 +9,20 @@ import Link from 'next/link'
 import rootReducer from "../../Redux";
 
 // Reduceurs
-import NewsActions from '../../Redux/NewsRedux'
 import DataActions from '../../Redux/DataRedux'
 
 // Components
-// import News from '../../components/News'
 import { Header, MenuBottom, Card } from '../../components/ui'
 import Utils from "../../Utils"
 
 class Page extends React.Component {
 	static async getInitialProps ({ store, isServer }) {
-		store.dispatch(NewsActions.newsRequest())
+		store.dispatch(DataActions.dataRequest('favorites'))
 		return {}
 	}
 
-	saveLink = (article) => {
-		this.props.save('favorites', article)
+	removeLink = (article) => {
+		this.props.remove('favorites', article.id)
 	}
 
 	openLink = (article) => {
@@ -34,15 +32,15 @@ class Page extends React.Component {
 	}
 
 	render () {
-		const { articles } = this.props
+		const { favorites } = this.props
 
     	return (
-			<div className="news">
+			<div className="favorites">
 				<Header
-					title="news"
+					title="favorite"
 					close />
-					{articles
-						? articles.map((article, i) => {
+					{favorites
+						? favorites.map((article, i) => {
 							return <Card
 								key={i}
 								icon="assignment"
@@ -54,14 +52,14 @@ class Page extends React.Component {
 									fn: () => this.openLink(article)
 								},
 								{
-									name: 'save',
-									fn: () => this.saveLink(article)
+									name: 'delete',
+									fn: () => this.removeLink(article)
 								}]}
 								image={article.urlToImage} />
 						})
 						: null}
 				<MenuBottom
-					current="news" />
+					current="favorites" />
 			</div>
     	)
 	}
@@ -69,13 +67,13 @@ class Page extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    articles: state.news.articles || []
+    favorites: state.data.favorites || []
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    save: (name, item) => dispatch(DataActions.dataAdd(name, item))
+    remove: (name, id) => dispatch(DataActions.dataRemove(name, id))
   }
 }
 
