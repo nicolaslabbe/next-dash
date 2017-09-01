@@ -5,6 +5,9 @@ import Text from "./Text"
 import Title from "./Title"
 import DataList from "./DataList"
 import BottomInput from "./BottomInput"
+import AppIcon from "./AppIcon"
+import Modal from "./Modal"
+import MenuBottom from "./MenuBottom"
 
 export {
 	Header,
@@ -13,5 +16,8 @@ export {
 	Text,
 	Title,
 	DataList,
-	BottomInput
+	BottomInput,
+	AppIcon,
+	Modal,
+	MenuBottom
 }

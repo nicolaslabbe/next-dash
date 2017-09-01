@@ -15,6 +15,9 @@
 @import './modules/editable-list.scss';
 
 @import './modules/charts/legend.scss';
+@import './modules/ui/app-icon.scss';
+@import './modules/ui/modal.scss';
+@import './modules/ui/menu-bottom.scss';
 
 @include font-face('Roboto', '/Roboto/Roboto-Medium', null, null, ttf);
 @include font-face('Roboto Light', '/Roboto/Roboto-Light', '300', 'normal', ttf);

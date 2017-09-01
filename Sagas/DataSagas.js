@@ -22,13 +22,23 @@ export function * add (api, { name, item }) {
 	}
 }
 
-export function * remove (api, { name, id }) {
-	var json = yield api.delete(`${Utils.config.url}/api/db/${name}/id/${id}`)
+export function * addDetail (api, { name, id, item }) {
+	var json = yield api.post(`${Utils.config.url}/api/db/${name}/${id}`, item)
 
 	if (json.error) {
 		yield put(DataActions.dataFailure(json.error))
 	}else {
-		yield put(DataActions.dataSuccess(name))
+		yield put(DataActions.dataAddSuccess(name, json))
+	}
+}
+
+export function * remove (api, { name, id }) {
+	var json = yield api.delete(`${Utils.config.url}/api/db/${name}/id/${encodeURI(id)}`)
+
+	if (json.error) {
+		yield put(DataActions.dataFailure(json.error))
+	}else {
+		yield put(DataActions.dataSuccess(name, json))
 	}
 }
 
@@ -38,6 +48,6 @@ export function * removeAll (api, { name }) {
 	if (json.error) {
 		yield put(DataActions.dataFailure(json.error))
 	}else {
-		yield put(DataActions.dataSuccess(name, []))
+		yield put(DataActions.dataRemoveSuccess(name, []))
 	}
 }

@@ -6,6 +6,7 @@ import Immutable from 'seamless-immutable'
 const { Types, Creators } = createActions({
   dataRequest: ['name'],
   dataAdd: ['name', 'item'],
+  dataAddDetail: ['name', 'id', 'item'],
   dataAddSuccess: ['name', 'item'],
   dataRemove: ['name', 'id'],
   dataRemoveAll: ['name'],
@@ -33,6 +34,10 @@ export const dataAdd = (state, { name, item }) => {
   return state
 }
 
+export const dataAddDetail = (state, { name, id, item }) => {
+  return state
+}
+
 export const dataRemove = (state, { name, id }) => {
   var removeData = state[name] || []
   var newItems = {}
@@ -54,7 +59,7 @@ export const dataRemoveAll = (state, { name }) => {
 export const dataSuccess = (state, { name, items }) => {
   if (items) {
     var successData = {}
-    successData[name] = [...state[name] || [], ...items]
+    successData[name] = items
     return {...state, ...successData}
   }else {
     return state
@@ -77,6 +82,7 @@ export const dataFailure = (state, { error }) => {
 export const reducer = createReducer(INITIAL_STATE, {
   [Types.DATA_REQUEST]: dataRequest,
   [Types.DATA_ADD]: dataAdd,
+  [Types.DATA_ADD_DETAIL]: dataAddDetail,
   [Types.DATA_REMOVE]: dataRemove,
   [Types.DATA_REMOVE_ALL]: dataRemoveAll,
   [Types.DATA_SUCCESS]: dataSuccess,

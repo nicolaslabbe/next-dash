@@ -13,7 +13,7 @@ import NewsActions from '../../Redux/NewsRedux'
 
 // Components
 import News from '../../components/News'
-import { Header } from '../../components/ui'
+import { Header, MenuBottom } from '../../components/ui'
 
 class Page extends React.Component {
 	static async getInitialProps ({ store, isServer }) {
@@ -28,6 +28,8 @@ class Page extends React.Component {
 					title="news"
 					close />
 				<News/>
+				<MenuBottom
+					current="news" />
 			</div>
     	)
 	}

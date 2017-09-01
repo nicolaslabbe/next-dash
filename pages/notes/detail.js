@@ -26,7 +26,7 @@ class Page extends React.Component {
 
 	onSave = (name, item) => {
 		item.detail = []
-		this.props.save(name, item)
+		this.props.save(name, item.id, item)
 	}
 
 	onRemove = (name, id) => {
@@ -56,9 +56,9 @@ class Page extends React.Component {
 				<EditableList
 					data={detail}
 					onClick={(item) => this.onClick(item)}
-					onSave={(name, item) => this.onSave(name, item)}
-					onRemove={(name, id) => this.onRemove(name, id)}
-					onRemoveAll={(name, id) => this.onRemoveAll(name, id)} />
+					onSave={(name, item) => this.onSave('notes', item)}
+					onRemove={(name, id) => this.onRemove('notes', id)}
+					onRemoveAll={(name, id) => this.onRemoveAll('notes', id)} />
 			</div>
     	)
 	}
@@ -72,7 +72,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    save: (name, item) => dispatch(DataActions.dataAdd(name, item)),
+    save: (id, item) => dispatch(DataActions.dataAddDetail(id, item)),
     remove: (name, id) => dispatch(DataActions.dataRemove(name, id)),
     removeAll: (name, id) => dispatch(DataActions.dataRemoveAll(name))
   }

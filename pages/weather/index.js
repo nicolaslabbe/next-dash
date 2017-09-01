@@ -13,7 +13,7 @@ import WeatherActions from '../../Redux/WeatherRedux'
 
 // Components
 import Weather from '../../components/Weather'
-import { Header } from '../../components/ui'
+import { Header, MenuBottom } from '../../components/ui'
 
 class Page extends React.Component {
 	static async getInitialProps ({ store, isServer }) {
@@ -28,6 +28,8 @@ class Page extends React.Component {
 					title="weather"
 					close />
 				<Weather/>
+				<MenuBottom
+					current="weather" />
 			</div>
     	)
 	}

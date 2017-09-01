@@ -12,7 +12,7 @@ import TrainActions from '../../Redux/TrainRedux'
 
 // Components
 import Train from '../../components/Train'
-import { Header } from '../../components/ui'
+import { Header, MenuBottom } from '../../components/ui'
 
 class Page extends React.Component {
 	static async getInitialProps ({ store, isServer }) {
@@ -27,6 +27,8 @@ class Page extends React.Component {
 					title="train"
 					close />
 				<Train/>
+				<MenuBottom
+					current="train" />
 			</div>
     	)
 	}

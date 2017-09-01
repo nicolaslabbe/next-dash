@@ -23,7 +23,8 @@ class Row extends React.Component {
 			valignXs ? valignXs + '-xs' : ''} ${
 			valignSm ? valignSm + '-sm' : ''} ${
 			valignMd ? valignMd + '-md' : ''} ${
-			valignLg ? valignLg + '-lg' : ''}`}>
+			valignLg ? valignLg + '-lg' : ''}`}
+      style={this.props.style}>
 			{this.props.children}
 		</div>
     )

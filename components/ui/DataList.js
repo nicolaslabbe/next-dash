@@ -12,6 +12,42 @@ import { Icon } from "../ui"
 
 class DataList extends React.Component {
 
+  constructor(props) {
+    super(props);
+  
+    this.state = {
+      selected: [],
+      multiSelect: false
+    }
+  }
+
+  componentWillReceiveProps = (nextProps) => {
+    if (this.state.multiSelect && !nextProps.multiSelect) {
+      this.setState({
+        selected: [],
+        multiSelect: nextProps.multiSelect
+      })
+    }else if (!this.state.multiSelect && nextProps.multiSelect) {
+      this.setState({
+        multiSelect: nextProps.multiSelect
+      })
+    }
+  }
+
+  onSelect = (event, item, i) => {
+    var index = this.state.selected.indexOf(i)
+    if (index > -1) {
+      this.state.selected.splice(index, 1)
+      this.setState({
+        selected: this.state.selected
+      })
+    }else {
+      this.setState({
+        selected: [...this.state.selected, i]
+      })
+    }
+  }
+
   onClick = (event, item, i) => {
     const { onClick } = this.props
     onClick && onClick(item, i)
@@ -24,20 +60,29 @@ class DataList extends React.Component {
   }
 
   render () {
-    const { data, left, right, icon } = this.props
+    const { data, left, right, icon, multiSelect } = this.props
     return (
       <div className="data-list">
       {data
         ? data.map((item, i) => {
-          return <Row className="line" key={i} onClick={(event) => this.onClick(event, item, i)}>
-          <Column xs={6} className="left">
+          var selected = this.state.selected.indexOf(i) >= 0
+          return <Row
+            style={selected ? {background: 'red'} : null}
+            className="line"
+            key={i}
+            onClick={(event) => multiSelect ? this.onSelect(event, item, i) : null}>
+          <Column
+            xs={6}
+            className="left">
             <Content>
               {item[left]
-                ? item[left]
+                ? item[left] + ' ' + i
                 : null}
             </Content>
           </Column>
-          <Column xs={6} className="right">
+          <Column
+            xs={6}
+            className="right">
             <Content>
               {item[right]
                 ? item[right]

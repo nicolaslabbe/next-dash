@@ -1,0 +1,84 @@
+// AppIcon.scss
+$AppIconSize: 70px;
+$AppIconMarge: 10px;
+$AppIconFontSize: 40px;
+$AppIconBorderSize: 10px;
+
+.app-icon {
+	display: inline-block;
+	width: $AppIconSize;
+	height: $AppIconSize;
+	border-radius: $AppIconSize;
+    text-align: center;
+    margin: $AppIconMarge;
+    position: relative;
+    overflow: hidden;
+
+    &.red {
+		background: #F44336;
+
+		&:before {
+			background: #D32F2F;
+		}
+
+		.icon {
+			border-color: #F44336;
+		}
+    }
+
+    &.amber {
+		background: #FFC107;
+
+		&:before {
+			background: #FFA000;
+		}
+
+		.icon {
+			border-color: #FFC107;
+		}
+    }
+
+    &.deep_purple {
+		background: #673AB7;
+
+		&:before {
+			background: #4527A0;
+		}
+
+		.icon {
+			border-color: #673AB7;
+		}
+    }
+
+    &.blue_grey {
+		background: #607D8B;
+
+		&:before {
+			background: #455A64;
+		}
+
+		.icon {
+			border-color: #607D8B;
+		}
+    }
+
+	&:before {
+	    content: ' ';
+	    position: absolute;
+	    background: black;
+	    width: 50%;
+	    height: 100%;
+	    transform: rotate(-50deg) translate(30%,69%);
+	}
+
+	.icon {
+		font-size: $AppIconFontSize;
+		line-height: 50%;
+		width: 100%;
+		height: 100%;
+		padding: 20% 0%;
+		box-sizing: border-box;
+	    border: $AppIconBorderSize solid black;
+	    border-radius: 100%;
+	}
+}

@@ -15,7 +15,8 @@ import NewsActions from '../Redux/NewsRedux'
 import DataActions from '../Redux/DataRedux'
 
 // Components
-import { Header } from '../components/ui'
+import { Header, AppIcon } from '../components/ui'
+import { Row, Column, Content } from '../components/layout'
 
 class Page extends React.Component {
 	static async getInitialProps ({ store, isServer }) {
@@ -24,15 +25,55 @@ class Page extends React.Component {
 
 	render () {
     	return (
-			<div>
+    		<div>
 				<Header
 					title="index"/>
-				<ul>
-					<li><Link prefetch href="/train"><a>train</a></Link></li>
-					<li><Link prefetch href="/news"><a>news</a></Link></li>
-					<li><Link prefetch href="/weather"><a>weather</a></Link></li>
-					<li><Link prefetch href="/notes"><a>notes</a></Link></li>
-				</ul>
+				<Row>
+					<Column>
+    					<Content>
+    						<Link prefetch href="/train">
+    							<a>
+									<AppIcon
+										className={`${process.env.COLOR_TRAIN}`}
+										name="train" />
+								</a>
+							</Link>
+    					</Content>
+					</Column>
+					<Column>
+    					<Content>
+    						<Link prefetch href="/weather">
+    							<a>
+									<AppIcon
+										className={`${process.env.COLOR_WEATHER}`}
+										name="wb_sunny" />
+								</a>
+							</Link>
+						</Content>
+					</Column>
+					<Column>
+    					<Content>
+    						<Link prefetch href="/news">
+    							<a>
+									<AppIcon
+										className={`${process.env.COLOR_NOTE}`}
+										name="assignment" />
+								</a>
+							</Link>
+						</Content>
+					</Column>
+					<Column>
+    					<Content>
+    						<Link prefetch href="/notes">
+    							<a>
+									<AppIcon
+										className={`${process.env.COLOR_NEWS}`}
+										name="note_add" />
+								</a>
+							</Link>
+						</Content>
+					</Column>
+				</Row>
 			</div>
     	)
 	}

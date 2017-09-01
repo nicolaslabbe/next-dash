@@ -14,7 +14,7 @@ import DataActions from '../../Redux/DataRedux'
 
 // Components
 import EditableList from '../../components/EditableList'
-import { Header } from '../../components/ui'
+import { Header, MenuBottom } from '../../components/ui'
 
 class Page extends React.Component {
 	static async getInitialProps ({ store, isServer }) {
@@ -50,8 +50,10 @@ class Page extends React.Component {
 					onClick={(item, i) => this.onClick(item, i)}
 					onSave={(name, item) => this.onSave(name, item)}
 					onRemove={(name, id) => this.onRemove(name, id)}
-					onRemoveAll={(name, id) => this.onRemoveAll(name, id)}
+					onRemoveAll={(name, id) => this.onRemove(name, id)}
 					name="notes" />
+				<MenuBottom
+					current="notes" />
 			</div>
     	)
 	}
@@ -67,6 +69,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     save: (name, item) => dispatch(DataActions.dataAdd(name, item)),
     remove: (name, id) => dispatch(DataActions.dataRemove(name, id)),
+    removeIds: (name, ids) => dispatch(DataActions.dataRemoveIds(name, ids)),
     removeAll: (name, id) => dispatch(DataActions.dataRemoveAll(name))
   }
 }

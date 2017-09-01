@@ -28,6 +28,7 @@ export default function * root () {
 		takeLatest(NewsTypes.NEWS_REQUEST, newsSagas.request, api),
 		takeLatest(DataTypes.DATA_REQUEST, dataSagas.request, api),
 		takeLatest(DataTypes.DATA_ADD, dataSagas.add, api),
+		takeLatest(DataTypes.DATA_ADD_DETAIL, dataSagas.addDetail, api),
 		takeLatest(DataTypes.DATA_REMOVE, dataSagas.remove, api),
 		takeLatest(DataTypes.DATA_REMOVE_ALL, dataSagas.removeAll, api)
 	])

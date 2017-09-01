@@ -34,13 +34,27 @@ const find = (name, key, value) => {
 const remove = (name, key, value) => {
 	return new Promise((resolve, reject) => {
 		var result = []
+		var values = value.split(',')
 		filesystem.read(path.join(Utils.config.pathData, `${name}.json`))
 			.then((data) => {
 				Array.prototype.forEach.call(data, (item) => {
-					if (item[key] != value) {
-						result.push(item) 
+					var found = false
+
+					Array.prototype.forEach.call(values, (val) => {
+						if (item[key] == val) {
+							found = true
+						}
+					})
+					if (!found) {
+						result.push(item)
 					}
 				})
+
+				// Array.prototype.forEach.call(data, (item) => {
+				// 	if (item[key] != value) {
+				// 		result.push(item) 
+				// 	}
+				// })
 				filesystem.write(path.join(Utils.config.pathData, `${name}.json`), result)
 					.then(() => resolve(result),
 					(error) => reject(error))
