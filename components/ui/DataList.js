@@ -68,33 +68,35 @@ class DataList extends React.Component {
         ? data.map((item, i) => {
           var selected = this.state.selected.indexOf(i) >= 0
           return <Row
-            style={selected ? {background: 'red'} : null}
-            className="line"
+            className={`line ${selected ? 'selected' : null}`}
             key={i}
             onClick={(event) => multiSelect ? this.onSelect(event, item, i) : null}>
           <Column
-            xs={6}
+            xs={item[right] ? 6 : 12}
             className="left">
             <Content>
+              {multiSelect
+                ? selected
+                  ? <Icon name="check_box" />
+                  : <Icon name="check_box_outline_blank" />
+                : null}
+
               {item[left]
                 ? item[left] + ' ' + i
                 : null}
             </Content>
           </Column>
-          <Column
-            xs={6}
-            className="right">
-            <Content>
-              {item[right]
-                ? item[right]
-                : null}
-              {icon
-                ? <span onClick={(event) => this.onClickIcon(event, item, i)}>
-                    <Icon name={this.props.icon} />
-                  </span>
-                : null}
-            </Content>
-          </Column>
+          {item[right]
+            ? <Column
+              xs={6}
+              className="right">
+              <Content>
+                {item[right]
+                  ? item[right]
+                  : null}
+              </Content>
+            </Column>
+            : null}
         </Row>
         })
         : null}
