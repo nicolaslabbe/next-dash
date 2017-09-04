@@ -11,7 +11,7 @@ import {
 // ui
 import {
 	Title,
-	Button,
+	ButtonIcon,
 	ContextMenu
 } from '../ui'
 
@@ -30,7 +30,7 @@ class Header extends React.Component {
 				<Column autoXs>
 					<Content>
 						{this.props.close
-							&& <Button
+							&& <ButtonIcon
 							className="close"
 							icon="close"
 							onClick={() => this.goBack()}

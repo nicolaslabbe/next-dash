@@ -14,7 +14,7 @@ import DataActions from '../../Redux/DataRedux'
 
 // Components
 import EditableList from '../../components/EditableList'
-import { Header, MenuBottom, Modal } from '../../components/ui'
+import { Header, MenuBottom, Modal, Confirm } from '../../components/ui'
 
 class Page extends React.Component {
 	static async getInitialProps ({ store, isServer }) {
@@ -26,7 +26,9 @@ class Page extends React.Component {
 	  super(props);
 	
 	  this.state = {
-	  	modalVisible: false
+	  	confirmVisible: false,
+	  	modalVisible: false,
+      	multiSelect: false
 	  }
 	}
 
@@ -36,7 +38,11 @@ class Page extends React.Component {
 	}
 
 	remove = (name, id) => {
-		this.props.remove(name, id)
+		this.setState({
+			confirmVisible: false,
+			multiSelect: false
+		})
+		this.props.remove('notes', this.refs.editableList.state.selectedIds)
 	}
 
 	removeAll = () => {
@@ -52,10 +58,6 @@ class Page extends React.Component {
 		Router.push(`/notes/detail?id=${i}`)
 	}
 
-	onEdit = () => {
-		alert('edit')
-	}
-
 	render () {
     	return (
 			<div>
@@ -64,26 +66,35 @@ class Page extends React.Component {
 					close
 					menu={[{
 						name: 'edit',
-						fn: () => this.onEdit(article)
+						fn: () => this.setState({ confirmVisible: true, multiSelect: true })
 					},
 					{
 						name: 'remove all',
 						fn: () => this.comfirmRemoveAll()
 					}]} />
 				<EditableList
+					ref="editableList"
 					data={this.props.data.notes}
+					multiSelect={this.state.multiSelect}
 					onClick={(item, i) => this.onClick(item, i)}
 					onSave={(name, item) => this.save(name, item)}
 					onRemove={(name, id) => this.remove(name, id)}
 					onRemoveAll={(name, id) => this.remove(name, id)}
 					name="notes" />
-				<MenuBottom
-					current="notes" />
+					{this.state.confirmVisible
+						?null
+						: <MenuBottom
+							current="notes" />}
 				<Modal
 		          ref="modal"
 		          visible={this.state.modalVisible}
 		          onCancel={(() => this.setState({ modalVisible: false }))}
 		          onValid={(() => this.removeAll())} />
+				<Confirm
+		          ref="confirm"
+		          visible={this.state.confirmVisible}
+		          onCancel={(() => this.setState({ confirmVisible: false, multiSelect: false }))}
+		          onConfirm={(() => this.remove())} />
 			</div>
     	)
 	}

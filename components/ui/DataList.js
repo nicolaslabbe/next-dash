@@ -36,16 +36,17 @@ class DataList extends React.Component {
 
   onSelect = (event, item, i) => {
     var index = this.state.selected.indexOf(i)
+    var selected = []
     if (index > -1) {
       this.state.selected.splice(index, 1)
-      this.setState({
-        selected: this.state.selected
-      })
+      selected = this.state.selected
     }else {
-      this.setState({
-        selected: [...this.state.selected, i]
-      })
+      selected = [...this.state.selected, i]
     }
+    this.setState({
+      selected
+    })
+    this.props.onSelectedChange && this.props.onSelectedChange(selected)
   }
 
   onClick = (event, item, i) => {
