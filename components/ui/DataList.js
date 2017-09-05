@@ -60,12 +60,34 @@ class DataList extends React.Component {
     onClickIcon && onClickIcon(item, i)
   }
 
+  displayLeft = (key, item) => {
+    if (typeof key === "function") {
+      return key(key, item)
+    }else {
+      return item[key]
+    }
+  }
+
   render () {
-    const { data, left, right, icon, multiSelect } = this.props
+    const { data, left, right, icon, multiSelect, head, onClickHead, max } = this.props
     return (
       <div className="data-list">
+      {head
+        ? <Row
+          className="head"
+          onClick={() => onClickHead && onClickHead()}>
+            <Column>
+              <Content>
+                {head}
+              </Content>
+            </Column>
+            </Row>
+        : null}
       {data
         ? data.map((item, i) => {
+          if (max && i >= max) {
+            return null
+          }
           var selected = this.state.selected.indexOf(i) >= 0
           return <Row
             className={`line ${selected ? 'selected' : null}`}
@@ -80,10 +102,7 @@ class DataList extends React.Component {
                   ? <Icon name="check_box" />
                   : <Icon name="check_box_outline_blank" />
                 : null}
-
-              {item[left]
-                ? item[left] + ' ' + i
-                : null}
+              {this.displayLeft(left, item)}
             </Content>
           </Column>
           {item[right]

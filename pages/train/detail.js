@@ -3,7 +3,6 @@ import {createStore, applyMiddleware} from 'redux'
 import createSagaMiddleware from 'redux-saga'
 import withRedux from 'next-redux-wrapper'
 import withReduxSaga from 'next-redux-saga'
-import Router from 'next/router'
 
 import Utils from "../../Utils"
 
@@ -31,34 +30,33 @@ class Page extends React.Component {
 		return text.replace(/\(.*?\)/g, '')
 	}
 
-	goToDetail = (item, i, j) => {
-		console.log('* * * * * * * * * * * * * * * * * * * * * * * * * * * * *')
-		console.log('item, i, j', item, i, j)
-		Router.push(`/train/detail?stationId=${i}&stopId=${j}`)
-	}
-
 	render () {
+		console.log('* * * * * * * * * * * * * * * * * * * * * * * * * * * * *')
+		console.log('this.props', this.props)
+		// this.props.stations[this.props.url.query.stationId][this.props.url.query.stopId]
+		const direction = this.props.stations
+			? this.props.url.query.stationId
+				? this.props.url.query.stopId
+					? this.props.stations[this.props.url.query.stationId][this.props.url.query.stopId]
+					: null
+				: null
+			: null
+		console.log('* * * * * * * * * * * * * * * * * * * * * * * * * * * * *')
+		console.log('direction', direction)
     	return (
 			<div>
-				<Header
-					title="train"
-					close />
-				{this.props.stations
-					? this.props.stations.map((station, i) => {
-						return station.map((item, j) => {
-							return <div key={j}>
-							<DataList
-								head={`${this.cleanText(item.station)} / ${this.cleanText(item.terminus)}`}
-								onClickHead={() => this.goToDetail(item, i, j)}
-								ref="dataList"
-								max="2"
-								multiSelect={false}
-								data={item.departures}
-								left={(key, item) => Utils.date.remaining(item.time)}
-								onClick={(item, i, j) => this.handleClick(item, i, j)} />
-							</div>
-						})
-					})
+				{direction
+					? <Header
+						title={`${this.cleanText(direction.station)} / ${this.cleanText(direction.terminus)}`}
+						close />
+					:null}
+				{direction
+					? <DataList
+						ref="dataList"
+						multiSelect={false}
+						data={direction.departures}
+						left={(key, item) => Utils.date.remaining(item.time)}
+						onClick={(item, i) => this.handleClick(item, i)} />
 					: null}
 				<MenuBottom
 					current="train" />

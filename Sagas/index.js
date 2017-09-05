@@ -18,7 +18,8 @@ import * as newsSagas from './NewsSagas'
 import * as dataSagas from './DataSagas'
 
 /* ------------- API ------------- */
-const api = Utils.config.isDev ? ApiFixture.create() : Api.create()
+const api = Api.create()
+// const api = Utils.config.isDev ? ApiFixture.create() : Api.create()
 const Request = {}
 
 export default function * root () {

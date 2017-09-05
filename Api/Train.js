@@ -10,9 +10,6 @@ router.get('/', function(req, res) {
 })
 
 router.post('/find', function(req, res) {
-	const stopId = req.params.stopId || '87686006'
-	const direction = req.params.direction || 'Melun'
-
 	var promises = []
 	var results = []
 	var errors = []

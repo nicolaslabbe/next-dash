@@ -36,9 +36,11 @@ class Header extends React.Component {
 							onClick={() => this.goBack()}
 							dark/>}
 						<Title>{this.props.title}</Title>
-						<ContextMenu
-							actions={this.props.menu}
-							right />
+						{this.props.menu
+							? <ContextMenu
+								actions={this.props.menu}
+								right />
+							: null}
 					</Content>
 				</Column>
 			</Row>

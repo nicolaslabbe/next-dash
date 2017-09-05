@@ -1,7 +1,21 @@
 // data-list.scss
 .data-list {
 
+	.head {
+		display: block;
+    	padding: 10px 0px;
+		line-height: 2.2rem;
+		border-top: 1px solid $text-light;
+		vertical-align: middle;
+		text-align: center;
+		background: $alice-blue;
+		color: $dark-blue;
+		font-family: $ff-light;
+		text-transform: uppercase;
+	}
+
 	.line {
+		font-family: $ff;
     	height: 50px;
     	padding: 10px 0px;
 		line-height: 2.2rem;
