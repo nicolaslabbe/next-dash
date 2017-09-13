@@ -10,9 +10,9 @@ import {
 class Card extends React.Component {
 
   render () {
-    const { className } = this.props
+    const { className, onClick } = this.props
     return (
-      <div className="card">
+      <div className="card" onClick={() => onClick && onClick()}>
         <div className="card-content">
           <div className="card-header">
             <img src={this.props.image} width="100" />
@@ -20,11 +20,13 @@ class Card extends React.Component {
           </div>
           <div className="card-body">
             <Text className="description">{this.props.description && this.props.description.replace(/<\/?[^>]+(>|$)/g, "")}</Text>
+            {this.props.children}
           </div>
           <div className="card-footer">
           {this.props.actions
             ? this.props.actions.map((action, i) => {
               return <ButtonText
+                key={i}
                 color="regular"
                 onClick={() => action.fn && action.fn()}>
               {action.name}

@@ -3,6 +3,8 @@ import Icon from "./Icon"
 import ButtonIcon from "./ButtonIcon"
 import Button from "./Button"
 import Text from "./Text"
+import TextIcon from "./TextIcon"
+import TextsIcon from "./TextsIcon"
 import Title from "./Title"
 import DataList from "./DataList"
 import BottomInput from "./BottomInput"
@@ -13,6 +15,7 @@ import Card from "./Card"
 import ButtonText from "./ButtonText"
 import ContextMenu from "./ContextMenu"
 import Confirm from "./Confirm"
+import Video from "./Video"
 
 export {
 	Header,
@@ -20,6 +23,8 @@ export {
 	ButtonIcon,
 	Button,
 	Text,
+	TextIcon,
+	TextsIcon,
 	Title,
 	DataList,
 	BottomInput,
@@ -29,5 +34,6 @@ export {
 	Card,
 	ButtonText,
 	ContextMenu,
-	Confirm
+	Confirm,
+	Video
 }

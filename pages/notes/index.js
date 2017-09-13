@@ -83,8 +83,7 @@ class Page extends React.Component {
 					name="notes" />
 					{this.state.confirmVisible
 						?null
-						: <MenuBottom
-							current="notes" />}
+						: <MenuBottom />}
 				<Modal
 		          ref="modal"
 		          visible={this.state.modalVisible}

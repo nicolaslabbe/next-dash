@@ -10,7 +10,8 @@ export default (state) => {
 		weather: require('./WeatherRedux').reducer,
 		train: require('./TrainRedux').reducer,
 		news: require('./NewsRedux').reducer,
-		data: require('./DataRedux').reducer
+		data: require('./DataRedux').reducer,
+		movie: require('./MovieRedux').reducer
 	})
 
 	return configureStore(rootReducer, rootSaga, state)

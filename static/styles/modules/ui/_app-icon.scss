@@ -89,6 +89,9 @@ $AppIconBorderSize: 10px;
     &.notes {
     	@extend .app-icon.deep_purple;
     }
+    &.movie {
+    	@extend .app-icon.deep_purple;
+    }
 
 	&:before {
 	    content: ' ';

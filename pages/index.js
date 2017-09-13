@@ -84,6 +84,17 @@ class Page extends React.Component {
 							</Link>
 						</Content>
 					</Column>
+					<Column>
+    					<Content>
+    						<Link prefetch href="/movie">
+    							<a>
+									<AppIcon
+										className="movie"
+										name="local_movies" />
+								</a>
+							</Link>
+						</Content>
+					</Column>
 				</Row>
 			</div>
     	)

@@ -9,6 +9,7 @@ import Link from 'next/link'
 import rootReducer from "../../Redux";
 
 // Reduceurs
+import MovieActions from '../../Redux/MovieRedux'
 import DataActions from '../../Redux/DataRedux'
 
 // Components
@@ -17,49 +18,53 @@ import Utils from "../../Utils"
 
 class Page extends React.Component {
 	static async getInitialProps ({ store, isServer }) {
-		store.dispatch(DataActions.dataRequest('favorites'))
+		store.dispatch(MovieActions.movieSearchRequest())
 		return {}
 	}
 
-	removeLink = (article) => {
-		this.props.remove('favorites', article.id)
+	saveLink = (article) => {
+		this.props.save('favorites', article)
 	}
 
-	openLink = (article) => {
+	openLink = (item) => {
 		if (typeof window !== 'undefined') {
-			window.open(article)
+			window.open(item)
 		}
 	}
 
 	render () {
-		const { favorites } = this.props
+		const { searchResult } = this.props
 
     	return (
-			<div className="favorites">
+			<div className="movie">
 				<Header
-					title="favorite"
+					title="movie"
 					close />
-					{favorites
-						? favorites.map((article, i) => {
+					{searchResult
+						? searchResult.map((item, i) => {
 							return <Card
 								key={i}
 								icon="assignment"
-								title={article.title}
-								description={article.description}
-								date={Utils.date.timestampToHumain(article.publishedAt)}
+								title={item.original_title}
+								description={item.overview}
+								date={Utils.date.timestampToHumain(item.publishedAt)}
 								actions={[{
 									name: 'open',
-									fn: () => this.openLink(article)
+									fn: () => this.openLink(item)
 								},
 								{
-									name: 'delete',
-									fn: () => this.removeLink(article)
+									name: 'save',
+									fn: () => this.saveLink(item)
 								}]}
-								image={article.urlToImage} />
+								image={`https://image.tmdb.org/t/p/w500/${item.poster_path}`}>
+									vote_average: {item.vote_average}<br />
+									release_date: {item.release_date}<br />
+									popularity: {item.popularity}<br />
+								</Card>
 						})
 						: null}
 				<MenuBottom
-					current="favorites" />
+					current="news" />
 			</div>
     	)
 	}
@@ -67,13 +72,13 @@ class Page extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    favorites: state.data.favorites || []
+    searchResult: state.movie.searchResult || []
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    remove: (name, id) => dispatch(DataActions.dataRemove(name, id))
+    save: (name, item) => dispatch(DataActions.dataAdd(name, item))
   }
 }
 

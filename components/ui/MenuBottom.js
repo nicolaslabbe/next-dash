@@ -33,7 +33,6 @@ class Header extends React.Component {
 
     componentWillUnmount = () => {
     	if (typeof document !== 'undefined') {
-    		debugger
     		document.removeEventListener('click', this.state.windowClick, false);
     	}
     }
@@ -46,65 +45,37 @@ class Header extends React.Component {
 
 	render () {
 		const open = (this.state.open === null) ? '' : (this.state.open) ? 'open' : 'close'
+		const { items } = this.props
 	    return (
 	    	<div className={`menu-bottom ${open}`}>
 	    		<div className="items">
-	    			{this.props.current !== 'train' ?
-						<Link prefetch href="/train">
-							<a className="item">
-				    			<AppIcon
-									className={`train item`}
-									name="train" />
-							</a>
-						</Link>
-					: null}
-	    			{this.props.current !== 'weather' ?
-						<Link prefetch href="/weather">
-							<a className="item">
-				    			<AppIcon
-									className={`weather item`}
-									name="wb_sunny" />
-							</a>
-						</Link>
-					: null}
-	    			{this.props.current !== 'news' ?
-						<Link prefetch href="/news">
-							<a className="item">
-				    			<AppIcon
-									className={`news item`}
-									name="live_tv" />
-							</a>
-						</Link>
-					: null}
-	    			{this.props.current !== 'notes' ?
-						<Link prefetch href="/notes">
-							<a className="item">
-				    			<AppIcon
-									className={`notes item`}
-									name="list" />
-							</a>
-						</Link>
-					: null}
-	    			{this.props.current !== 'favorites' ?
-						<Link prefetch href="/favorites">
-							<a className="item">
-				    			<AppIcon
-									className={`favorites item`}
-									name="stars" />
-							</a>
-						</Link>
-					: null}
+					{items && items.map((item, i) => {
+		    			return <Link key={i} prefetch href={`${item.path}`}>
+								<a className="item">
+					    			<AppIcon
+										className={`${item.name} item`}
+										name={`${item.icon}`} />
+								</a>
+							</Link>
+					})}
 	    		</div>
-	    		<div ref="main">
-					<AppIcon
-						className="red main visible-close"
-						name="apps"
-						onClick={(event) => this.toggleMenu(event)} />
-					<AppIcon
-						className="red main visible-open"
-						name="add"
-						onClick={(event) => this.toggleMenu(event)} />
-				</div>
+	    		{items
+	    			?<div ref="main">
+						<AppIcon
+							className="red main visible-close"
+							name="apps"
+							onClick={(event) => this.toggleMenu(event)} />
+						<AppIcon
+							className="red main visible-open"
+							name="add"
+							onClick={(event) => this.toggleMenu(event)} />
+					</div>
+					: <div>
+						<AppIcon
+							className="red main visible-close"
+							name="arrow_back"
+							onClick={(event) => Router.back()} />
+					</div>}
 			</div>
 	    )
 	}

@@ -28,8 +28,7 @@ class Page extends React.Component {
 					title="weather"
 					close />
 				<Weather/>
-				<MenuBottom
-					current="weather" />
+				<MenuBottom />
 			</div>
     	)
 	}

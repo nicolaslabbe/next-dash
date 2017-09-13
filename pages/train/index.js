@@ -32,8 +32,6 @@ class Page extends React.Component {
 	}
 
 	goToDetail = (item, i, j) => {
-		console.log('* * * * * * * * * * * * * * * * * * * * * * * * * * * * *')
-		console.log('item, i, j', item, i, j)
 		Router.push(`/train/detail?stationId=${i}&stopId=${j}`)
 	}
 
@@ -60,8 +58,7 @@ class Page extends React.Component {
 						})
 					})
 					: null}
-				<MenuBottom
-					current="train" />
+				<MenuBottom />
 			</div>
     	)
 	}

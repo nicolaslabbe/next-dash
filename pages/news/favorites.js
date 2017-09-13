@@ -9,63 +9,56 @@ import Link from 'next/link'
 import rootReducer from "../../Redux";
 
 // Reduceurs
-import NewsActions from '../../Redux/NewsRedux'
 import DataActions from '../../Redux/DataRedux'
 
 // Components
-// import News from '../../components/News'
 import { Header, MenuBottom, Card } from '../../components/ui'
 import Utils from "../../Utils"
 
 class Page extends React.Component {
 	static async getInitialProps ({ store, isServer }) {
-		store.dispatch(NewsActions.newsRequest())
+		store.dispatch(DataActions.dataRequest('favorites'))
 		return {}
 	}
 
-	saveLink = (article) => {
-		this.props.save('favorites', article)
+	removeLink = (favorite) => {
+		this.props.remove('favorites', favorite.id)
 	}
 
-	openLink = (article) => {
+	openLink = (favorite) => {
 		if (typeof window !== 'undefined') {
-			window.open(article)
+			window.open(favorite)
 		}
 	}
 
 	render () {
-		const { articles } = this.props
+		const { favorites } = this.props
 
     	return (
-			<div className="news">
+			<div className="favorites">
 				<Header
-					title="news"
+					title="favorite"
 					close />
-					{articles
-						? articles.map((article, i) => {
+					{favorites
+						? favorites.map((favorite, i) => {
 							return <Card
 								key={i}
 								icon="assignment"
-								title={article.title}
-								description={article.description}
-								date={Utils.date.timestampToHumain(article.publishedAt)}
+								title={favorite.title}
+								description={favorite.description}
+								date={Utils.date.timestampToHumain(favorite.publishedAt)}
 								actions={[{
 									name: 'open',
-									fn: () => this.openLink(article)
+									fn: () => this.openLink(favorite)
 								},
 								{
-									name: 'save',
-									fn: () => this.saveLink(article)
+									name: 'delete',
+									fn: () => this.removeLink(favorite)
 								}]}
-								image={article.urlToImage} />
+								image={favorite.urlToImage} />
 						})
 						: null}
-				<MenuBottom
-					items={[{
-						name: 'favorites',
-						icon: 'stars',
-						path: '/news/favorites'
-					}]} />
+				<MenuBottom />
 			</div>
     	)
 	}
@@ -73,13 +66,13 @@ class Page extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    articles: state.news.articles || []
+    favorites: state.data.favorites || []
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    save: (name, item) => dispatch(DataActions.dataAdd(name, item))
+    remove: (name, id) => dispatch(DataActions.dataRemove(name, id))
   }
 }
 

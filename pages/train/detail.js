@@ -31,9 +31,6 @@ class Page extends React.Component {
 	}
 
 	render () {
-		console.log('* * * * * * * * * * * * * * * * * * * * * * * * * * * * *')
-		console.log('this.props', this.props)
-		// this.props.stations[this.props.url.query.stationId][this.props.url.query.stopId]
 		const direction = this.props.stations
 			? this.props.url.query.stationId
 				? this.props.url.query.stopId
@@ -41,8 +38,6 @@ class Page extends React.Component {
 					: null
 				: null
 			: null
-		console.log('* * * * * * * * * * * * * * * * * * * * * * * * * * * * *')
-		console.log('direction', direction)
     	return (
 			<div>
 				{direction
@@ -58,8 +53,7 @@ class Page extends React.Component {
 						left={(key, item) => Utils.date.remaining(item.time)}
 						onClick={(item, i) => this.handleClick(item, i)} />
 					: null}
-				<MenuBottom
-					current="train" />
+				<MenuBottom />
 			</div>
     	)
 	}

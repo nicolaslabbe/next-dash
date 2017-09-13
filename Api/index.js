@@ -3,6 +3,7 @@ const News = require('./News')
 const Train = require('./Train')
 const Db = require('./Db')
 const Fixture = require('./Fixture')
+const Movie = require('./Movie')
 
 var express = require('express');
 var router = express.Router();
@@ -13,5 +14,6 @@ router.use('/news', News);
 router.use('/train', Train);
 router.use('/db', Db);
 router.use('/fixture', Fixture);
+router.use('/movie', Movie);
 
 module.exports = router;
