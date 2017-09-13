@@ -22,8 +22,8 @@ export function * popular (api, { name }) {
 	}
 }
 
-export function * discover (api, { name }) {
-	var json = yield api.get(`${Utils.config.url}/api/movie/discover`)
+export function * discover (api, { page }) {
+	var json = yield api.get(`${Utils.config.url}/api/movie/discover/${page}`)
 
 	if (json.error) {
 		yield put(MovieActions.discoverFailure(json.error))

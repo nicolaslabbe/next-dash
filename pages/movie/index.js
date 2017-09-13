@@ -18,12 +18,33 @@ import { Header, MenuBottom, Card, TextsIcon } from '../../components/ui'
 import Utils from "../../Utils"
 
 class Page extends React.Component {
+	constructor(props) {
+	  super(props);
+	
+	  this.state = {
+	  	page: 1,
+	  	handleScroll: this.handleScroll.bind(this)
+	  }
+	}
+
 	static async getInitialProps ({ store, isServer }) {
-		store.dispatch(MovieActions.discoverRequest())
+		store.dispatch(MovieActions.discoverRequest(1))
 		return {}
 	}
 
-	handleScroll() {
+    componentWillMount = () => {
+    	if (typeof document !== 'undefined') {
+    		document.addEventListener('scroll', this.state.handleScroll, false);
+    	}
+    }
+
+    componentWillUnmount = () => {
+    	if (typeof document !== 'undefined') {
+    		document.removeEventListener('scroll', this.state.handleScroll, false);
+    	}
+    }
+
+	handleScroll(event) {
 		const windowHeight = "innerHeight" in window ? window.innerHeight : document.documentElement.offsetHeight;
 		const body = document.body;
 		const html = document.documentElement;
@@ -31,12 +52,9 @@ class Page extends React.Component {
 		const windowBottom = windowHeight + window.pageYOffset;
 		if (windowBottom >= docHeight) {
 			this.setState({
-				message:'bottom reached'
-			});
-		} else {
-			this.setState({
-				message:'not at bottom'
-			});
+				page: this.state.page + 1
+			})
+			this.props.discoverMore(this.state.page + 1)
 		}
 	}
 
@@ -108,15 +126,18 @@ class Page extends React.Component {
 }
 
 const mapStateToProps = (state) => {
+	console.log('* * * * * * * * * * * * * * * * * * * * * * * * * * * * *')
+	console.log('state', state)
   return {
-    movies: state.movie.discover || []
+    movies: state.movie.discover
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
     save: (name, item) => dispatch(DataActions.dataAdd(name, item)),
-    movieDetail: (id) => dispatch(MovieActions.movieDetailRequest(id))
+    movieDetail: (id) => dispatch(MovieActions.movieDetailRequest(id)),
+    discoverMore: (page) => dispatch(MovieActions.discoverRequest(page))
   }
 }
 

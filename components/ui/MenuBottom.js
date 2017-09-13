@@ -20,7 +20,7 @@ class Header extends React.Component {
 	}
 
 	handleClick = (e) => {
-		if (!this.refs.main.contains(e.target) && this.state.open) {
+		if (this.refs.main && !this.refs.main.contains(e.target) && this.state.open) {
 			this.toggleMenu()
 		}
     }

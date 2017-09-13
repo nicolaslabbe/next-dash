@@ -13,7 +13,7 @@ const { Types, Creators } = createActions({
   popularRequest: null,
   popularSuccess: ['popular'],
   popularFailure: ['error'],
-  discoverRequest: null,
+  discoverRequest: ['page'],
   discoverSuccess: ['discover'],
   discoverFailure: ['error']
 })
@@ -68,12 +68,12 @@ export const popularFailure = (state, { error }) => {
   return {...state, ...error}
 }
 
-export const discoverRequest = (state, { name }) => {
+export const discoverRequest = (state, { page }) => {
   return state
 }
 
 export const discoverSuccess = (state, { discover }) => {
-  return {...state, discover}
+  return {...state, discover: [...state.discover, ...discover]}
 }
 
 export const discoverFailure = (state, { error }) => {
