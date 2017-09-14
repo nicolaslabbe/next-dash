@@ -8,7 +8,7 @@ class ButtonText extends React.Component {
         className={`${className ? className : ''} button-text ${
       			this.props.color ? this.props.color : null}`
       	}
-        onClick={() => this.props.onClick && this.props.onClick()}>
+        onClick={(e) => this.props.onClick && this.props.onClick(e)}>
           {this.props.children}
         </div>
     )

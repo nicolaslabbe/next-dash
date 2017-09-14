@@ -76,18 +76,18 @@ const add = (name, data) => {
 		const filepath = path.join(Utils.config.pathData, `${name}.json`)
 		filesystem.read(filepath)
 			.then((oldData) => {
-				var id = 0
+				var apiId = 0
 				if (oldData.length > 0) {
-					id = parseInt(oldData[oldData.length - 1].id) + 1
+					apiId = parseInt(oldData[oldData.length - 1].apiId) + 1
 				}
-				data.id = id
+				data.apiId = apiId
 				oldData = oldData.concat([data])
 				filesystem.write(filepath, oldData)
 					.then((newData) => resolve(data),
 					(error) => reject(error))
 			},
 			(err) => {
-				data.id = 0
+				data.apiId = 0
 				filesystem.write(filepath, [data])
 					.then((newData) => resolve(data),
 					(error) => reject(error))

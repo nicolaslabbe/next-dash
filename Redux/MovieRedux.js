@@ -8,7 +8,7 @@ const { Types, Creators } = createActions({
   movieDetailSuccess: ['detail'],
   movieDetailFailure: ['error'],
   movieSearchRequest: ['name'],
-  movieSearchSuccess: ['searchResult'],
+  movieSearchSuccess: ['search'],
   movieSearchFailure: ['error'],
   popularRequest: null,
   popularSuccess: ['popular'],
@@ -24,7 +24,7 @@ export default Creators
 /* ------------- Initial State ------------- */
 
 export const INITIAL_STATE = Immutable({
-  searchResult: [],
+  search: [],
   popular: [],
   discover: [],
 	detail: null
@@ -48,8 +48,8 @@ export const movieSearchRequest = (state, { name }) => {
   return state
 }
 
-export const movieSearchSuccess = (state, { searchResult }) => {
-  return {...state, searchResult}
+export const movieSearchSuccess = (state, { search }) => {
+  return {...state, search}
 }
 
 export const movieSearchFailure = (state, { error }) => {

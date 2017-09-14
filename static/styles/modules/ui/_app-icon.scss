@@ -92,6 +92,9 @@ $AppIconBorderSize: 10px;
     &.movie {
     	@extend .app-icon.deep_purple;
     }
+    &.search {
+    	@extend .app-icon.blue_grey;
+    }
 
 	&:before {
 	    content: ' ';

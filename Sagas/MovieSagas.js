@@ -3,7 +3,7 @@ import {call, put} from 'redux-saga/effects'
 import Utils from '../Utils'
 
 export function * searchRequest (api, { name }) {
-	var json = yield api.get(`${Utils.config.url}/api/movie/fight club`)
+	var json = yield api.get(`${Utils.config.url}/api/movie/${name}`)
 
 	if (json.error) {
 		yield put(MovieActions.movieSearchFailure(json.error))

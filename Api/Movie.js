@@ -82,6 +82,8 @@ router.get('/find/:id', function(req, res) {
 });
 
 router.get('/:query?/:page?', function(req, res) {
+	console.log('* * * * * * * * * * * * * * * * * * * * * * * * * * * * *')
+	console.log(req.params)
 	fetch(`${baseUrl}search/movie?api_key=${process.env.IMDB_API_KEY}&query=${req.params.query}&${getPage(req)}&include_adult=true`)
 		.then((response) => response.json())
 		.then((responseJson) => {

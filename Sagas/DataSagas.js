@@ -33,7 +33,7 @@ export function * addDetail (api, { name, id, item }) {
 }
 
 export function * remove (api, { name, id }) {
-	var json = yield api.delete(`${Utils.config.url}/api/db/${name}/id/${encodeURI(id)}`)
+	var json = yield api.delete(`${Utils.config.url}/api/db/${name}/apiId/${encodeURI(id)}`)
 
 	if (json.error) {
 		yield put(DataActions.dataFailure(json.error))

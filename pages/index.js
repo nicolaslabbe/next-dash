@@ -75,17 +75,6 @@ class Page extends React.Component {
 					</Column>
 					<Column>
     					<Content>
-    						<Link prefetch href="/favorites">
-    							<a>
-									<AppIcon
-										className="favorites"
-										name="stars" />
-								</a>
-							</Link>
-						</Content>
-					</Column>
-					<Column>
-    					<Content>
     						<Link prefetch href="/movie">
     							<a>
 									<AppIcon

@@ -25,6 +25,7 @@
 @import './modules/ui/context-menu.scss';
 @import './modules/ui/text-icon.scss';
 @import './modules/ui/video.scss';
+@import './modules/ui/bottom-input.scss';
 
 @include font-face('Roboto', '/Roboto/Roboto-Medium', null, null, ttf);
 @include font-face('Roboto Light', '/Roboto/Roboto-Light', '300', 'normal', ttf);
