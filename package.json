@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "nodemon server.js",
     "build": "next build",
-    "start": "NODE_ENV=production npm run build && pm2 startOrRestart ecosystem.config.js --env production",
+    "start": "NODE_ENV=production npm run build && PORT=8000 NODE_ENV=production pm2 startOrRestart ecosystem.config.js",
     "stop": "pm2 delete RPI-DATA"
   },
   "author": "",
