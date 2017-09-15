@@ -2,8 +2,9 @@ import MovieActions from '../Redux/MovieRedux'
 import {call, put} from 'redux-saga/effects'
 import Utils from '../Utils'
 
-export function * searchRequest (api, { name }) {
-	var json = yield api.get(`${Utils.config.url}/api/movie/${name}`)
+export function * searchRequest (api, { name, page }) {
+	console.log(`${Utils.config.url}/api/movie/${name}/${page}`)
+	var json = yield api.get(`${Utils.config.url}/api/movie/${name}/${page}`)
 
 	if (json.error) {
 		yield put(MovieActions.movieSearchFailure(json.error))

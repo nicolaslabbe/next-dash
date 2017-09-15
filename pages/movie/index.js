@@ -11,7 +11,7 @@ import rootReducer from "../../Redux";
 import MovieActions from '../../Redux/MovieRedux'
 
 // Components
-import { Header, MenuBottom } from '../../components/ui'
+import { Header, MenuBottom, ScrollView } from '../../components/ui'
 import { Movies } from '../../components/rich'
 
 class Page extends React.Component {
@@ -19,8 +19,7 @@ class Page extends React.Component {
 	  super(props);
 	
 	  this.state = {
-	  	page: 1,
-	  	handleScroll: this.handleScroll.bind(this)
+	  	page: 1
 	  }
 	}
 
@@ -29,37 +28,20 @@ class Page extends React.Component {
 		return {}
 	}
 
-    componentWillMount = () => {
-    	if (typeof document !== 'undefined') {
-    		document.addEventListener('scroll', this.state.handleScroll, false);
-    	}
-    }
-
-    componentWillUnmount = () => {
-    	if (typeof document !== 'undefined') {
-    		document.removeEventListener('scroll', this.state.handleScroll, false);
-    	}
-    }
-
-	handleScroll(event) {
-		const windowHeight = "innerHeight" in window ? window.innerHeight : document.documentElement.offsetHeight;
-		const body = document.body;
-		const html = document.documentElement;
-		const docHeight = Math.max(body.scrollHeight, body.offsetHeight, html.clientHeight,  html.scrollHeight, html.offsetHeight);
-		const windowBottom = windowHeight + window.pageYOffset;
-		if (windowBottom >= docHeight) {
-			this.setState({
-				page: this.state.page + 1
-			})
-			this.props.discoverMore(this.state.page + 1)
-		}
+	discover = () => {
+      this.setState({
+        page: this.state.page + 1
+      })
+      this.props.discoverMore(this.state.page + 1)
 	}
 
 	render () {
 		const { movies } = this.props
 
     	return (
-			<div className="movie">
+			<ScrollView
+				onScrollEnd={() => this.discover()}
+				className="movie">
 				<Header
 					title="movie"
 					close />
@@ -77,7 +59,7 @@ class Page extends React.Component {
 						icon: 'search',
 						path: '/movie/search'
 					}]} />
-			</div>
+			</ScrollView>
     	)
 	}
 }

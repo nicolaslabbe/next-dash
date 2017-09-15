@@ -7,7 +7,7 @@ const { Types, Creators } = createActions({
   movieDetailRequest: ['id'],
   movieDetailSuccess: ['detail'],
   movieDetailFailure: ['error'],
-  movieSearchRequest: ['name'],
+  movieSearchRequest: ['name', 'page'],
   movieSearchSuccess: ['search'],
   movieSearchFailure: ['error'],
   popularRequest: null,
@@ -25,8 +25,12 @@ export default Creators
 
 export const INITIAL_STATE = Immutable({
   search: [],
+  fetchingSearch: false,
+  fetchingSearchPage: 1,
   popular: [],
+  fetchingPopular: false,
   discover: [],
+  fetchingDiscover: false,
 	detail: null
 })
 
@@ -44,16 +48,20 @@ export const movieDetailFailure = (state, { error }) => {
   return {...state, detail: error}
 }
 
-export const movieSearchRequest = (state, { name }) => {
-  return state
+export const movieSearchRequest = (state, { name, page }) => {
+  if (page === 1) {
+    return {...state, search: [], fetchingSearch: true, fetchingSearchPage: page}
+  }else {
+    return {...state, fetchingSearch: true, fetchingSearchPage: page}
+  }
 }
 
 export const movieSearchSuccess = (state, { search }) => {
-  return {...state, search}
+  return {...state, fetchingSearch: false, search: [...state.search, ...search]}
 }
 
 export const movieSearchFailure = (state, { error }) => {
-  return {...state, ...error}
+  return {...state, ...error, fetchingSearch: false}
 }
 
 export const popularRequest = (state, { name }) => {
@@ -86,6 +94,7 @@ export const reducer = createReducer(INITIAL_STATE, {
   [Types.MOVIE_DETAIL_REQUEST]: movieDetailRequest,
   [Types.MOVIE_DETAIL_SUCCESS]: movieDetailSuccess,
   [Types.MOVIE_DETAIL_FAILURE]: movieDetailFailure,
+  [Types.MOVIE_SEARCH_REQUEST]: movieSearchRequest,
   [Types.MOVIE_SEARCH_SUCCESS]: movieSearchSuccess,
   [Types.MOVIE_SEARCH_FAILURE]: movieSearchFailure,
   [Types.POPULAR_REQUEST]: popularRequest,

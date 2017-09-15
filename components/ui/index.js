@@ -16,6 +16,7 @@ import ButtonText from "./ButtonText"
 import ContextMenu from "./ContextMenu"
 import Confirm from "./Confirm"
 import Video from "./Video"
+import ScrollView from "./ScrollView"
 
 export {
 	Header,
@@ -35,5 +36,6 @@ export {
 	ButtonText,
 	ContextMenu,
 	Confirm,
-	Video
+	Video,
+	ScrollView
 }
