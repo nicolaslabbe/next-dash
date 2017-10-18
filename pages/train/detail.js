@@ -50,7 +50,8 @@ class Page extends React.Component {
 						ref="dataList"
 						multiSelect={false}
 						data={direction.departures}
-						left={(key, item) => Utils.date.remaining(item.time)}
+						left={(key, item) => Utils.date.HHmm(item.time)}
+						right={(key, item) => Utils.date.remaining(item.time)}
 						onClick={(item, i) => this.handleClick(item, i)} />
 					: null}
 				<MenuBottom />

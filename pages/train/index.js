@@ -52,7 +52,8 @@ class Page extends React.Component {
 								max="2"
 								multiSelect={false}
 								data={item.departures}
-								left={(key, item) => Utils.date.remaining(item.time)}
+								left={(key, item) => Utils.date.HHmm(item.time)}
+								right={(key, item) => Utils.date.remaining(item.time)}
 								onClick={(item, i, j) => this.handleClick(item, i, j)} />
 							</div>
 						})

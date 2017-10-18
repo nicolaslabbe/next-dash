@@ -60,7 +60,7 @@ class DataList extends React.Component {
     onClickIcon && onClickIcon(item, i)
   }
 
-  displayLeft = (key, item) => {
+  display = (key, item) => {
     if (typeof key === "function") {
       return key(key, item)
     }else {
@@ -94,7 +94,7 @@ class DataList extends React.Component {
             key={i}
             onClick={(event) => multiSelect ? this.onSelect(event, item, i) : null}>
           <Column
-            xs={item[right] ? 6 : 12}
+            xs={right ? 6 : 12}
             className="left">
             <Content>
               {multiSelect
@@ -102,17 +102,15 @@ class DataList extends React.Component {
                   ? <Icon name="check_box" />
                   : <Icon name="check_box_outline_blank" />
                 : null}
-              {this.displayLeft(left, item)}
+              {this.display(left, item)}
             </Content>
           </Column>
-          {item[right]
+          {right
             ? <Column
               xs={6}
               className="right">
               <Content>
-                {item[right]
-                  ? item[right]
-                  : null}
+                {this.display(right, item)}
               </Content>
             </Column>
             : null}

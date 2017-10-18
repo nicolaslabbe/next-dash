@@ -6,8 +6,14 @@ module.exports.remaining = (str) => {
 	const time = moment(parseInt(str))
 	const now = moment()
 	let diff = time.diff(now, 'minutes')
-	if(diff < 10 && diff > 0) {
-		diff = `0${diff}`
+	if (diff > 60) {
+		diff = `${time.diff(now, 'hours')} hour(s)`
+	}else {
+		diff = `${diff} minute(s)`
 	}
-	return time.format('hh:mm')
+	return diff
+}
+
+module.exports.HHmm = (str) => {
+	return moment(str).format('HH:mm')
 }

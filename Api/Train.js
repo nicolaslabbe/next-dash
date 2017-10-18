@@ -13,9 +13,13 @@ router.post('/find', function(req, res) {
 	var promises = []
 	var results = []
 	var errors = []
+	console.log('typeof', typeof req.body)
+	console.log(req.body[0])
 	Array.prototype.forEach.call(req.body, (item) => {
 		promises.push(Libs.sncf.find(item.id, item.direction, process.env.TRAIN_BEARER)
-			.then((res) => results.push(res),
+			.then((res) => {
+				results.push(res)
+			},
 				(error) => errors.push(error)))
 	})
 
