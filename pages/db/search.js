@@ -8,11 +8,11 @@ import withReduxSaga from 'next-redux-saga'
 import rootReducer from "../../Redux";
 
 // Reduceurs
-import MovieActions from '../../Redux/MovieRedux'
+import DbActions from '../../Redux/DbRedux'
 
 // Components
 import { Header, MenuBottom, BottomInput, ScrollView } from '../../components/ui'
-import { Movies } from '../../components/rich'
+import { Cards } from '../../components/rich'
 
 class Page extends React.Component {
 	constructor(props) {
@@ -25,8 +25,10 @@ class Page extends React.Component {
 		}
 	}
 
-	static async getInitialProps ({ store, isServer }) {
-		return {}
+	static async getInitialProps ({ store, isServer, query }) {
+		return {
+			type: query.type
+		}
 	}
 
 	handleSubmit = (item) => {
@@ -47,7 +49,7 @@ class Page extends React.Component {
 				page: this.state.page + 1,
 				fetching: true
 			})
-			this.props.search(this.state.value, this.state.page + 1)
+			this.props.search(this.props.type, this.state.value, this.state.page + 1)
 		}
 	}
 
@@ -57,12 +59,15 @@ class Page extends React.Component {
 			page: 1,
 			fetching: true
 		})
-		this.props.search(item, 1)
+		this.props.search(this.props.type, item, 1)
 	}
 
 	render () {
-		const { movies } = this.props
-		const { fetching } = this.state
+		const { storage } = this.props
+		const type = this.props.url.query.type
+		const fetching = storage[this.props.type]
+			&& storage[this.props.type].search
+			&& storage[this.props.type].search.fetching ? storage[this.props.type].search.fetching : false
 
     	return (
 			<ScrollView
@@ -72,9 +77,11 @@ class Page extends React.Component {
 				<Header
 					title="movie"
 					close />
-					{movies
-						? <Movies
-							items={this.props.movies} />
+					{storage[this.props.type]
+						? <Cards
+							detail={false}
+							type={type}
+							items={storage[this.props.type].search} />
 						: null}
 		        <BottomInput
 		          onChange={(value) => this.handleChange(value)}
@@ -88,14 +95,13 @@ class Page extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    movies: state.movie.search,
-    fetching: state.movie.fetchingSearch || false
+    storage: state.db.storage || {}
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    search: (name, page) => dispatch(MovieActions.movieSearchRequest(name, page))
+    search: (type, name, page) => dispatch(DbActions.dbSearchRequest(type, name, page))
   }
 }
 

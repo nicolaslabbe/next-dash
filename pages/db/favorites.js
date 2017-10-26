@@ -12,25 +12,31 @@ import DataActions from '../../Redux/DataRedux'
 
 // Components
 import { Header, MenuBottom } from '../../components/ui'
-import { Movies } from '../../components/rich'
+import { Cards } from '../../components/rich'
 
 class Page extends React.Component {
-	static async getInitialProps ({ store, isServer }) {
-		store.dispatch(DataActions.dataRequest('upcoming-movies'))
-		return {}
+	static async getInitialProps ({ store, isServer, query }) {
+		store.dispatch(DataActions.dataRequest(query.type))
+		return {
+			type: query.type
+		}
 	}
 
 	render () {
-		const { movies } = this.props
+		const { data } = this.props
+		const type = this.props.url.query.type
+
     	return (
 			<div className="favorites">
 				<Header
-					title="upcoming movie"
+					title="Favorites"
 					close />
-					{movies
-						? <Movies
+					{data[this.props.type]
+						? <Cards
+							type={type}
+							detail={false}
 							delete={true}
-							items={movies} />
+							items={data[this.props.type]} />
 						: null}
 				<MenuBottom
 					current="favorites" />
@@ -41,7 +47,7 @@ class Page extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    movies: state.data['upcoming-movies'] || []
+	data: state.data || {}
   }
 }
 

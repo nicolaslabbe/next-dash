@@ -11,6 +11,7 @@ export default (state) => {
 		train: require('./TrainRedux').reducer,
 		news: require('./NewsRedux').reducer,
 		data: require('./DataRedux').reducer,
+		db: require('./DbRedux').reducer,
 		movie: require('./MovieRedux').reducer
 	})
 

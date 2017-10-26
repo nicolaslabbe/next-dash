@@ -3,8 +3,6 @@ import React from 'react'
 class Video extends React.Component {
   render () {
   	var { id, type } = this.props
-  	console.log('* * * * * * * * * * * * * * * * * * * * * * * * * * * * *')
-  	console.log('this.props', this.props)
     return (
     	<div className="video">
 	    	{type.toLowerCase() == 'youtube'

@@ -10,6 +10,7 @@ import { TrainTypes } from '../Redux/TrainRedux'
 import { NewsTypes } from '../Redux/NewsRedux'
 import { DataTypes } from '../Redux/DataRedux'
 import { MovieTypes } from '../Redux/MovieRedux'
+import { DbTypes } from '../Redux/DbRedux'
 
 /* ------------- Sagas ------------- */
 
@@ -18,6 +19,7 @@ import * as trainSagas from './TrainSagas'
 import * as newsSagas from './NewsSagas'
 import * as dataSagas from './DataSagas'
 import * as movieSagas from './MovieSagas'
+import * as dbSagas from './DbSagas'
 
 /* ------------- API ------------- */
 const api = Api.create()
@@ -34,9 +36,14 @@ export default function * root () {
 		takeLatest(DataTypes.DATA_ADD_DETAIL, dataSagas.addDetail, api),
 		takeLatest(DataTypes.DATA_REMOVE, dataSagas.remove, api),
 		takeLatest(DataTypes.DATA_REMOVE_ALL, dataSagas.removeAll, api),
+		
 		takeLatest(MovieTypes.POPULAR_REQUEST, movieSagas.popular, api),
 		takeLatest(MovieTypes.DISCOVER_REQUEST, movieSagas.discover, api),
 		takeLatest(MovieTypes.MOVIE_DETAIL_REQUEST, movieSagas.detail, api),
-		takeLatest(MovieTypes.MOVIE_SEARCH_REQUEST, movieSagas.searchRequest, api)
+		takeLatest(MovieTypes.MOVIE_SEARCH_REQUEST, movieSagas.searchRequest, api),
+
+		takeLatest(DbTypes.DB_REQUEST, dbSagas.request, api),
+		takeLatest(DbTypes.DB_DETAIL_REQUEST, dbSagas.detail, api),
+		takeLatest(DbTypes.DB_SEARCH_REQUEST, dbSagas.search, api)
 	])
 }

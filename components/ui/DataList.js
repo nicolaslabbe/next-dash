@@ -63,33 +63,21 @@ class DataList extends React.Component {
   display = (key, item) => {
     if (typeof key === "function") {
       return key(key, item)
-    }else {
+    }else if (typeof item === "object") {
       return item[key]
+    }else {
+      return item
     }
   }
 
-  render () {
-    const { data, left, right, icon, multiSelect, head, onClickHead, max } = this.props
-    return (
-      <div className="data-list">
-      {head
-        ? <Row
-          className="head"
-          onClick={() => onClickHead && onClickHead()}>
-            <Column>
-              <Content>
-                {head}
-              </Content>
-            </Column>
-            </Row>
-        : null}
-      {data
-        ? data.map((item, i) => {
-          if (max && i >= max) {
-            return null
-          }
-          var selected = this.state.selected.indexOf(i) >= 0
-          return <Row
+  renderRow = (item, i, left, right) => {
+    const { multiSelect, max } = this.props
+    if (max && i >= max) {
+      return null
+    }
+    var selected = this.state.selected.indexOf(i) >= 0
+
+    return <Row
             className={`line ${selected ? 'selected' : null}`}
             key={i}
             onClick={(event) => multiSelect ? this.onSelect(event, item, i) : null}>
@@ -115,8 +103,47 @@ class DataList extends React.Component {
             </Column>
             : null}
         </Row>
+  }
+
+  getDataElement = (left, right, data) => {
+    var dataElement = null
+
+    if (data && Array.isArray(data)) {
+      if(data[0] && typeof data[0] === 'object') {
+        dataElement = data.map((item, i) => {
+          return this.renderRow(item, i, left, right)
         })
+      }else {
+        dataElement = this.renderRow(data.join(', '), 1, null, null)
+      }
+    }else if(data && typeof data === 'object') {
+      dataElement = data.map((item, i) => {
+        return this.renderRow(item, i, left, right)
+      })
+    }else if(data) {
+      dataElement = this.renderRow(data, 1, null, null)
+    }
+
+    return dataElement
+  }
+
+  render () {
+    const { left, right, data, head, onClickHead } = this.props
+    
+    return (
+      <div className="data-list">
+      {head
+        ? <Row
+          className="head"
+          onClick={() => onClickHead && onClickHead()}>
+            <Column>
+              <Content>
+                {head}
+              </Content>
+            </Column>
+            </Row>
         : null}
+        {this.getDataElement(left, right, data)}
       </div>
     )
   }

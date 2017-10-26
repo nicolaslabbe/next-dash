@@ -6,7 +6,10 @@ import Immutable from 'seamless-immutable'
 const { Types, Creators } = createActions({
   newsRequest: null,
   newsSuccess: ['articles'],
-  newsFailure: ['error']
+  newsFailure: ['error'],
+  newsDetailRequest: ['detail'],
+  newsDetailSuccess: ['detail'],
+  newsDetailFailure: ['error']
 })
 
 export const NewsTypes = Types
@@ -19,6 +22,17 @@ export const INITIAL_STATE = Immutable({
 })
 
 /* ------------- Reducers ------------- */
+export const newsDetailRequest = (state, { detail }) => {
+  return {...state, detail: detail}
+}
+
+export const newsDetailSuccess = (state, { detail }) => {
+  return state
+}
+
+export const newsDetailFailure = (state, { error }) => {
+  return {...state, detail: error}
+}
 
 // request the data from an api
 export const newsRequest = (state) => {
@@ -38,5 +52,8 @@ export const newsFailure = (state, { error }) => {
 export const reducer = createReducer(INITIAL_STATE, {
   [Types.NEWS_REQUEST]: newsRequest,
   [Types.NEWS_SUCCESS]: newsSuccess,
-  [Types.NEWS_FAILURE]: newsFailure
+  [Types.NEWS_FAILURE]: newsFailure,
+  [Types.NEWS_DETAIL_REQUEST]: newsDetailRequest,
+  [Types.NEWS_DETAIL_SUCCESS]: newsDetailSuccess,
+  [Types.NEWS_DETAIL_FAILURE]: newsDetailFailure
 })

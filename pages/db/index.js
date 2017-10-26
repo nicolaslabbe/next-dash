@@ -8,11 +8,11 @@ import withReduxSaga from 'next-redux-saga'
 import rootReducer from "../../Redux";
 
 // Reduceurs
-import MovieActions from '../../Redux/MovieRedux'
+import DbActions from '../../Redux/DbRedux'
 
 // Components
 import { Header, MenuBottom, ScrollView } from '../../components/ui'
-import { Movies } from '../../components/rich'
+import { Cards } from '../../components/rich'
 
 class Page extends React.Component {
 	constructor(props) {
@@ -23,42 +23,47 @@ class Page extends React.Component {
 	  }
 	}
 
-	static async getInitialProps ({ store, isServer }) {
-		store.dispatch(MovieActions.discoverRequest(1))
-		return {}
+	static async getInitialProps ({ store, isServer, query }) {
+		store.dispatch(DbActions.dbRequest(query.type, 1))
+		return {
+			type: query.type
+		}
 	}
 
-	discover = () => {
+	more = (type) => {
       this.setState({
         page: this.state.page + 1
       })
-      this.props.discoverMore(this.state.page + 1)
+      this.props.more(type, this.state.page + 1)
 	}
 
 	render () {
-		const { movies } = this.props
+		const { storage } = this.props
+		const type = this.props.url.query.type
 
     	return (
 			<ScrollView
-				onScrollEnd={() => this.discover()}
+				onScrollEnd={() => this.more(type)}
 				className="movie">
 				<Header
-					title="movie"
+					title={type}
 					close />
-					{movies
-						? <Movies
-							items={this.props.movies} />
+					{storage[this.props.type]
+						? <Cards
+							detail={false}
+							type={type}
+							items={storage[this.props.type].result} />
 						: null}
 				<MenuBottom
 					items={[{
 						name: 'favorites',
 						icon: 'stars',
-						path: '/movie/favorites'
+						path: `/db/favorites?type=${type}`
 					},
 					{
 						name: 'search',
 						icon: 'search',
-						path: '/movie/search'
+						path: `/db/search?type=${type}`
 					}]} />
 			</ScrollView>
     	)
@@ -66,14 +71,14 @@ class Page extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  return {
-    movies: state.movie.discover
-  }
+	return {
+		storage: state.db.storage || {}
+	}
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    discoverMore: (page) => dispatch(MovieActions.discoverRequest(page))
+    more: (type, page) => dispatch(DbActions.dbRequest(type, page))
   }
 }
 

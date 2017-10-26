@@ -2,7 +2,6 @@ import React from 'react'
 
 // ui
 import {
-  Icon,
   Text,
   ButtonText
 } from '../ui'

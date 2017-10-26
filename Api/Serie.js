@@ -45,8 +45,8 @@ const formatResult = (result) => {
 		var newItem = {
 			id: item.id,
 			date: item.release_date,
-			title: item.title,
-			tagline: item.tagline,
+			title: item.name,
+			tagline: item.overview,
 			image: getPoster(item).sm,
 			overview: [
 				{
@@ -75,35 +75,45 @@ const formatResultDetails = (item) => {
 	var newItem = {
 		id: item.id,
 		date: item.release_date,
-		title: item.title,
-		tagline: item.tagline,
+		title: item.name,
+		tagline: item.overview,
 		description: item.overview,
 		link: item.homepage,
 		image: getPoster(item).sm,
 		images: getPoster(item),
 		details: [
 			{
+				name: 'Author',
+				value: item.created_by && item.created_by.map((v, i) => {
+					return v.name
+				})
+			},
+			{
 				name: 'Details',
 				value: [
 					{
 						name: 'date',
-						value: moment(item.release_date,).format("DD MMMM YYYY")
+						value: moment(item.first_air_date,).format("DD MMMM YYYY")
 					},
 					{
 						name: 'status',
 						value: item.status
 					},
 					{
+						name: 'type',
+						value: item.type
+					},
+					{
 						name: 'runtime',
-						value: `${moment.duration(item.runtime, 'minutes').hours()}:${moment.duration(item.runtime, 'minutes').minutes()}`
+						value: `${moment.duration(item.episode_run_time, 'minutes').hours()}:${moment.duration(item.episode_run_time, 'minutes').minutes()}`
 					},
 					{
-						name: 'budget',
-						value: Utils.devise.toDollars(`${item.budget}`)
+						name: 'number_of_seasons',
+						value: item.number_of_seasons
 					},
 					{
-						name: 'revenue',
-						value: Utils.devise.toDollars(`${item.revenue}`)
+						name: 'number_of_episodes',
+						value: item.number_of_episodes
 					},
 					{
 						name: 'original language',
@@ -111,30 +121,41 @@ const formatResultDetails = (item) => {
 					},
 					{
 						name: 'original title',
-						value: item.original_title
-					},
-					{
-						name: 'adult',
-						value: item.adult
+						value: item.original_name
 					}
 				]
 			},
 			{
-				name: 'companies',
-				value: item.production_companies.map((v, i) => {
+				name: 'networks',
+				value: item.networks && item.networks.map((v, i) => {
+					return v.name
+				})
+			},
+			{
+				name: 'production_companies',
+				value: item.production_companies && item.production_companies.map((v, i) => {
 					return v.name
 				})
 			},
 			{
 				name: 'country',
-				value: item.production_countries.map((v, i) => {
+				value: item.production_countries && item.production_countries.map((v, i) => {
 					return v.name
 				})
 			},
 			{
 				name: 'genres',
-				value: item.genres.map((v, i) => {
+				value: item.genres && item.genres.map((v, i) => {
 					return v.name
+				})
+			},
+			{
+				name: 'seasons',
+				value: item.seasons && item.seasons.map((v, i) => {
+					return {
+						name: `season ${v.season_number} (${v.air_date})`,
+						value: `episodes ${v.episode_count}`
+					}
 				})
 			},
 			{
@@ -164,10 +185,11 @@ const formatResultDetails = (item) => {
 // });
 
 router.get('/:page?', function(req, res) {
-	fetch(`${baseUrl}movie/popular?api_key=${process.env.IMDB_API_KEY}&${getPage(req)}`)
+	fetch(`${baseUrl}tv/popular?api_key=${process.env.IMDB_API_KEY}&${getPage(req)}`)
 		.then((response) => response.json())
 		.then((responseJson) => {
 			Libs.status.success(res, formatResult(responseJson.results))
+			// Libs.status.success(res, responseJson.results)
 		})
 		.catch((error) => {
 			Libs.status.success(res, error)
@@ -176,12 +198,12 @@ router.get('/:page?', function(req, res) {
 
 router.get('/find/:id', function(req, res) {
 	var futurDate = moment().format('YYYY-MM-DD')
-	fetch(`${baseUrl}movie/${req.params.id}?api_key=${process.env.IMDB_API_KEY}`)
+	fetch(`${baseUrl}tv/${req.params.id}?api_key=${process.env.IMDB_API_KEY}`)
 		.then((response) => response.json())
 		.then((responseJson) => {
 			var result = formatResultDetails(responseJson)
 
-			fetch(`${baseUrl}movie/${req.params.id}/videos?api_key=${process.env.IMDB_API_KEY}`)
+			fetch(`${baseUrl}tv/${req.params.id}/videos?api_key=${process.env.IMDB_API_KEY}`)
 				.then((response) => response.json())
 				.then((responseJson) => {
 					result.videos = responseJson.results
@@ -198,7 +220,7 @@ router.get('/find/:id', function(req, res) {
 });
 
 router.get('/:query?/:page?', function(req, res) {
-	fetch(`${baseUrl}search/movie?api_key=${process.env.IMDB_API_KEY}&query=${req.params.query}&${getPage(req)}&include_adult=true`)
+	fetch(`${baseUrl}search/tv?api_key=${process.env.IMDB_API_KEY}&query=${req.params.query}&${getPage(req)}&include_adult=true`)
 		.then((response) => response.json())
 		.then((responseJson) => {
 			Libs.status.success(res, formatResult(responseJson.results))

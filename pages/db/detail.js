@@ -9,32 +9,39 @@ import Link from 'next/link'
 import rootReducer from "../../Redux";
 
 // Reduceurs
-import MovieActions from '../../Redux/MovieRedux'
+import dbActions from '../../Redux/DbRedux'
 
 // Components
 import { Header, MenuBottom, Card } from '../../components/ui'
-import { Movies } from '../../components/rich'
+import { Cards } from '../../components/rich'
 
 import Utils from "../../Utils"
 
 class Page extends React.Component {
 	static async getInitialProps ({ store, isServer, query }) {
-		store.dispatch(MovieActions.movieDetailRequest(query.id))
-		return {}
+		store.dispatch(dbActions.dbDetailRequest(query.type, query.id))
+		return {
+			type: query.type,
+			id: query.id
+		}
+	}
+
+	componentWillMount() {
+		// this.props.getDetail(this.props.type, this.props.id)
 	}
 
 	render () {
-		const { movie } = this.props
+		const { storage } = this.props
 
     	return (
 			<div className="movie">
 				<Header
 					title="movie"
 					close />
-					{movie
-						? <Movies
+					{storage[this.props.type]
+						? <Cards
 							detail={true}
-							items={[movie]} />
+							items={storage[this.props.type].detail} />
 						: null }
 				<MenuBottom />
 			</div>
@@ -44,12 +51,13 @@ class Page extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    movie: state.movie.detail
+    storage: state.db.storage || {}
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
+  	getDetail: (type, id) => dispatch(dbActions.dbDetailRequest(type, id))
   }
 }
 

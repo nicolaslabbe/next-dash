@@ -12,23 +12,14 @@ import rootReducer from "../../Redux";
 import DataActions from '../../Redux/DataRedux'
 
 // Components
-import { Header, MenuBottom, Card } from '../../components/ui'
+import { Header, MenuBottom } from '../../components/ui'
+import { News } from '../../components/rich'
 import Utils from "../../Utils"
 
 class Page extends React.Component {
 	static async getInitialProps ({ store, isServer }) {
 		store.dispatch(DataActions.dataRequest('favorites'))
 		return {}
-	}
-
-	removeLink = (favorite) => {
-		this.props.remove('favorites', favorite.id)
-	}
-
-	openLink = (favorite) => {
-		if (typeof window !== 'undefined') {
-			window.open(favorite)
-		}
 	}
 
 	render () {
@@ -40,23 +31,10 @@ class Page extends React.Component {
 					title="favorite"
 					close />
 					{favorites
-						? favorites.map((favorite, i) => {
-							return <Card
-								key={i}
-								icon="assignment"
-								title={favorite.title}
-								description={favorite.description}
-								date={Utils.date.timestampToHumain(favorite.publishedAt)}
-								actions={[{
-									name: 'open',
-									fn: () => this.openLink(favorite)
-								},
-								{
-									name: 'delete',
-									fn: () => this.removeLink(favorite)
-								}]}
-								image={favorite.urlToImage} />
-						})
+						? <News
+							detail={false}
+							delete={true}
+							items={favorites} />
 						: null}
 				<MenuBottom />
 			</div>
@@ -72,7 +50,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    remove: (name, id) => dispatch(DataActions.dataRemove(name, id))
+    
   }
 }
 
