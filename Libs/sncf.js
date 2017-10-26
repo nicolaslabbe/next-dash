@@ -18,7 +18,6 @@ module.exports.find = (stopId, directions, bearer, l) => {
 				try	{
 					var formatted = {
 					}
-					// return resolve(responseJson.departures)
 					Array.prototype.forEach.call(responseJson.departures, (departure) => {
 						Array.prototype.forEach.call(directions, (direction) => {
 							const terminus = departure.display_informations.direction.toLowerCase()

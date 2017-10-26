@@ -1,11 +1,6 @@
 import React from 'react'
-import withRedux from 'next-redux-wrapper'
-import withReduxSaga from 'next-redux-saga'
 import Router from 'next/router'
-import Link from 'next/link'
-import moment from 'moment'
-// Redux
-import rootReducer from "../../Redux";
+import { connect } from 'react-redux'
 
 // Reduceurs
 import dbActions from '../../Redux/DbRedux'
@@ -109,18 +104,14 @@ class Cards extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-
+    weather: state.weather
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    callSave: (name, item) => dispatch(DataActions.dataAdd(name, item)),
-    callRemove: (name, id) => dispatch(DataActions.dataRemove(name, id)),
-    callDetail: (type, id) => dispatch(dbActions.dbDetailRequest(type, id))
+    
   }
 }
 
-export default withRedux(rootReducer, mapStateToProps, mapDispatchToProps)(
-  withReduxSaga(Cards)
-)
+export default connect(mapStateToProps, mapDispatchToProps)(Cards)

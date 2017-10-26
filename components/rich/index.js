@@ -1,9 +1,7 @@
-import Movies from "./Movies"
 import Cards from "./Cards"
-import News from "./News"
+import Lists from "./Lists"
 
 export {
-	Movies,
 	Cards,
-	News
+	Lists
 }

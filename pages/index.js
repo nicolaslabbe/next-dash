@@ -11,7 +11,6 @@ import rootReducer from "../Redux";
 // Reduceurs
 import WeatherActions from '../Redux/WeatherRedux'
 import TrainActions from '../Redux/TrainRedux'
-import NewsActions from '../Redux/NewsRedux'
 import DataActions from '../Redux/DataRedux'
 
 // Components
@@ -53,11 +52,11 @@ class Page extends React.Component {
 					</Column>
 					<Column>
     					<Content>
-    						<Link prefetch href="/news">
+    						<Link prefetch href="/db?type=news">
     							<a>
 									<AppIcon
 										className="news"
-										name="live_tv" />
+										name="info" />
 								</a>
 							</Link>
 						</Content>
@@ -75,11 +74,22 @@ class Page extends React.Component {
 					</Column>
 					<Column>
     					<Content>
-    						<Link prefetch href="/movie">
+    						<Link prefetch href="/db?type=movie">
     							<a>
 									<AppIcon
 										className="movie"
 										name="local_movies" />
+								</a>
+							</Link>
+						</Content>
+					</Column>
+					<Column>
+    					<Content>
+    						<Link prefetch href="/db?type=serie">
+    							<a>
+									<AppIcon
+										className="movie"
+										name="live_tv" />
 								</a>
 							</Link>
 						</Content>

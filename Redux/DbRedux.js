@@ -28,8 +28,6 @@ export const INITIAL_STATE = Immutable({
 
 export const dbDetailRequest = (state, { name, id }) => {
   return state
-
-  // return {...state, detail: null}
 }
 
 export const dbDetailSuccess = (state, { name, detail }) => {

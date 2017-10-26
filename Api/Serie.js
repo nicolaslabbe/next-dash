@@ -180,16 +180,11 @@ const formatResultDetails = (item) => {
 	return newItem
 }
 
-// router.get('/', function(req, res) {
-// 	Libs.status.success(res, 'ok')
-// });
-
 router.get('/:page?', function(req, res) {
 	fetch(`${baseUrl}tv/popular?api_key=${process.env.IMDB_API_KEY}&${getPage(req)}`)
 		.then((response) => response.json())
 		.then((responseJson) => {
 			Libs.status.success(res, formatResult(responseJson.results))
-			// Libs.status.success(res, responseJson.results)
 		})
 		.catch((error) => {
 			Libs.status.success(res, error)

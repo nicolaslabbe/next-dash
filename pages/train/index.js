@@ -5,8 +5,6 @@ import withRedux from 'next-redux-wrapper'
 import withReduxSaga from 'next-redux-saga'
 import Router from 'next/router'
 
-import Utils from "../../Utils"
-
 // Redux
 import rootReducer from "../../Redux";
 
@@ -18,8 +16,8 @@ import { Header, MenuBottom } from '../../components/ui'
 
 // ui
 import {
-  DataList
-} from '../../components/ui'
+  Lists
+} from '../../components/rich'
 
 class Page extends React.Component {
 	static async getInitialProps ({ store, isServer }) {
@@ -27,38 +25,18 @@ class Page extends React.Component {
 		return {}
 	}
 
-	cleanText = (text) => {
-		return text.replace(/\(.*?\)/g, '')
-	}
-
-	goToDetail = (item, i, j) => {
-		Router.push(`/train/detail?stationId=${i}&stopId=${j}`)
-	}
-
 	render () {
+		const { stations } = this.props
+
     	return (
 			<div>
 				<Header
 					title="train"
 					close />
-				{this.props.stations
-					? this.props.stations.map((station, i) => {
-						return station.map((item, j) => {
-							return <div key={j}>
-							<DataList
-								head={`${this.cleanText(item.station)} / ${this.cleanText(item.terminus)}`}
-								onClickHead={() => this.goToDetail(item, i, j)}
-								ref="dataList"
-								max="2"
-								multiSelect={false}
-								data={item.departures}
-								left={(key, item) => Utils.date.HHmm(item.time)}
-								right={(key, item) => Utils.date.remaining(item.time)}
-								onClick={(item, i, j) => this.handleClick(item, i, j)} />
-							</div>
-						})
-					})
-					: null}
+				{stations
+					? <Lists
+						list={stations} />
+					: null }
 				<MenuBottom />
 			</div>
     	)
