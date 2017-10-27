@@ -7,8 +7,10 @@
     "dev": "nodemon server.js",
     "lint": "eslint --ignore-path .gitignore --config .eslintrc *.js",
     "build": "next build",
-    "start": "NODE_ENV=production npm run build && NODE_ENV=production pm2 startOrRestart ecosystem.config.js",
-    "stop": "pm2 delete RPI-DATA"
+    "start":
+      "NODE_ENV=production npm run build && NODE_ENV=production pm2 startOrRestart ecosystem.config.js",
+    "stop": "pm2 delete RPI-DATA",
+    "precommit": "lint-staged"
   },
   "author": "",
   "license": "ISC",
@@ -24,7 +26,9 @@
     "file-loader": "^0.11.2",
     "flexboxgrid": "^6.3.1",
     "fs-jetpack": "^1.2.0",
+    "husky": "^0.14.3",
     "imdb-api": "^3.1.1",
+    "lint-staged": "^4.3.0",
     "material-design-icons": "^3.0.1",
     "momentjs": "^2.0.0",
     "next": "^3.2.2",
@@ -61,5 +65,8 @@
     "eslint-plugin-prettier": "^2.3.1",
     "nodemon": "^1.12.1",
     "prettier": "^1.7.4"
+  },
+  "lint-staged": {
+    "*.{js,json,css}": ["prettier --write", "git add"]
   }
 }
