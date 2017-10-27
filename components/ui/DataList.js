@@ -1,152 +1,142 @@
-import React from 'react'
-import { connect } from 'react-redux'
+import React from "react";
+import { connect } from "react-redux";
 
 // Layout
-import {
-  Row,
-  Column,
-  Content
-} from '../layout'
+import { Row, Column, Content } from "../layout";
 
-import { Icon } from "../ui"
+import { Icon } from "../ui";
 
 class DataList extends React.Component {
-
   constructor(props) {
     super(props);
-  
+
     this.state = {
       selected: [],
       multiSelect: false
-    }
+    };
   }
 
-  componentWillReceiveProps = (nextProps) => {
+  componentWillReceiveProps = nextProps => {
     if (this.state.multiSelect && !nextProps.multiSelect) {
       this.setState({
         selected: [],
         multiSelect: nextProps.multiSelect
-      })
-    }else if (!this.state.multiSelect && nextProps.multiSelect) {
+      });
+    } else if (!this.state.multiSelect && nextProps.multiSelect) {
       this.setState({
         multiSelect: nextProps.multiSelect
-      })
+      });
     }
-  }
+  };
 
   onSelect = (event, item, i) => {
-    var index = this.state.selected.indexOf(i)
-    var selected = []
+    var index = this.state.selected.indexOf(i);
+    var selected = [];
     if (index > -1) {
-      this.state.selected.splice(index, 1)
-      selected = this.state.selected
-    }else {
-      selected = [...this.state.selected, i]
+      this.state.selected.splice(index, 1);
+      selected = this.state.selected;
+    } else {
+      selected = [...this.state.selected, i];
     }
     this.setState({
       selected
-    })
-    this.props.onSelectedChange && this.props.onSelectedChange(selected)
-  }
+    });
+    this.props.onSelectedChange && this.props.onSelectedChange(selected);
+  };
 
   onClick = (event, item, i) => {
-    const { onClick } = this.props
-    onClick && onClick(item, i)
-  }
+    const { onClick } = this.props;
+    onClick && onClick(item, i);
+  };
 
   onClickIcon = (event, item, i) => {
-    event.stopPropagation()
-    const { onClickIcon } = this.props
-    onClickIcon && onClickIcon(item, i)
-  }
+    event.stopPropagation();
+    const { onClickIcon } = this.props;
+    onClickIcon && onClickIcon(item, i);
+  };
 
   display = (key, item) => {
     if (typeof key === "function") {
-      return key(key, item)
-    }else if (typeof item === "object") {
-      return item[key]
-    }else {
-      return item
+      return key(key, item);
+    } else if (typeof item === "object") {
+      return item[key];
+    } else {
+      return item;
     }
-  }
+  };
 
   renderRow = (item, i, left, right) => {
-    const { multiSelect, max } = this.props
+    const { multiSelect, max } = this.props;
     if (max && i >= max) {
-      return null
+      return null;
     }
-    var selected = this.state.selected.indexOf(i) >= 0
+    var selected = this.state.selected.indexOf(i) >= 0;
 
-    return <Row
-            className={`line ${selected ? 'selected' : null}`}
-            key={i}
-            onClick={(event) => multiSelect ? this.onSelect(event, item, i) : null}>
-          <Column
-            xs={right ? 6 : 12}
-            className="left">
-            <Content>
-              {multiSelect
-                ? selected
-                  ? <Icon name="check_box" />
-                  : <Icon name="check_box_outline_blank" />
-                : null}
-              {this.display(left, item)}
-            </Content>
+    return (
+      <Row
+        className={`line ${selected ? "selected" : null}`}
+        key={i}
+        onClick={event => (multiSelect ? this.onSelect(event, item, i) : null)}
+      >
+        <Column xs={right ? 6 : 12} className="left">
+          <Content>
+            {multiSelect ? (
+              selected ? (
+                <Icon name="check_box" />
+              ) : (
+                <Icon name="check_box_outline_blank" />
+              )
+            ) : null}
+            {this.display(left, item)}
+          </Content>
+        </Column>
+        {right ? (
+          <Column xs={6} className="right">
+            <Content>{this.display(right, item)}</Content>
           </Column>
-          {right
-            ? <Column
-              xs={6}
-              className="right">
-              <Content>
-                {this.display(right, item)}
-              </Content>
-            </Column>
-            : null}
-        </Row>
-  }
+        ) : null}
+      </Row>
+    );
+  };
 
   getDataElement = (left, right, data) => {
-    var dataElement = null
+    var dataElement = null;
 
     if (data && Array.isArray(data)) {
-      if(data[0] && typeof data[0] === 'object') {
+      if (data[0] && typeof data[0] === "object") {
         dataElement = data.map((item, i) => {
-          return this.renderRow(item, i, left, right)
-        })
-      }else {
-        dataElement = this.renderRow(data.join(', '), 1, null, null)
+          return this.renderRow(item, i, left, right);
+        });
+      } else {
+        dataElement = this.renderRow(data.join(", "), 1, null, null);
       }
-    }else if(data && typeof data === 'object') {
+    } else if (data && typeof data === "object") {
       dataElement = data.map((item, i) => {
-        return this.renderRow(item, i, left, right)
-      })
-    }else if(data) {
-      dataElement = this.renderRow(data, 1, null, null)
+        return this.renderRow(item, i, left, right);
+      });
+    } else if (data) {
+      dataElement = this.renderRow(data, 1, null, null);
     }
 
-    return dataElement
-  }
+    return dataElement;
+  };
 
-  render () {
-    const { left, right, data, head, onClickHead } = this.props
-    
+  render() {
+    const { left, right, data, head, onClickHead } = this.props;
+
     return (
       <div className="data-list">
-      {head
-        ? <Row
-          className="head"
-          onClick={() => onClickHead && onClickHead()}>
+        {head ? (
+          <Row className="head" onClick={() => onClickHead && onClickHead()}>
             <Column>
-              <Content>
-                {head}
-              </Content>
+              <Content>{head}</Content>
             </Column>
-            </Row>
-        : null}
+          </Row>
+        ) : null}
         {this.getDataElement(left, right, data)}
       </div>
-    )
+    );
   }
 }
 
-export default DataList
+export default DataList;

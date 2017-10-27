@@ -1,1 +1,1 @@
-module.exports.trimBracket = (str) => str.replace(/\((.*?)\)/, '').trim()
+module.exports.trimBracket = str => str.replace(/\((.*?)\)/, "").trim();

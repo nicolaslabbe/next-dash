@@ -1,25 +1,22 @@
-import React from 'react'
+import React from "react";
 
 class Legend extends React.Component {
-
-  render () {
+  render() {
     return (
-      <div
-        className="legend"
-        style={{width: this.props.width}}>
-          {this.props.data
-            ? this.props.data.map((item, i) => {
-                return <div key={i}>
-                <div
-                  className="color"
-                  style={{background: item.color}} />
-                {item.id}
+      <div className="legend" style={{ width: this.props.width }}>
+        {this.props.data
+          ? this.props.data.map((item, i) => {
+              return (
+                <div key={i}>
+                  <div className="color" style={{ background: item.color }} />
+                  {item.id}
                 </div>
+              );
             })
-            : null }
+          : null}
       </div>
-    )
+    );
   }
 }
 
-export default Legend
+export default Legend;

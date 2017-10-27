@@ -1,18 +1,21 @@
-import React from 'react'
+import React from "react";
 
 // ui
-import {
-  Icon
-} from '../ui'
+import { Icon } from "../ui";
 
 class TextIcon extends React.Component {
-  render () {
+  render() {
     return (
-    	<div className={`text-icon ${this.props.className ? this.props.className : ''}`}>
-        <Icon name={this.props.icon} />{this.props.children}
+      <div
+        className={`text-icon ${this.props.className
+          ? this.props.className
+          : ""}`}
+      >
+        <Icon name={this.props.icon} />
+        {this.props.children}
       </div>
-    )
+    );
   }
 }
 
-export default TextIcon
+export default TextIcon;

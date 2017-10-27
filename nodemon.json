@@ -1,12 +1,6 @@
 {
   "verbose": true,
-  "watch": [
-    "server.js",
-    "Api/*",
-    "Libs/*",
-    "Utils/*",
-    ".env"
-  ],
+  "watch": ["server.js", "Api/*", "Libs/*", "Utils/*", ".env"],
   "execMap": "babel-node --presets es2015,stage-2",
   "execMap": {
     "js": "babel-node --presets es2015,stage-2"

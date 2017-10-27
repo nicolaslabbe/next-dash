@@ -67,6 +67,6 @@
     "prettier": "^1.7.4"
   },
   "lint-staged": {
-    "*.{js,json,css}": ["prettier --write", "git add"]
+    "*.{js,json,css}": ["prettier --parser flow --write"]
   }
 }

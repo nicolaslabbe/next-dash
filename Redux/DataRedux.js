@@ -1,81 +1,79 @@
-import { createReducer, createActions } from 'reduxsauce'
-import Immutable from 'seamless-immutable'
+import { createReducer, createActions } from "reduxsauce";
+import Immutable from "seamless-immutable";
 
 /* ------------- Types and Action Creators ------------- */
 
 const { Types, Creators } = createActions({
-  dataRequest: ['name'],
-  dataAdd: ['name', 'item'],
-  dataAddDetail: ['name', 'id', 'item'],
-  dataAddSuccess: ['name', 'item'],
-  dataRemove: ['name', 'id'],
-  dataRemoveAll: ['name'],
-  dataSuccess: ['name', 'items'],
-  dataFailure: ['error']
-})
+  dataRequest: ["name"],
+  dataAdd: ["name", "item"],
+  dataAddDetail: ["name", "id", "item"],
+  dataAddSuccess: ["name", "item"],
+  dataRemove: ["name", "id"],
+  dataRemoveAll: ["name"],
+  dataSuccess: ["name", "items"],
+  dataFailure: ["error"]
+});
 
-export const DataTypes = Types
-export default Creators
+export const DataTypes = Types;
+export default Creators;
 
 /* ------------- Initial State ------------- */
 
-export const INITIAL_STATE = Immutable({
-	
-})
+export const INITIAL_STATE = Immutable({});
 
 /* ------------- Reducers ------------- */
 
 // request the data from an api
 export const dataRequest = (state, { name }) => {
-  return state
-}
+  return state;
+};
 
 export const dataAdd = (state, { name, item }) => {
-  return state
-}
+  return state;
+};
 
 export const dataAddDetail = (state, { name, id, item }) => {
-  return state
-}
+  return state;
+};
 
 export const dataRemove = (state, { name, id }) => {
-  var removeData = state[name] || []
-  var newItems = {}
-  newItems[name] = []
-  Array.prototype.forEach.call(removeData, (data) => {
+  var removeData = state[name] || [];
+  var newItems = {};
+  newItems[name] = [];
+  Array.prototype.forEach.call(removeData, data => {
     if (data.id !== id) {
-      newItems[name].push(data)
+      newItems[name].push(data);
     }
-  })
-  return {...state, ...newItems}
-}
+  });
+  return { ...state, ...newItems };
+};
 
 export const dataRemoveAll = (state, { name }) => {
-  var newItems = {}
-  newItems[name] = []
-  return {...state, ...newItems}
-}
+  var newItems = {};
+  newItems[name] = [];
+  return { ...state, ...newItems };
+};
 
 export const dataSuccess = (state, { name, items }) => {
   if (items) {
-    var successData = {}
-    successData[name] = items
-    return {...state, ...successData}
-  }else {
-    return state
+    var successData = {};
+    successData[name] = items;
+    return { ...state, ...successData };
+  } else {
+    return state;
   }
-}
+};
 
 export const dataAddSuccess = (state, { name, item }) => {
-  var successData = {}
-  successData[name] = state[name] || []
-  successData[name].push(item)
-  return {...state, ...successData}
-}
+  var successData = {};
+  successData[name] = state[name] || [];
+  successData[name].push(item);
+  return { ...state, ...successData };
+};
 
 export const dataFailure = (state, { error }) => {
-  return {...state, error}
-}
+  return { ...state, error };
+};
 
 /* ------------- Hookup Reducers To Types ------------- */
 
@@ -88,4 +86,4 @@ export const reducer = createReducer(INITIAL_STATE, {
   [Types.DATA_SUCCESS]: dataSuccess,
   [Types.DATA_ADD_SUCCESS]: dataAddSuccess,
   [Types.DATA_FAILURE]: dataFailure
-})
+});

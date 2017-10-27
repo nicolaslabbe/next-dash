@@ -1,7 +1,4 @@
-import ChartLine from "./ChartLine"
-import Legend from "./Legend"
+import ChartLine from "./ChartLine";
+import Legend from "./Legend";
 
-export {
-    ChartLine,
-    Legend
-}
+export { ChartLine, Legend };
