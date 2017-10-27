@@ -5,6 +5,7 @@ const Utils = require("../Utils");
 
 const all = name => {
   return new Promise((resolve, reject) => {
+    console.log(path.join(Utils.config.pathData, `${name}.json`))
     filesystem.read(path.join(Utils.config.pathData, `${name}.json`)).then(
       data => {
         resolve(data);

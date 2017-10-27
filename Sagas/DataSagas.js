@@ -12,8 +12,8 @@ export function* request(api, { name }) {
   }
 }
 
-export function* add(api, { name, item }) {
-  var json = yield api.post(`${Utils.config.url}/api/db/${name}`, item);
+export function* add(api, { name, item, duplicate }) {
+  var json = yield api.post(`${Utils.config.url}/api/db/${name}`, {item: item, duplicate: duplicate});
 
   if (json.error) {
     yield put(DataActions.dataFailure(json.error));

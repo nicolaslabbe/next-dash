@@ -5,7 +5,7 @@ import Immutable from "seamless-immutable";
 
 const { Types, Creators } = createActions({
   dataRequest: ["name"],
-  dataAdd: ["name", "item"],
+  dataAdd: ["name", "item", "duplicate"],
   dataAddDetail: ["name", "id", "item"],
   dataAddSuccess: ["name", "item"],
   dataRemove: ["name", "id"],
@@ -28,7 +28,7 @@ export const dataRequest = (state, { name }) => {
   return state;
 };
 
-export const dataAdd = (state, { name, item }) => {
+export const dataAdd = (state, { name, item, duplicate }) => {
   return state;
 };
 

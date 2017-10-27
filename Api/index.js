@@ -5,6 +5,7 @@ const Db = require("./Db");
 const Fixture = require("./Fixture");
 const Movie = require("./Movie");
 const Serie = require("./Serie");
+const Push = require("./Push");
 
 var express = require("express");
 var router = express.Router();
@@ -17,5 +18,6 @@ router.use("/db", Db);
 router.use("/fixture", Fixture);
 router.use("/movie", Movie);
 router.use("/serie", Serie);
+router.use("/push", Push);
 
 module.exports = router;
