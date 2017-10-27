@@ -13,6 +13,15 @@ input[type=text].bottom-input {
     outline: none;
 
     &:focus {
-      outline: none;
+      // outline: none;
+      // bottom: 260px;
     }
 }
+
+// body.keyboardVisible {
+
+//     input[type=text].bottom-input {
+//         bottom: 260px;
+//         position: fixed;
+//     }
+// }

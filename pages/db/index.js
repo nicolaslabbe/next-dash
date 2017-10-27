@@ -38,7 +38,7 @@ class Page extends React.Component {
 	}
 
 	render () {
-		const { storage } = this.props
+		const { result } = this.props
 		const type = this.props.url.query.type
 
     	return (
@@ -48,11 +48,11 @@ class Page extends React.Component {
 				<Header
 					title={type}
 					close />
-					{storage[this.props.type]
+					{result[this.props.type]
 						? <Cards
 							detail={false}
 							type={type}
-							items={storage[this.props.type].result} />
+							items={result[this.props.type].items} />
 						: null}
 				<MenuBottom
 					items={[{
@@ -72,7 +72,7 @@ class Page extends React.Component {
 
 const mapStateToProps = (state) => {
 	return {
-		storage: state.db.storage || {}
+		result: state.db.result || {}
 	}
 }
 

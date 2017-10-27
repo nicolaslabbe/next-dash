@@ -13,93 +13,12 @@ $AppIconBorderSize: 10px;
     margin: $AppIconMarge;
     position: relative;
     overflow: hidden;
-
-    &.red {
-		background: #F44336;
-
-		&:before {
-			background: #D32F2F;
-		}
-
-		.icon {
-			border-color: #F44336;
-		}
-    }
-
-    &.blue {
-		background: #2196F3;
-
-		&:before {
-			background: #1976D2;
-		}
-
-		.icon {
-			border-color: #2196F3;
-		}
-    }
-
-    &.amber {
-		background: #FFC107;
-
-		&:before {
-			background: #FFA000;
-		}
-
-		.icon {
-			border-color: #FFC107;
-		}
-    }
-
-    &.deep_purple {
-		background: #673AB7;
-
-		&:before {
-			background: #4527A0;
-		}
-
-		.icon {
-			border-color: #673AB7;
-		}
-    }
-
-    &.blue_grey {
-		background: #607D8B;
-
-		&:before {
-			background: #455A64;
-		}
-
-		.icon {
-			border-color: #607D8B;
-		}
-    }
-
-    &.train {
-    	@extend .app-icon.red;
-    }
-    &.news {
-    	@extend .app-icon.blue_grey;
-    }
-    &.favorites {
-    	@extend .app-icon.amber;
-    }
-    &.weather {
-    	@extend .app-icon.blue;
-    }
-    &.notes {
-    	@extend .app-icon.deep_purple;
-    }
-    &.movie {
-    	@extend .app-icon.deep_purple;
-    }
-    &.search {
-    	@extend .app-icon.blue_grey;
-    }
+    background: white;
 
 	&:before {
 	    content: ' ';
 	    position: absolute;
-	    background: black;
+	    background: #cccccc;
 	    width: 50%;
 	    height: 100%;
 	    transform: rotate(-50deg) translate(30%,69%);
@@ -112,7 +31,9 @@ $AppIconBorderSize: 10px;
 		height: 100%;
 		padding: 20% 0%;
 		box-sizing: border-box;
-	    border: $AppIconBorderSize solid black;
+	    border: $AppIconBorderSize solid white;
 	    border-radius: 100%;
+	    background: white;
+	    color: black;
 	}
 }

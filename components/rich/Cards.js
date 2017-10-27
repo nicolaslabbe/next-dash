@@ -104,13 +104,14 @@ class Cards extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    weather: state.weather
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    
+    callSave: (name, item) => dispatch(DataActions.dataAdd(name, item)), 
+    callRemove: (name, id) => dispatch(DataActions.dataRemove(name, id)), 
+    callDetail: (type, id) => dispatch(dbActions.dbDetailRequest(type, id)) 
   }
 }
 

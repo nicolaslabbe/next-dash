@@ -48,23 +48,13 @@ class BottomInput extends React.Component {
   }
 
   handleFocus() {
-    // document.querySelector('html').classList.add('keyboardVisible')
-    // document.querySelector('body').classList.add('keyboardVisible')
-    // if (this.state.isMobile) {
-    //   this.setState({
-    //     position: 0
-    //   })
-    // }
+    document.querySelector('html').classList.add('keyboardVisible')
+    document.querySelector('body').classList.add('keyboardVisible')
   }
 
   handleBlur() {
-    // document.querySelector('html').classList.remove('keyboardVisible')
-    // document.querySelector('body').classList.remove('keyboardVisible')
-    // if (this.state.isMobile) {
-    //   this.setState({
-    //     position: 0
-    //   })
-    // }
+    document.querySelector('html').classList.remove('keyboardVisible')
+    document.querySelector('body').classList.remove('keyboardVisible')
   }
 
   render () {

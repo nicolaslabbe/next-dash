@@ -13,8 +13,7 @@ class AppIcon extends React.Component {
 			onClick={() => this.props.onClick && this.props.onClick()}
 			style={style}>
 				<Icon
-					name={this.props.name}
-					color="#FFFFFF" />
+					name={this.props.name} />
 		</div>
     )
   }

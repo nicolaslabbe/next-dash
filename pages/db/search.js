@@ -49,7 +49,7 @@ class Page extends React.Component {
 				page: this.state.page + 1,
 				fetching: true
 			})
-			this.props.search(this.props.type, this.state.value, this.state.page + 1)
+			this.props.find(this.props.type, this.state.value, this.state.page + 1)
 		}
 	}
 
@@ -59,15 +59,13 @@ class Page extends React.Component {
 			page: 1,
 			fetching: true
 		})
-		this.props.search(this.props.type, item, 1)
+		this.props.find(this.props.type, item, 1)
 	}
 
 	render () {
-		const { storage } = this.props
+		const { search } = this.props
 		const type = this.props.url.query.type
-		const fetching = storage[this.props.type]
-			&& storage[this.props.type].search
-			&& storage[this.props.type].search.fetching ? storage[this.props.type].search.fetching : false
+		const fetching = (search[this.props.type] && search[this.props.type].fetching) || false
 
     	return (
 			<ScrollView
@@ -77,11 +75,11 @@ class Page extends React.Component {
 				<Header
 					title="movie"
 					close />
-					{storage[this.props.type]
+					{search[this.props.type]
 						? <Cards
 							detail={false}
 							type={type}
-							items={storage[this.props.type].search} />
+							items={search[this.props.type].items} />
 						: null}
 		        <BottomInput
 		          onChange={(value) => this.handleChange(value)}
@@ -95,13 +93,13 @@ class Page extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    storage: state.db.storage || {}
+    search: state.db.search || {}
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    search: (type, name, page) => dispatch(DbActions.dbSearchRequest(type, name, page))
+    find: (type, name, page) => dispatch(DbActions.dbSearchRequest(type, name, page))
   }
 }
 

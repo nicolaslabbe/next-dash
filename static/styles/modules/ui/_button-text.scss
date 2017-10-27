@@ -10,7 +10,7 @@
     cursor: pointer;
 
 	.text {
-		color: $medium-red-violet;
+		color: white;
 	}
 
 	&.light {
@@ -18,7 +18,7 @@
 	}
 
 	&.regular {
-		color: $eminence;
+		color: white;
 	}
 
 	&.dark {
@@ -27,5 +27,6 @@
 
 	&:hover {
 		background: $alice-blue;
+		color: black;
 	}
 }

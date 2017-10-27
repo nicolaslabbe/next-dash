@@ -26,22 +26,18 @@ class Page extends React.Component {
 		}
 	}
 
-	componentWillMount() {
-		// this.props.getDetail(this.props.type, this.props.id)
-	}
-
 	render () {
-		const { storage } = this.props
+		const { detail } = this.props
 
     	return (
 			<div className="movie">
 				<Header
 					title="movie"
 					close />
-					{storage[this.props.type]
+					{detail[this.props.type] && detail[this.props.type].items
 						? <Cards
 							detail={true}
-							items={storage[this.props.type].detail} />
+							items={[detail[this.props.type].items]} />
 						: null }
 				<MenuBottom />
 			</div>
@@ -51,7 +47,7 @@ class Page extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    storage: state.db.storage || {}
+    detail: state.db.detail || {}
   }
 }
 

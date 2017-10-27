@@ -9,9 +9,11 @@
 		vertical-align: middle;
 		text-align: center;
 		background: $alice-blue;
-		color: $dark-blue;
+		color: black;
 		font-family: $ff-light;
 		text-transform: uppercase;
+		font-weight: bold;
+		font-size: 1.3rem;
 	}
 
 	.line {
@@ -31,20 +33,20 @@
 	.selected {
 		&.line {
 			.left {
-    			color: $red;
+    			color: white;
     		}
 		}
 	}
 
 	.left {
 		text-align: left;
-		color: $text-dark;
+		color: white;
 		font-size: $fz-text;
 	}
 
 	.right {
 		text-align: right;
-		color: $text-dark;
+		color: white;
 		font-size: $fz-text;
 	}
 }
