@@ -29,7 +29,15 @@ class Page extends React.Component {
       <div>
         <Header title="train" close />
         {stations ? <Lists list={stations.items} /> : null}
-        <MenuBottom />
+        <MenuBottom
+          items={[
+            {
+              name: "disruptions",
+              icon: "error",
+              path: `/train/disruptions`
+            }
+          ]}
+        />
       </div>
     );
   }
