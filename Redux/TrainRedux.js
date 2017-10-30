@@ -23,32 +23,32 @@ export const INITIAL_STATE = Immutable({
 
 // request the data from an api
 export const trainRequest = (state, { name }) => {
-  var newState = {}
+  var newState = {};
   newState[name] = {
     items: [],
     fetching: true,
     error: false
-  }
+  };
   return { ...state, ...newState };
 };
 
 export const trainSuccess = (state, { name, result }) => {
-  var newState = {}
+  var newState = {};
   newState[name] = {
     items: result,
     fetching: false,
     error: false
-  }
+  };
   return { ...state, ...newState };
 };
 
 export const trainFailure = (state, { name, error }) => {
-  var newState = {}
+  var newState = {};
   newState[name] = {
     items: [],
     fetching: false,
     error: error
-  }
+  };
   return { ...state, ...newState };
 };
 

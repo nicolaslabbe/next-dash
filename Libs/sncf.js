@@ -25,22 +25,25 @@ module.exports.formatDisruptions = result => {
   var newResult = result.map(item => {
     var newItem = {
       title: `${item.station} / ${Utils.string.trimBracket(item.terminus)}`,
-      status: item.disruptions && item.disruptions[0] ? `${item.disruptions[0].departure.status} direction ${item.terminus} : ${departure.cause}` : false,
-      items:
-        item.disruptions
+      status:
+        item.disruptions && item.disruptions[0]
+          ? `${item.disruptions[0].departure
+              .status} direction ${item.terminus} : ${departure.cause}`
+          : false,
+      items: item.disruptions
         ? item.disruptions.map(departure => {
-          return [
-              {left: status, right: departure.status},
-              {left: severity, right: departure.severity.name},
-              {left: start, right: departure.periods.begin},
-              {left: end, right: departure.periods.end},
-              {left: messages, right: messages[0] && messages[0].text},
-              {left: updated, right: departure.updated_at},
-              {left: cause, right: departure.cause},
-              {left: category, right: departure.category}
-            ]
-        })
-        : [{left: 'trafic', right: 'nothing'}]
+            return [
+              { left: status, right: departure.status },
+              { left: severity, right: departure.severity.name },
+              { left: start, right: departure.periods.begin },
+              { left: end, right: departure.periods.end },
+              { left: messages, right: messages[0] && messages[0].text },
+              { left: updated, right: departure.updated_at },
+              { left: cause, right: departure.cause },
+              { left: category, right: departure.category }
+            ];
+          })
+        : [{ left: "trafic", right: "nothing" }]
     };
     return newItem;
   });

@@ -10,7 +10,7 @@ const handle = app.getRequestHandler();
 
 Object.keys(crontasks).map((cron, i) => {
   crontasks[cron].schedule();
-})
+});
 
 app.prepare().then(() => {
   const server = express();

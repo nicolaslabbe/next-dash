@@ -19,9 +19,7 @@ import { Lists } from "../../components/rich";
 
 class Page extends React.Component {
   static async getInitialProps({ store, isServer }) {
-    store.dispatch(
-      TrainActions.trainRequest('disruptions')
-    );
+    store.dispatch(TrainActions.trainRequest("disruptions"));
     return {};
   }
 
@@ -31,7 +29,7 @@ class Page extends React.Component {
     return (
       <div>
         <Header title="train" close />
-          {disruptions ? <Lists list={disruptions.items} /> : null}
+        {disruptions ? <Lists list={disruptions.items} /> : null}
         <MenuBottom />
       </div>
     );
@@ -40,14 +38,14 @@ class Page extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    disruptions: state.train && state.train.disruptions || {}
+    disruptions: (state.train && state.train.disruptions) || {}
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    loadStation: (type) => dispatch(TrainActions.trainRequest(type))
-  }
+    loadStation: type => dispatch(TrainActions.trainRequest(type))
+  };
 };
 
 export default withRedux(rootReducer, mapStateToProps, mapDispatchToProps)(
