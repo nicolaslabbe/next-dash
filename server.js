@@ -1,11 +1,16 @@
 const express = require("express");
 const next = require("next");
 const api = require("./Api");
+const crontasks = require("./crontasks");
 const bodyParser = require("body-parser");
 
 const dev = process.env.NODE_ENV !== "production";
 const app = next({ dev });
 const handle = app.getRequestHandler();
+
+Object.keys(crontasks).map((cron, i) => {
+  crontasks[cron].schedule();
+})
 
 app.prepare().then(() => {
   const server = express();

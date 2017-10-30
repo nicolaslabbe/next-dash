@@ -31,14 +31,18 @@ router.get("/:name?/:key?/:value?", function(req, res) {
 
 router.post("/:name?", function(req, res) {
   if (Libs.req.param(req, res, "name")) {
-    if (req.body.duplicate && req.body.duplicate.key && req.body.duplicate.value) {
+    if (
+      req.body.duplicate &&
+      req.body.duplicate.key &&
+      req.body.duplicate.value
+    ) {
       Libs.db
         .find(req.params.name, req.body.duplicate.key, req.body.duplicate.value)
         .then(
           data => {
             if (data.length > 0) {
-              Libs.status.error(res, "entry already exist")
-            }else {
+              Libs.status.error(res, "entry already exist");
+            } else {
               Libs.db
                 .add(req.params.name, req.body.item)
                 .then(
@@ -49,8 +53,7 @@ router.post("/:name?", function(req, res) {
           },
           error => Libs.status.error(res, error)
         );
-    }else {
-
+    } else {
       Libs.db
         .add(req.params.name, req.body.item)
         .then(

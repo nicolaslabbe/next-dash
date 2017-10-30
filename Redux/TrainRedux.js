@@ -4,9 +4,9 @@ import Immutable from "seamless-immutable";
 /* ------------- Types and Action Creators ------------- */
 
 const { Types, Creators } = createActions({
-  trainRequest: ["stops"],
-  trainSuccess: ["stations"],
-  trainFailure: ["error"]
+  trainRequest: ["name"],
+  trainSuccess: ["name", "result"],
+  trainFailure: ["name", "error"]
 });
 
 export const TrainTypes = Types;
@@ -15,22 +15,41 @@ export default Creators;
 /* ------------- Initial State ------------- */
 
 export const INITIAL_STATE = Immutable({
-  stations: []
+  stations: {},
+  disruptions: {}
 });
 
 /* ------------- Reducers ------------- */
 
 // request the data from an api
-export const trainRequest = state => {
-  return state;
+export const trainRequest = (state, { name }) => {
+  var newState = {}
+  newState[name] = {
+    items: [],
+    fetching: true,
+    error: false
+  }
+  return { ...state, ...newState };
 };
 
-export const trainSuccess = (state, { stations }) => {
-  return { ...state, stations };
+export const trainSuccess = (state, { name, result }) => {
+  var newState = {}
+  newState[name] = {
+    items: result,
+    fetching: false,
+    error: false
+  }
+  return { ...state, ...newState };
 };
 
-export const trainFailure = (state, { error }) => {
-  return { ...state, error };
+export const trainFailure = (state, { name, error }) => {
+  var newState = {}
+  newState[name] = {
+    items: [],
+    fetching: false,
+    error: error
+  }
+  return { ...state, ...newState };
 };
 
 /* ------------- Hookup Reducers To Types ------------- */

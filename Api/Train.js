@@ -6,37 +6,39 @@ const Utils = require("../Utils");
 var express = require("express");
 var router = express.Router();
 
-const formatResult = result => {
-  var newResult = result.map(item => {
-    var newItem = {
-      title: `${item.station} / ${Utils.string.trimBracket(item.terminus)}`,
-      items:
-        item.departures &&
-        item.departures.map(departure => {
-          return {
-            left: Utils.date.HHmm(departure.time),
-            right: Utils.date.remaining(departure.time)
-          };
-        })
-    };
-    return newItem;
-  });
-  return newResult;
-};
-
-router.get("/", function(req, res) {
-  Libs.status.success(res, "ok");
-});
-
-router.post("/find", function(req, res) {
+router.get("/stations", function(req, res) {
   var promises = [];
   var results = [];
   var errors = [];
-  Array.prototype.forEach.call(req.body, item => {
+  Array.prototype.forEach.call(JSON.parse(process.env.TRAIN_STOPS), item => {
     promises.push(
       Libs.sncf.find(item.id, item.direction, process.env.TRAIN_BEARER).then(
         res => {
-          results.push(formatResult(res));
+          results.push(Libs.sncf.formatResult(res));
+        },
+        error => errors.push(error)
+      )
+    );
+  });
+
+  Promise.all(promises)
+    .then(() => {
+      Libs.status.success(res, results);
+    })
+    .catch(e => {
+      Libs.status.error(res, errors);
+    });
+});
+
+router.get("/disruptions", function(req, res) {
+  var promises = [];
+  var results = [];
+  var errors = [];
+  Array.prototype.forEach.call(JSON.parse(process.env.TRAIN_STOPS), item => {
+    promises.push(
+      Libs.sncf.find(item.id, item.direction, process.env.TRAIN_BEARER).then(
+        res => {
+          results.push(Libs.sncf.formatDisruptions(res));
         },
         error => errors.push(error)
       )

@@ -20,17 +20,18 @@ import { Lists } from "../../components/rich";
 class Page extends React.Component {
   static async getInitialProps({ store, isServer }) {
     store.dispatch(
-      TrainActions.trainRequest('stations')
+      TrainActions.trainRequest('disruptions')
     );
     return {};
   }
 
   render() {
-    const { stations } = this.props;
+    const { disruptions } = this.props;
+
     return (
       <div>
         <Header title="train" close />
-          {stations ? <Lists list={stations.items} /> : null}
+          {disruptions ? <Lists list={disruptions.items} /> : null}
         <MenuBottom />
       </div>
     );
@@ -39,8 +40,7 @@ class Page extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    stations: state.train && state.train.stations || {},
-    stations: state.train && state.train.stations || {}
+    disruptions: state.train && state.train.disruptions || {}
   };
 };
 

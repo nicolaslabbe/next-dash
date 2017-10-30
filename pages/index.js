@@ -25,8 +25,9 @@ class Page extends React.Component {
   }
 
   registerServiceWorker = () => {
-    return navigator.serviceWorker.register('service-worker.js')
-      .then((registration) => {
+    return navigator.serviceWorker
+      .register("service-worker.js")
+      .then(registration => {
         const subscribeOptions = {
           userVisibleOnly: true,
           applicationServerKey: Utils.string.urlBase64ToUint8Array(
@@ -36,43 +37,43 @@ class Page extends React.Component {
 
         return registration.pushManager.subscribe(subscribeOptions);
       })
-      .then((pushSubscription) => {
+      .then(pushSubscription => {
         // if (Notification.permission !== 'granted') {
-          this.props.save('web-push', pushSubscription, {key: "endpoint", value: pushSubscription.endpoint})
+        this.props.save("web-push", pushSubscription, {
+          key: "endpoint",
+          value: pushSubscription.endpoint
+        });
         // }
         return pushSubscription;
       });
-  }
+  };
 
   askPermission = () => {
     return new Promise((resolve, reject) => {
-      const permissionResult = Notification.requestPermission((result) => {
+      const permissionResult = Notification.requestPermission(result => {
         resolve(result);
       });
 
       if (permissionResult) {
         permissionResult.then(resolve, reject);
       }
-    })
-    .then((permissionResult) => {
-      if (permissionResult !== 'granted') {
-        throw new Error('We weren\'t granted permission.');
+    }).then(permissionResult => {
+      if (permissionResult !== "granted") {
+        throw new Error("We weren't granted permission.");
       }
     });
-  }
-
+  };
 
   componentWillMount = () => {
     if (typeof window !== "undefined") {
-      this.registerServiceWorker()
-      if (Notification.permission !== 'granted') {
-        this.askPermission()
+      this.registerServiceWorker();
+      if (Notification.permission !== "granted") {
+        this.askPermission();
       }
     }
-  }
+  };
 
   render() {
-
     return (
       <div>
         <Header title="index" />
@@ -138,14 +139,13 @@ class Page extends React.Component {
 }
 
 const mapStateToProps = state => {
-  return {
-
-  };
+  return {};
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    save: (name, item, duplicate) => dispatch(DataActions.dataAdd(name, item, duplicate))
+    save: (name, item, duplicate) =>
+      dispatch(DataActions.dataAdd(name, item, duplicate))
   };
 };
 
