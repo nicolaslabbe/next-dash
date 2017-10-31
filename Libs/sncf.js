@@ -23,7 +23,7 @@ const getStations = (stopId, directions, limit, departures) => {
             departures: []
           };
         }
-        let formattedDate = moment(
+        let formattedDate = Utils.date.HHmm(
           departure.stop_date_time.departure_date_time
         );
 
