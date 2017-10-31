@@ -11,7 +11,11 @@ import { Card, TextIcon, DataList, Video } from "../../components/ui";
 
 class Cards extends React.Component {
   save = item => {
-    this.props.callSave(this.props.type, item, item.id ? {key: 'id', value: item.id} : null);
+    this.props.callSave(
+      this.props.type,
+      item,
+      item.id ? { key: "id", value: item.id } : null
+    );
   };
 
   delete = item => {
@@ -46,17 +50,18 @@ class Cards extends React.Component {
   getDetails = item => {
     return (
       <div>
-        {item && item.map((detail, key) => {
-          return (
-            <DataList
-              key={key}
-              head={detail.name}
-              data={detail.value}
-              left="name"
-              right="value"
-            />
-          );
-        })}
+        {item &&
+          item.map((detail, key) => {
+            return (
+              <DataList
+                key={key}
+                head={detail.name}
+                data={detail.value}
+                left="name"
+                right="value"
+              />
+            );
+          })}
       </div>
     );
   };
@@ -91,22 +96,23 @@ class Cards extends React.Component {
 
     return (
       <div>
-        {items && items.map((item, i) => {
-              return (
-                <Card
-                  key={i}
-                  title={item.title}
-                  date={Utils.date.timestampToHumain(item.date)}
-                  onClick={e => (!detail ? this.goToDetail(item) : null)}
-                  actions={this.getActions(item)}
-                  image={item.image}
-                >
-                  {item.overview ? this.getOverview(item.overview) : null}
-                  {item.details ? this.getDetails(item.details) : null}
-                  {item.videos ? this.getVideos(item.videos) : null}
-                </Card>
-              );
-            })}
+        {items &&
+          items.map((item, i) => {
+            return (
+              <Card
+                key={i}
+                title={item.title}
+                date={Utils.date.timestampToHumain(item.date)}
+                onClick={e => (!detail ? this.goToDetail(item) : null)}
+                actions={this.getActions(item)}
+                image={item.image}
+              >
+                {item.overview ? this.getOverview(item.overview) : null}
+                {item.details ? this.getDetails(item.details) : null}
+                {item.videos ? this.getVideos(item.videos) : null}
+              </Card>
+            );
+          })}
       </div>
     );
   }
@@ -118,7 +124,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    callSave: (name, item, duplicate) => dispatch(ListActions.listAdd(name, item, duplicate)),
+    callSave: (name, item, duplicate) =>
+      dispatch(ListActions.listAdd(name, item, duplicate)),
     callRemove: (name, id) => dispatch(ListActions.listRemove(name, id)),
     callDetail: (type, id) => dispatch(dbActions.dbDetailRequest(type, id))
   };

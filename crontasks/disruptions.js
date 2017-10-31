@@ -13,7 +13,7 @@ const sendPushString = () => {
     promises.push(
       Libs.sncf.find(item.id, item.direction, process.env.TRAIN_BEARER).then(
         function(res) {
-          results.push(Libs.sncf.formatDisruptions(res));
+          results.push(res);
         },
         function(error) {
           errors.push(error);
