@@ -46,9 +46,19 @@ export const listSuccess = (state, { name, items }) => {
 export const listFailure = (state, { name, error }) => {
   var newList = {};
   newList[name] = {
-    items: [],
+    items: state[name] && state[name].items || [],
     fetching: false,
     error: error
+  };
+  return { ...state, ...newList };
+};
+
+export const listAdd = (state, { name, item, duplicate }) => {
+  var newList = {};
+  newList[name] = {
+    items: state[name] && state[name].items || [],
+    fetching: true,
+    error: false
   };
   return { ...state, ...newList };
 };
@@ -61,10 +71,6 @@ export const listAddSuccess = (state, { name, item }) => {
     error: false
   };
   return { ...state, ...newList };
-};
-
-export const listAdd = (state, { name, item, duplicate }) => {
-  return state;
 };
 
 export const listRemove = (state, { name, id }) => {

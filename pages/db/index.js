@@ -44,13 +44,13 @@ class Page extends React.Component {
     return (
       <ScrollView onScrollEnd={() => this.more(type)} className="movie">
         <Header title={type} close />
-        {result[this.props.type] ? (
+        {(result[this.props.type] && result[this.props.type].items) ?
           <Cards
             detail={false}
             type={type}
             items={result[this.props.type].items}
           />
-        ) : null}
+          : null}
         <MenuBottom
           items={[
             {

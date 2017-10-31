@@ -4,18 +4,18 @@ import { connect } from "react-redux";
 
 // Reduceurs
 import dbActions from "../../Redux/DbRedux";
-import DataActions from "../../Redux/DataRedux";
+import ListActions from "../../Redux/ListRedux";
 
 import Utils from "../../Utils";
 import { Card, TextIcon, DataList, Video } from "../../components/ui";
 
 class Cards extends React.Component {
   save = item => {
-    this.props.callSave(this.props.type, item);
+    this.props.callSave(this.props.type, item, item.id ? {key: 'id', value: item.id} : null);
   };
 
   delete = item => {
-    this.props.callRemove(this.props.type, item.apiId);
+    this.props.callRemove(this.props.type, [item.apiId]);
   };
 
   goToDetail = item => {
@@ -46,7 +46,7 @@ class Cards extends React.Component {
   getDetails = item => {
     return (
       <div>
-        {item.map((detail, key) => {
+        {item && item.map((detail, key) => {
           return (
             <DataList
               key={key}
@@ -88,10 +88,10 @@ class Cards extends React.Component {
 
   render() {
     const { items, detail, type } = this.props;
+
     return (
       <div>
-        {items
-          ? items.map((item, i) => {
+        {items && items.map((item, i) => {
               return (
                 <Card
                   key={i}
@@ -106,8 +106,7 @@ class Cards extends React.Component {
                   {item.videos ? this.getVideos(item.videos) : null}
                 </Card>
               );
-            })
-          : null}
+            })}
       </div>
     );
   }
@@ -119,8 +118,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    callSave: (name, item) => dispatch(DataActions.dataAdd(name, item)),
-    callRemove: (name, id) => dispatch(DataActions.dataRemove(name, id)),
+    callSave: (name, item, duplicate) => dispatch(ListActions.listAdd(name, item, duplicate)),
+    callRemove: (name, id) => dispatch(ListActions.listRemove(name, id)),
     callDetail: (type, id) => dispatch(dbActions.dbDetailRequest(type, id))
   };
 };

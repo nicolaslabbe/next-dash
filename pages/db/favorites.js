@@ -8,7 +8,7 @@ import withReduxSaga from "next-redux-saga";
 import rootReducer from "../../Redux";
 
 // Reduceurs
-import DataActions from "../../Redux/DataRedux";
+import ListActions from "../../Redux/ListRedux";
 
 // Components
 import { Header, MenuBottom } from "../../components/ui";
@@ -16,25 +16,25 @@ import { Cards } from "../../components/rich";
 
 class Page extends React.Component {
   static async getInitialProps({ store, isServer, query }) {
-    store.dispatch(DataActions.dataRequest(query.type));
+    store.dispatch(ListActions.listRequest(query.type, 1));
     return {
       type: query.type
     };
   }
 
   render() {
-    const { data } = this.props;
+    const { list } = this.props;
     const type = this.props.url.query.type;
 
     return (
       <div className="favorites">
         <Header title="Favorites" close />
-        {data[this.props.type] ? (
+        {list[this.props.type] && list[this.props.type].items ? (
           <Cards
             type={type}
             detail={false}
             delete={true}
-            items={data[this.props.type]}
+            items={list[this.props.type].items}
           />
         ) : null}
         <MenuBottom current="favorites" />
@@ -45,7 +45,7 @@ class Page extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    data: state.data || {}
+    list: state.list || {}
   };
 };
 

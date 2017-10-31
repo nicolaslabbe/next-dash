@@ -145,7 +145,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     save: (name, item, duplicate) =>
-      dispatch(ListActions.dataAdd(name, item, duplicate))
+      dispatch(ListActions.listAdd(name, item, duplicate))
   };
 };
 

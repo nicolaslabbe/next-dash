@@ -19,7 +19,7 @@ export function* add(api, { name, item, duplicate }) {
   });
 
   if (json.error) {
-    yield put(ListActions.listFailure(json.error));
+    yield put(ListActions.listFailure(name, json.error));
   } else {
     yield put(ListActions.listAddSuccess(name, json));
   }
