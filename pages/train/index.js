@@ -28,9 +28,7 @@ class Page extends React.Component {
     return (
       <div>
         <Header title="train" close />
-        {stations ? <Lists
-          max={2}
-          list={stations.items} /> : null}
+        {stations ? <Lists max={2} list={stations.items} /> : null}
         <MenuBottom
           items={[
             {
@@ -52,9 +50,7 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = dispatch => {
-  return {
-
-  };
+  return {};
 };
 
 export default withRedux(rootReducer, mapStateToProps, mapDispatchToProps)(

@@ -4,7 +4,6 @@ const Libs = require("../Libs");
 const Utils = require("../Utils");
 
 const getStations = (stopId, directions, limit, departures) => {
-
   var formatted = {};
   Array.prototype.forEach.call(departures, departure => {
     Array.prototype.forEach.call(directions, direction => {
@@ -30,9 +29,7 @@ const getStations = (stopId, directions, limit, departures) => {
 
         if (formatted[terminus].departures.length < limit) {
           formatted[terminus].departures.push({
-            time: moment(
-              departure.stop_date_time.arrival_date_time
-            ).valueOf(),
+            time: moment(departure.stop_date_time.arrival_date_time).valueOf(),
             formatted: formattedDate
           });
         }
@@ -46,7 +43,7 @@ const getStations = (stopId, directions, limit, departures) => {
   });
 
   return stations;
-}
+};
 
 const formatStations = (stopId, directions, limit, departures) => {
   var stations = getStations(stopId, directions, limit, departures);
@@ -68,26 +65,32 @@ const formatStations = (stopId, directions, limit, departures) => {
   return newResult;
 };
 
-const formatDisruptions = (disruptions) => {
+const formatDisruptions = disruptions => {
   return disruptions.map(item => {
-
-    var cause = item.impacted_objects && item.impacted_objects[0]
-      && item.impacted_objects[0].impacted_stops && item.impacted_objects[0].impacted_stops[0]
-      ? item.impacted_objects[0].impacted_stops[0].cause : 'unknow'
+    var cause =
+      item.impacted_objects &&
+      item.impacted_objects[0] &&
+      item.impacted_objects[0].impacted_stops &&
+      item.impacted_objects[0].impacted_stops[0]
+        ? item.impacted_objects[0].impacted_stops[0].cause
+        : "unknow";
 
     return {
       title: cause,
       items: [
-          { left: "status", right: item.status },
-          { left: "severity", right: item.severity.name },
-          { left: "effect", right: item.severity.effect },
-          { left: "start", right: item.application_periods[0].begin },
-          { left: "end", right: item.application_periods[0].end },
-          { left: "updated", right: item.updated_at },
-          { left: "cause", right: item.impacted_objects[0].impacted_stops[0].cause }
-        ]
+        { left: "status", right: item.status },
+        { left: "severity", right: item.severity.name },
+        { left: "effect", right: item.severity.effect },
+        { left: "start", right: item.application_periods[0].begin },
+        { left: "end", right: item.application_periods[0].end },
+        { left: "updated", right: item.updated_at },
+        {
+          left: "cause",
+          right: item.impacted_objects[0].impacted_stops[0].cause
+        }
+      ]
     };
-  })
+  });
 };
 
 const find = (stopId, directions, bearer, l) => {
@@ -108,7 +111,12 @@ const find = (stopId, directions, bearer, l) => {
     )
       .then(response => response.json())
       .then(responseJson => {
-        var stations = formatStations(stopId, directions, limit, responseJson.departures)
+        var stations = formatStations(
+          stopId,
+          directions,
+          limit,
+          responseJson.departures
+        );
         resolve(stations);
       })
       .catch(error => {
@@ -134,11 +142,11 @@ const disruptions = (stopId, bearer) => {
     )
       .then(response => response.json())
       .then(responseJson => {
-        var disruptions = formatDisruptions(responseJson.disruptions)
+        var disruptions = formatDisruptions(responseJson.disruptions);
         if (disruptions.length > 0) {
           resolve(disruptions);
-        }else {
-          reject(null)
+        } else {
+          reject(null);
         }
       })
       .catch(error => {
@@ -146,7 +154,6 @@ const disruptions = (stopId, bearer) => {
       });
   });
 };
-
 
 module.exports = {
   find,

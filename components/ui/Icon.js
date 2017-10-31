@@ -6,7 +6,8 @@ class Icon extends React.Component {
     var style = {};
     this.props.color ? (style.color = this.props.color) : null;
     this.props.size ? (style.fontSize = this.props.size) : null;
-    var classIconName = this.props.name.length === 1 ? 'weather-icons' : 'material-icons';
+    var classIconName =
+      this.props.name.length === 1 ? "weather-icons" : "material-icons";
 
     return (
       <i

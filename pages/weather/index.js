@@ -17,7 +17,7 @@ import { Header, MenuBottom } from "../../components/ui";
 
 class Page extends React.Component {
   static async getInitialProps({ store, isServer }) {
-    store.dispatch(WeatherActions.weatherRequest('current'));
+    store.dispatch(WeatherActions.weatherRequest("current"));
     return {};
   }
 
@@ -40,9 +40,7 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = dispatch => {
-  return {
-
-  };
+  return {};
 };
 
 export default withRedux(rootReducer, mapStateToProps, mapDispatchToProps)(

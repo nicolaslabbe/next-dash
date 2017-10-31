@@ -67,14 +67,14 @@ class DataList extends React.Component {
 
   displayIcon = (key, item) => {
     if (typeof key === "function" && key) {
-      var itemFn = key(key, item)
+      var itemFn = key(key, item);
       if (itemFn) {
-        return <Icon name={key(key, item)} />
+        return <Icon name={key(key, item)} />;
       }
     } else if (typeof item === "object" && key && item[key]) {
-      return <Icon name={item[key]} />
+      return <Icon name={item[key]} />;
     } else {
-      return null
+      return null;
     }
   };
 
@@ -139,7 +139,15 @@ class DataList extends React.Component {
   };
 
   render() {
-    const { left, right, leftIcon, rightIcon, data, head, onClickHead } = this.props;
+    const {
+      left,
+      right,
+      leftIcon,
+      rightIcon,
+      data,
+      head,
+      onClickHead
+    } = this.props;
 
     return (
       <div className="data-list">

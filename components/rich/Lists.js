@@ -10,7 +10,6 @@ class Lists extends React.Component {
         {list
           ? list.map((items, i) => {
               return items.map((item, i) => {
-                console.log("item", item);
                 return (
                   <DataList
                     key={i}

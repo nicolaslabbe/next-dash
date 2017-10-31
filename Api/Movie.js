@@ -7,7 +7,8 @@ const baseUrl = `https://api.themoviedb.org/3/`;
 
 router.get("/:page?", function(req, res) {
   fetch(
-    `${baseUrl}movie/popular?api_key=${process.env.IMDB_API_KEY}&${Libs.req.page(req)}`
+    `${baseUrl}movie/popular?api_key=${process.env
+      .IMDB_API_KEY}&${Libs.req.page(req)}`
   )
     .then(response => response.json())
     .then(responseJson => {
@@ -45,7 +46,9 @@ router.get("/find/:id", function(req, res) {
 
 router.get("/:query?/:page?", function(req, res) {
   fetch(
-    `${baseUrl}search/movie?api_key=${process.env.IMDB_API_KEY}&query=${req.params.query}&${Libs.req.page(req)}&include_adult=true`)
+    `${baseUrl}search/movie?api_key=${process.env.IMDB_API_KEY}&query=${req
+      .params.query}&${Libs.req.page(req)}&include_adult=true`
+  )
     .then(response => response.json())
     .then(responseJson => {
       Libs.status.success(res, Libs.tmdb.formatMovies(responseJson.results));

@@ -7,7 +7,9 @@ const baseUrl = `https://api.themoviedb.org/3/`;
 
 router.get("/:page?", function(req, res) {
   fetch(
-    `${baseUrl}tv/popular?api_key=${process.env.IMDB_API_KEY}&${Libs.req.page(req)}`
+    `${baseUrl}tv/popular?api_key=${process.env.IMDB_API_KEY}&${Libs.req.page(
+      req
+    )}`
   )
     .then(response => response.json())
     .then(responseJson => {
