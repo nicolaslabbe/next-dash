@@ -64,7 +64,7 @@ class Page extends React.Component {
   };
 
   render() {
-    var { type } = this.props
+    var { type } = this.props;
     return (
       <div>
         <Header
@@ -82,9 +82,7 @@ class Page extends React.Component {
             }
           ]}
         />
-        {this.props.list &&
-        type &&
-        this.props.list[type] ? (
+        {this.props.list && type && this.props.list[type] ? (
           <EditableList
             ref="editableList"
             data={this.props.list[this.props.type].items}
