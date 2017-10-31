@@ -89,7 +89,7 @@ class DataList extends React.Component {
       <Row
         className={`line ${selected ? "selected" : null}`}
         key={i}
-        onClick={event => (multiSelect ? this.onSelect(event, item, i) : null)}
+        onClick={event => (multiSelect ? this.onSelect(event, item, i) : this.onClick(event, item, i))}
       >
         <Column xs={right ? 6 : 12} className="left">
           <Content>

@@ -25,16 +25,6 @@ export function* add(api, { name, item, duplicate }) {
   }
 }
 
-export function* addDetail(api, { name, id, item }) {
-  var json = yield api.post(`${Utils.config.url}/api/db/${name}/${id}`, item);
-
-  if (json.error) {
-    yield put(ListActions.listFailure(json.error));
-  } else {
-    yield put(ListActions.listAddSuccess(name, json));
-  }
-}
-
 export function* remove(api, { name, id }) {
   if (id) {
     var json = yield api.delete(
@@ -46,7 +36,7 @@ export function* remove(api, { name, id }) {
     } else {
       yield put(ListActions.listSuccess(name, []));
     }
-  }else {
+  } else {
     yield put(ListActions.listFailure("no apiId"));
   }
 }

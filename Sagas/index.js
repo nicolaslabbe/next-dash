@@ -28,7 +28,6 @@ export default function* root() {
     takeLatest(TrainTypes.TRAIN_REQUEST, trainSagas.request, api),
     takeLatest(ListTypes.LIST_REQUEST, listSagas.request, api),
     takeLatest(ListTypes.LIST_ADD, listSagas.add, api),
-    takeLatest(ListTypes.LIST_ADD_DETAIL, listSagas.addDetail, api),
     takeLatest(ListTypes.LIST_REMOVE, listSagas.remove, api),
     takeLatest(ListTypes.LIST_REMOVE_ALL, listSagas.removeAll, api),
     takeLatest(DbTypes.DB_REQUEST, dbSagas.request, api),

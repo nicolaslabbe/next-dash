@@ -6,7 +6,6 @@ import Immutable from "seamless-immutable";
 const { Types, Creators } = createActions({
   listRequest: ["name", "page"],
   listAdd: ["name", "item", "duplicate"],
-  listAddDetail: ["name", "id", "item"],
   listAddSuccess: ["name", "item"],
   listRemove: ["name", "id"],
   listRemoveAll: ["name"],
@@ -26,7 +25,8 @@ export const INITIAL_STATE = Immutable({});
 export const listRequest = (state, { name, page }) => {
   var newList = {};
   newList[name] = {
-    items: page > 1 && state[name] && state[name].items ? state[name].items : [],
+    items:
+      page > 1 && state[name] && state[name].items ? state[name].items : [],
     fetching: true,
     error: false
   };
@@ -67,12 +67,8 @@ export const listAdd = (state, { name, item, duplicate }) => {
   return state;
 };
 
-export const listAddDetail = (state, { name, id, item }) => {
-  return state;
-};
-
 export const listRemove = (state, { name, id }) => {
-  var newItems = []
+  var newItems = [];
   if (state[name] && state[name].items) {
     Array.prototype.forEach.call(state[name].items, item => {
       if (!id.includes(item.apiId)) {
@@ -106,7 +102,6 @@ export const listRemoveAll = (state, { name }) => {
 export const reducer = createReducer(INITIAL_STATE, {
   [Types.LIST_REQUEST]: listRequest,
   [Types.LIST_ADD]: listAdd,
-  [Types.LIST_ADD_DETAIL]: listAddDetail,
   [Types.LIST_REMOVE]: listRemove,
   [Types.LIST_REMOVE_ALL]: listRemoveAll,
   [Types.LIST_SUCCESS]: listSuccess,

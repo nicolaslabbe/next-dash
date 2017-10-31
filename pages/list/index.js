@@ -44,8 +44,10 @@ class Page extends React.Component {
       confirmVisible: false,
       multiSelect: false
     });
-    debugger
-    this.props.remove(this.props.type, this.refs.editableList.state.selectedIds);
+    this.props.remove(
+      this.props.type,
+      this.refs.editableList.state.selectedIds
+    );
   };
 
   removeAll = () => {
@@ -58,10 +60,11 @@ class Page extends React.Component {
   };
 
   onClick = (item, i) => {
-    // Router.push(`/notes/detail?id=${i}`);
+    Router.push(`/list?type=list-${item.apiId}`);
   };
 
   render() {
+    var { type } = this.props
     return (
       <div>
         <Header
@@ -79,18 +82,20 @@ class Page extends React.Component {
             }
           ]}
         />
-        {this.props.list && this.props.type && this.props.list[this.props.type]
-          ? <EditableList
-              ref="editableList"
-              data={this.props.list[this.props.type].items}
-              multiSelect={this.state.multiSelect}
-              onClick={(item, i) => this.onClick(item, i)}
-              onSave={(name, item) => this.save(name, item)}
-              onRemove={(name, id) => this.remove(name, id)}
-              onRemoveAll={(name, id) => this.remove(name, id)}
-              name="notes"
-            />
-          : null}
+        {this.props.list &&
+        type &&
+        this.props.list[type] ? (
+          <EditableList
+            ref="editableList"
+            data={this.props.list[this.props.type].items}
+            multiSelect={this.state.multiSelect}
+            onClick={(item, i) => this.onClick(item, i)}
+            onSave={(name, item) => this.save(type, item)}
+            onRemove={(name, id) => this.remove(type, id)}
+            onRemoveAll={(name, id) => this.remove(type, id)}
+            name="notes"
+          />
+        ) : null}
         {this.state.confirmVisible ? null : <MenuBottom />}
         <Modal
           ref="modal"
