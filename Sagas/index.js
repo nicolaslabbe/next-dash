@@ -7,14 +7,14 @@ import Utils from "../Utils";
 
 import { WeatherTypes } from "../Redux/WeatherRedux";
 import { TrainTypes } from "../Redux/TrainRedux";
-import { DataTypes } from "../Redux/DataRedux";
+import { ListTypes } from "../Redux/ListRedux";
 import { DbTypes } from "../Redux/DbRedux";
 
 /* ------------- Sagas ------------- */
 
 import * as weatherSagas from "./WeatherSagas";
 import * as trainSagas from "./TrainSagas";
-import * as dataSagas from "./DataSagas";
+import * as listSagas from "./ListSagas";
 import * as dbSagas from "./DbSagas";
 
 /* ------------- API ------------- */
@@ -26,11 +26,11 @@ export default function* root() {
   yield all([
     takeLatest(WeatherTypes.WEATHER_REQUEST, weatherSagas.request, api),
     takeLatest(TrainTypes.TRAIN_REQUEST, trainSagas.request, api),
-    takeLatest(DataTypes.DATA_REQUEST, dataSagas.request, api),
-    takeLatest(DataTypes.DATA_ADD, dataSagas.add, api),
-    takeLatest(DataTypes.DATA_ADD_DETAIL, dataSagas.addDetail, api),
-    takeLatest(DataTypes.DATA_REMOVE, dataSagas.remove, api),
-    takeLatest(DataTypes.DATA_REMOVE_ALL, dataSagas.removeAll, api),
+    takeLatest(ListTypes.LIST_REQUEST, listSagas.request, api),
+    takeLatest(ListTypes.LIST_ADD, listSagas.add, api),
+    takeLatest(ListTypes.LIST_ADD_DETAIL, listSagas.addDetail, api),
+    takeLatest(ListTypes.LIST_REMOVE, listSagas.remove, api),
+    takeLatest(ListTypes.LIST_REMOVE_ALL, listSagas.removeAll, api),
     takeLatest(DbTypes.DB_REQUEST, dbSagas.request, api),
     takeLatest(DbTypes.DB_DETAIL_REQUEST, dbSagas.detail, api),
     takeLatest(DbTypes.DB_SEARCH_REQUEST, dbSagas.search, api)

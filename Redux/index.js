@@ -8,7 +8,7 @@ export default state => {
   const rootReducer = combineReducers({
     weather: require("./WeatherRedux").reducer,
     train: require("./TrainRedux").reducer,
-    data: require("./DataRedux").reducer,
+    list: require("./ListRedux").reducer,
     db: require("./DbRedux").reducer
   });
 

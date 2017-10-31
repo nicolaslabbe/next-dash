@@ -10,16 +10,18 @@ import Router from "next/router";
 import rootReducer from "../../Redux";
 
 // Reduceurs
-import DataActions from "../../Redux/DataRedux";
+import ListActions from "../../Redux/ListRedux";
 
 // Components
 import EditableList from "../../components/EditableList";
 import { Header, MenuBottom, Modal, Confirm } from "../../components/ui";
 
 class Page extends React.Component {
-  static async getInitialProps({ store, isServer }) {
-    store.dispatch(DataActions.dataRequest("notes"));
-    return {};
+  static async getInitialProps({ store, isServer, query }) {
+    store.dispatch(ListActions.listRequest(query.type, 1));
+    return {
+      type: query.type
+    };
   }
 
   constructor(props) {
@@ -42,11 +44,12 @@ class Page extends React.Component {
       confirmVisible: false,
       multiSelect: false
     });
-    this.props.remove("notes", this.refs.editableList.state.selectedIds);
+    debugger
+    this.props.remove(this.props.type, this.refs.editableList.state.selectedIds);
   };
 
   removeAll = () => {
-    this.props.removeAll("notes");
+    this.props.removeAll(this.props.type);
     this.setState({ modalVisible: false });
   };
 
@@ -55,7 +58,7 @@ class Page extends React.Component {
   };
 
   onClick = (item, i) => {
-    Router.push(`/notes/detail?id=${i}`);
+    // Router.push(`/notes/detail?id=${i}`);
   };
 
   render() {
@@ -76,16 +79,18 @@ class Page extends React.Component {
             }
           ]}
         />
-        <EditableList
-          ref="editableList"
-          data={this.props.data.notes}
-          multiSelect={this.state.multiSelect}
-          onClick={(item, i) => this.onClick(item, i)}
-          onSave={(name, item) => this.save(name, item)}
-          onRemove={(name, id) => this.remove(name, id)}
-          onRemoveAll={(name, id) => this.remove(name, id)}
-          name="notes"
-        />
+        {this.props.list && this.props.type && this.props.list[this.props.type]
+          ? <EditableList
+              ref="editableList"
+              data={this.props.list[this.props.type].items}
+              multiSelect={this.state.multiSelect}
+              onClick={(item, i) => this.onClick(item, i)}
+              onSave={(name, item) => this.save(name, item)}
+              onRemove={(name, id) => this.remove(name, id)}
+              onRemoveAll={(name, id) => this.remove(name, id)}
+              name="notes"
+            />
+          : null}
         {this.state.confirmVisible ? null : <MenuBottom />}
         <Modal
           ref="modal"
@@ -107,16 +112,16 @@ class Page extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    data: state.data || {}
+    list: state.list || {}
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    save: (name, item) => dispatch(DataActions.dataAdd(name, item)),
-    remove: (name, id) => dispatch(DataActions.dataRemove(name, id)),
-    removeIds: (name, ids) => dispatch(DataActions.dataRemoveIds(name, ids)),
-    removeAll: (name, id) => dispatch(DataActions.dataRemoveAll(name))
+    save: (name, item) => dispatch(ListActions.listAdd(name, item)),
+    remove: (name, id) => dispatch(ListActions.listRemove(name, id)),
+    removeIds: (name, ids) => dispatch(ListActions.listRemoveIds(name, ids)),
+    removeAll: (name, id) => dispatch(ListActions.listRemoveAll(name))
   };
 };
 

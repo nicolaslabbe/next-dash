@@ -13,7 +13,7 @@ import rootReducer from "../Redux";
 // Reduceurs
 import WeatherActions from "../Redux/WeatherRedux";
 import TrainActions from "../Redux/TrainRedux";
-import DataActions from "../Redux/DataRedux";
+import ListActions from "../Redux/ListRedux";
 
 // Components
 import { Header, AppIcon } from "../components/ui";
@@ -107,7 +107,7 @@ class Page extends React.Component {
           </Column>
           <Column>
             <Content>
-              <Link prefetch href="/notes">
+              <Link prefetch href="/list?type=notes">
                 <a>
                   <AppIcon className="notes" name="list" />
                 </a>
@@ -145,7 +145,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     save: (name, item, duplicate) =>
-      dispatch(DataActions.dataAdd(name, item, duplicate))
+      dispatch(ListActions.dataAdd(name, item, duplicate))
   };
 };
 

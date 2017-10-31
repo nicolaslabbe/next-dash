@@ -2,7 +2,6 @@ import React from "react";
 import { connect } from "react-redux";
 
 import Utils from "../Utils";
-import DataActions from "../Redux/DataRedux";
 
 // ui
 import { DataList, BottomInput } from "./ui";
@@ -29,7 +28,7 @@ class EditableList extends React.Component {
   handleSelectedChange(selected) {
     this.setState({
       selectedIds: selected.map(i => {
-        return this.props.data[i].id;
+        return this.props.data[i].apiId;
       })
     });
   }
