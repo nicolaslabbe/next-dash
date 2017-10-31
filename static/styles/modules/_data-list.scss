@@ -18,15 +18,15 @@
 
 	.line {
 		font-family: $ff;
-    	min-height: 50px;
-    	padding: 10px 0px;
+  	min-height: 50px;
+  	padding: 10px 0px;
 		line-height: 2.2rem;
 		border-top: 1px solid $text-light;
 		vertical-align: middle;
 
 		.icon {
 			vertical-align: middle;
-    		margin-right: 10px;
+      font-weight: bold;
 		}
 	}
 
@@ -42,11 +42,19 @@
 		text-align: left;
 		color: white;
 		font-size: $fz-text;
+
+    .icon {
+      margin-right: 10px;
+    }
 	}
 
 	.right {
 		text-align: right;
 		color: white;
 		font-size: $fz-text;
+
+    .icon {
+      margin-left: 10px;
+    }
 	}
 }

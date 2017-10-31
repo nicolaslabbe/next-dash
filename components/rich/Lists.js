@@ -4,7 +4,7 @@ import { DataList } from "../../components/ui";
 
 class Lists extends React.Component {
   render() {
-    const { list } = this.props;
+    const { list, max } = this.props;
     return (
       <div>
         {list
@@ -16,11 +16,13 @@ class Lists extends React.Component {
                     key={i}
                     head={item.title}
                     ref="dataList"
-                    max="2"
+                    max={max}
                     multiSelect={false}
                     data={item.items}
                     left="left"
                     right="right"
+                    leftIcon="leftIcon"
+                    rightIcon="rightIcon"
                   />
                 );
               });

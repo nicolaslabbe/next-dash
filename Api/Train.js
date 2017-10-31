@@ -1,7 +1,4 @@
-const fetch = require("fetch-everywhere");
-const moment = require("moment");
 const Libs = require("../Libs");
-const Utils = require("../Utils");
 
 var express = require("express");
 var router = express.Router();
@@ -13,8 +10,8 @@ router.get("/stations", function(req, res) {
   Array.prototype.forEach.call(JSON.parse(process.env.TRAIN_STOPS), item => {
     promises.push(
       Libs.sncf.find(item.id, item.direction, process.env.TRAIN_BEARER).then(
-        res => {
-          results.push(Libs.sncf.formatResult(res));
+        result => {
+          results.push(result);
         },
         error => errors.push(error)
       )
@@ -36,9 +33,9 @@ router.get("/disruptions", function(req, res) {
   var errors = [];
   Array.prototype.forEach.call(JSON.parse(process.env.TRAIN_STOPS), item => {
     promises.push(
-      Libs.sncf.find(item.id, item.direction, process.env.TRAIN_BEARER).then(
-        res => {
-          results.push(Libs.sncf.formatDisruptions(res));
+      Libs.sncf.disruptions(item.id, process.env.TRAIN_BEARER).then(
+        result => {
+          results.push(result);
         },
         error => errors.push(error)
       )

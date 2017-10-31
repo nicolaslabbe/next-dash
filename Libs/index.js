@@ -4,6 +4,8 @@ const req = require("./req");
 const db = require("./db");
 const sncf = require("./sncf");
 const push = require("./push");
+const tmdb = require("./tmdb");
+const weather = require("./weather");
 
 module.exports = {
   db,
@@ -11,5 +13,7 @@ module.exports = {
   status,
   req,
   sncf,
-  push
+  push,
+  tmdb,
+  weather
 };

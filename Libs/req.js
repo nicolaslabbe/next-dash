@@ -9,6 +9,11 @@ const param = (req, res, name) => {
   }
 };
 
+const page = req => {
+  return req.params.page ? `page=${req.params.page}` : "";
+};
+
 module.exports = {
-  param
+  param,
+  page
 };

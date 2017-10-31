@@ -28,7 +28,9 @@ class Page extends React.Component {
     return (
       <div>
         <Header title="train" close />
-        {stations ? <Lists list={stations.items} /> : null}
+        {stations ? <Lists
+          max={2}
+          list={stations.items} /> : null}
         <MenuBottom
           items={[
             {
@@ -45,14 +47,13 @@ class Page extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    stations: (state.train && state.train.stations) || {},
     stations: (state.train && state.train.stations) || {}
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    loadStation: type => dispatch(TrainActions.trainRequest(type))
+
   };
 };
 

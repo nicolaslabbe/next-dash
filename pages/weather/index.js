@@ -12,24 +12,39 @@ import rootReducer from "../../Redux";
 import WeatherActions from "../../Redux/WeatherRedux";
 
 // Components
-import Weather from "../../components/Weather";
+import { Lists } from "../../components/rich";
 import { Header, MenuBottom } from "../../components/ui";
 
 class Page extends React.Component {
   static async getInitialProps({ store, isServer }) {
-    store.dispatch(WeatherActions.weatherRequest());
+    store.dispatch(WeatherActions.weatherRequest('current'));
     return {};
   }
 
   render() {
+    const { weather } = this.props;
     return (
       <div>
         <Header title="weather" close />
-        <Weather />
+        {weather ? <Lists list={weather.items} /> : null}
         <MenuBottom />
       </div>
     );
   }
 }
 
-export default withRedux(rootReducer, state => state)(withReduxSaga(Page));
+const mapStateToProps = state => {
+  return {
+    weather: (state.weather && state.weather.current) || {}
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+
+  };
+};
+
+export default withRedux(rootReducer, mapStateToProps, mapDispatchToProps)(
+  withReduxSaga(Page)
+);
