@@ -74,7 +74,9 @@ class Page extends React.Component {
   componentWillMount = () => {
     if (typeof window !== "undefined") {
       this.registerServiceWorker();
-      if (window.Notification && window.Notification.permission !== "granted") {
+      if (typeof window.Notification !== "undefined"
+        && window.Notification !== null
+        && window.Notification.permission !== "granted") {
         this.askPermission();
       }
     }
