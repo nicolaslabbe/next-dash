@@ -7,8 +7,7 @@
     "dev": "nodemon server.js",
     "lint": "eslint --ignore-path .gitignore --config .eslintrc *.js",
     "build": "next build",
-    "start":
-      "NODE_ENV=production npm run build && NODE_ENV=production pm2 startOrRestart ecosystem.config.js",
+    "start": "NODE_ENV=production npm run build && NODE_ENV=production pm2 startOrRestart ecosystem.config.js",
     "stop": "pm2 delete RPI-DATA",
     "precommit": "lint-staged"
   },
@@ -44,6 +43,7 @@
     "postcss-loader": "^2.0.8",
     "postcss-url": "^7.1.2",
     "raven": "^2.2.1",
+    "raven-js": "^3.19.1",
     "raw-loader": "^0.5.1",
     "react": "^15.6.2",
     "react-dom": "^15.6.2",
@@ -69,6 +69,8 @@
     "prettier": "^1.7.4"
   },
   "lint-staged": {
-    "*.{js,json,css}": ["prettier --parser flow --write"]
+    "*.{js,json,css}": [
+      "prettier --parser flow --write"
+    ]
   }
 }

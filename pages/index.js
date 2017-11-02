@@ -4,6 +4,11 @@ import createSagaMiddleware from "redux-saga";
 import withRedux from "next-redux-wrapper";
 import withReduxSaga from "next-redux-saga";
 import Link from "next/link";
+import Raven from 'raven-js';
+
+Raven
+    .config(`https://${process.env.SENTRY_KEY}@sentry.io/${process.env.SENTRY_PROJECT_ID}`)
+    .install();
 
 import Utils from "../Utils";
 
@@ -25,28 +30,28 @@ class Page extends React.Component {
   }
 
   registerServiceWorker = () => {
-    if (navigator && 'serviceWorker' in navigator) {
+    if (navigator && "serviceWorker" in navigator) {
       navigator.serviceWorker
         .register("service-worker.js")
-          .then(registration => {
-            const subscribeOptions = {
-              userVisibleOnly: true,
-              applicationServerKey: Utils.string.urlBase64ToUint8Array(
-                process.env.WEB_PUSH_PUBLIC_KEY
-              )
-            };
+        .then(registration => {
+          const subscribeOptions = {
+            userVisibleOnly: true,
+            applicationServerKey: Utils.string.urlBase64ToUint8Array(
+              process.env.WEB_PUSH_PUBLIC_KEY
+            )
+          };
 
-            return registration.pushManager.subscribe(subscribeOptions);
-          })
-          .then(pushSubscription => {
-            // if (Notification.permission !== 'granted') {
-            this.props.save("web-push", pushSubscription, {
-              key: "endpoint",
-              value: pushSubscription.endpoint
-            });
-            // }
-            return pushSubscription;
+          return registration.pushManager.subscribe(subscribeOptions);
+        })
+        .then(pushSubscription => {
+          // if (Notification.permission !== 'granted') {
+          this.props.save("web-push", pushSubscription, {
+            key: "endpoint",
+            value: pushSubscription.endpoint
           });
+          // }
+          return pushSubscription;
+        });
     }
   };
 
@@ -69,7 +74,7 @@ class Page extends React.Component {
   componentWillMount = () => {
     if (typeof window !== "undefined") {
       this.registerServiceWorker();
-      if (Notification.permission !== "granted") {
+      if (Notification && Notification.permission !== "granted") {
         this.askPermission();
       }
     }
