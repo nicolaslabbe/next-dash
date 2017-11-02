@@ -25,27 +25,29 @@ class Page extends React.Component {
   }
 
   registerServiceWorker = () => {
-    return navigator.serviceWorker
-      .register("service-worker.js")
-      .then(registration => {
-        const subscribeOptions = {
-          userVisibleOnly: true,
-          applicationServerKey: Utils.string.urlBase64ToUint8Array(
-            process.env.WEB_PUSH_PUBLIC_KEY
-          )
-        };
+    if (navigator && 'serviceWorker' in navigator) {
+      navigator.serviceWorker
+        .register("service-worker.js")
+          .then(registration => {
+            const subscribeOptions = {
+              userVisibleOnly: true,
+              applicationServerKey: Utils.string.urlBase64ToUint8Array(
+                process.env.WEB_PUSH_PUBLIC_KEY
+              )
+            };
 
-        return registration.pushManager.subscribe(subscribeOptions);
-      })
-      .then(pushSubscription => {
-        // if (Notification.permission !== 'granted') {
-        this.props.save("web-push", pushSubscription, {
-          key: "endpoint",
-          value: pushSubscription.endpoint
-        });
-        // }
-        return pushSubscription;
-      });
+            return registration.pushManager.subscribe(subscribeOptions);
+          })
+          .then(pushSubscription => {
+            // if (Notification.permission !== 'granted') {
+            this.props.save("web-push", pushSubscription, {
+              key: "endpoint",
+              value: pushSubscription.endpoint
+            });
+            // }
+            return pushSubscription;
+          });
+    }
   };
 
   askPermission = () => {
