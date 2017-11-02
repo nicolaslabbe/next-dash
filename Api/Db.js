@@ -16,15 +16,17 @@ router.get("/:name?/:key?/:value?", function(req, res) {
         .find(req.params.name, req.params.key, req.params.value)
         .then(
           data => Libs.status.success(res, data),
-          error => Libs.status.error(res, error)
-        );
+          error => Libs.status.success(res, [])
+        )
+        .catch((error) => Libs.status.success(res, []))
     } else {
       Libs.db
         .all(req.params.name)
         .then(
           data => Libs.status.success(res, data),
-          error => Libs.status.error(res, error)
-        );
+          error => Libs.status.success(res, [])
+        )
+        .catch((error) => Libs.status.success(res, []))
     }
   }
 });
@@ -48,10 +50,17 @@ router.post("/:name?", function(req, res) {
                 .then(
                   data => Libs.status.success(res, data),
                   error => Libs.status.error(res, error)
-                );
+                )
+                .catch((error) => Libs.status.error(res, error))
             }
           },
-          error => Libs.status.error(res, error)
+          error => Libs.db
+                .add(req.params.name, req.body.item)
+                .then(
+                  data => Libs.status.success(res, data),
+                  error => Libs.status.error(res, error)
+                )
+                .catch((error) => Libs.status.error(res, error))
         );
     } else {
       Libs.db
@@ -59,7 +68,8 @@ router.post("/:name?", function(req, res) {
         .then(
           data => Libs.status.success(res, data),
           error => Libs.status.error(res, error)
-        );
+        )
+        .catch((error) => Libs.status.error(res, error))
     }
   }
 });
@@ -72,14 +82,16 @@ router.delete("/:name?/:key?/:value?", function(req, res) {
         .then(
           data => Libs.status.success(res, data),
           error => Libs.status.error(res, error)
-        );
+        )
+        .catch((error) => Libs.status.error(res, error))
     } else {
       Libs.db
         .removeAll(req.params.name)
         .then(
           data => Libs.status.success(res, data),
           error => Libs.status.error(res, error)
-        );
+        )
+        .catch((error) => Libs.status.error(res, error))
     }
   }
 });
