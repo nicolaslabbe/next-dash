@@ -5,3 +5,4 @@ data/
 .next/
 .env
 *.sublime-project
+package-lock.json
