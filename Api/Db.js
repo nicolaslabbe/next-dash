@@ -18,7 +18,7 @@ router.get("/:name?/:key?/:value?", function(req, res) {
           data => Libs.status.success(res, data),
           error => Libs.status.success(res, [])
         )
-        .catch((error) => Libs.status.success(res, []))
+        .catch(error => Libs.status.success(res, []));
     } else {
       Libs.db
         .all(req.params.name)
@@ -26,7 +26,7 @@ router.get("/:name?/:key?/:value?", function(req, res) {
           data => Libs.status.success(res, data),
           error => Libs.status.success(res, [])
         )
-        .catch((error) => Libs.status.success(res, []))
+        .catch(error => Libs.status.success(res, []));
     }
   }
 });
@@ -51,16 +51,17 @@ router.post("/:name?", function(req, res) {
                   data => Libs.status.success(res, data),
                   error => Libs.status.error(res, error)
                 )
-                .catch((error) => Libs.status.error(res, error))
+                .catch(error => Libs.status.error(res, error));
             }
           },
-          error => Libs.db
-                .add(req.params.name, req.body.item)
-                .then(
-                  data => Libs.status.success(res, data),
-                  error => Libs.status.error(res, error)
-                )
-                .catch((error) => Libs.status.error(res, error))
+          error =>
+            Libs.db
+              .add(req.params.name, req.body.item)
+              .then(
+                data => Libs.status.success(res, data),
+                error => Libs.status.error(res, error)
+              )
+              .catch(error => Libs.status.error(res, error))
         );
     } else {
       Libs.db
@@ -69,7 +70,7 @@ router.post("/:name?", function(req, res) {
           data => Libs.status.success(res, data),
           error => Libs.status.error(res, error)
         )
-        .catch((error) => Libs.status.error(res, error))
+        .catch(error => Libs.status.error(res, error));
     }
   }
 });
@@ -83,7 +84,7 @@ router.delete("/:name?/:key?/:value?", function(req, res) {
           data => Libs.status.success(res, data),
           error => Libs.status.error(res, error)
         )
-        .catch((error) => Libs.status.error(res, error))
+        .catch(error => Libs.status.error(res, error));
     } else {
       Libs.db
         .removeAll(req.params.name)
@@ -91,7 +92,7 @@ router.delete("/:name?/:key?/:value?", function(req, res) {
           data => Libs.status.success(res, data),
           error => Libs.status.error(res, error)
         )
-        .catch((error) => Libs.status.error(res, error))
+        .catch(error => Libs.status.error(res, error));
     }
   }
 });

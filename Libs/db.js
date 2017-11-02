@@ -5,19 +5,18 @@ const Utils = require("../Utils");
 
 const all = name => {
   return new Promise((resolve, reject) => {
-    filesystem.read(path.join(Utils.config.pathData, `${name}.json`))
-      .then(
-        data => resolve(data),
-        err => reject(err)
-      )
-      .catch((err) => reject(err))
+    filesystem
+      .read(path.join(Utils.config.pathData, `${name}.json`))
+      .then(data => resolve(data), err => reject(err))
+      .catch(err => reject(err));
   });
 };
 
 const find = (name, key, value) => {
   return new Promise((resolve, reject) => {
     var result = [];
-    filesystem.read(path.join(Utils.config.pathData, `${name}.json`))
+    filesystem
+      .read(path.join(Utils.config.pathData, `${name}.json`))
       .then(
         data => {
           Array.prototype.forEach.call(data, item => {
@@ -29,7 +28,7 @@ const find = (name, key, value) => {
         },
         err => reject(err)
       )
-      .catch((err) => reject(err))
+      .catch(err => reject(err));
   });
 };
 
@@ -37,7 +36,8 @@ const remove = (name, key, value) => {
   return new Promise((resolve, reject) => {
     var result = [];
     var values = value.split(",");
-    filesystem.read(path.join(Utils.config.pathData, `${name}.json`))
+    filesystem
+      .read(path.join(Utils.config.pathData, `${name}.json`))
       .then(
         data => {
           Array.prototype.forEach.call(data, item => {
@@ -59,7 +59,7 @@ const remove = (name, key, value) => {
         },
         err => reject(err)
       )
-      .catch((err) => reject(err))
+      .catch(err => reject(err));
   });
 };
 
@@ -67,18 +67,16 @@ const removeAll = name => {
   return new Promise((resolve, reject) => {
     filesystem
       .remove(path.join(Utils.config.pathData, `${name}.json`))
-      .then(
-        () => resolve("ok"),
-        error => reject(error)
-      )
-      .catch((err) => reject(err))
+      .then(() => resolve("ok"), error => reject(error))
+      .catch(err => reject(err));
   });
 };
 
 const add = (name, data) => {
   return new Promise((resolve, reject) => {
     const filepath = path.join(Utils.config.pathData, `${name}.json`);
-    filesystem.read(filepath)
+    filesystem
+      .read(filepath)
       .then(
         oldData => {
           var apiId = 0;
@@ -98,7 +96,7 @@ const add = (name, data) => {
             .then(newData => resolve(data), error => reject(error));
         }
       )
-      .catch((err) => reject(err))
+      .catch(err => reject(err));
   });
 };
 module.exports = {
