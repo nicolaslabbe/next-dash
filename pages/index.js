@@ -4,11 +4,11 @@ import createSagaMiddleware from "redux-saga";
 import withRedux from "next-redux-wrapper";
 import withReduxSaga from "next-redux-saga";
 import Link from "next/link";
-import Raven from 'raven-js';
+import Raven from "raven-js";
 
-Raven
-    .config(`https://${process.env.SENTRY_KEY}@sentry.io/${process.env.SENTRY_PROJECT_ID}`)
-    .install();
+Raven.config(
+  `https://${process.env.SENTRY_KEY}@sentry.io/${process.env.SENTRY_PROJECT_ID}`
+).install();
 
 import Utils from "../Utils";
 
@@ -74,7 +74,7 @@ class Page extends React.Component {
   componentWillMount = () => {
     if (typeof window !== "undefined") {
       this.registerServiceWorker();
-      if (Notification && Notification.permission !== "granted") {
+      if (window.Notification && window.Notification.permission !== "granted") {
         this.askPermission();
       }
     }
