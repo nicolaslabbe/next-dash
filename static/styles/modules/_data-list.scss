@@ -24,6 +24,10 @@
 		border-top: 1px solid $text-light;
 		vertical-align: middle;
 
+    &:first-child {
+      border-top: 0px;
+    }
+
 		.icon {
 			vertical-align: middle;
       font-weight: bold;

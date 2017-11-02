@@ -1,27 +1,17 @@
 // bottom-input.scss
 input[type=text].bottom-input {
-    bottom: 0px;
-    position: fixed;
-    // position: absolute;
+    position: relative;
     width: 100%;
     height: 40px;
     border: 0px;
-    border-top: 1px solid $text-light;
+    border-top: 0px solid $text-light;
     background: $text-light;
     color: $text-dark;
     font-size: $fz-big;
     outline: none;
+    padding: 6px;
 
     &:focus {
-      // outline: none;
-      // bottom: 260px;
+      outline: none;
     }
 }
-
-// body.keyboardVisible {
-
-//     input[type=text].bottom-input {
-//         bottom: 260px;
-//         position: fixed;
-//     }
-// }

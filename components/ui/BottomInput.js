@@ -49,19 +49,18 @@ class BottomInput extends React.Component {
 
   handleFocus() {
     document.querySelector("html").classList.add("keyboardVisible");
-    document.querySelector("body").classList.add("keyboardVisible");
+    // document.querySelector("body").classList.add("keyboardVisible");
   }
 
   handleBlur() {
     document.querySelector("html").classList.remove("keyboardVisible");
-    document.querySelector("body").classList.remove("keyboardVisible");
+    // document.querySelector("body").classList.remove("keyboardVisible");
   }
 
   render() {
     return (
       <input
         className="bottom-input"
-        style={{ bottom: `${this.state.position}px` }}
         ref="input"
         type="text"
         onKeyUp={event => this.handleChange(event)}
