@@ -11,7 +11,8 @@ class EditableList extends React.Component {
     super(props);
 
     this.state = {
-      selectedIds: []
+      selectedIds: [],
+      data: []
     };
   }
 
@@ -31,6 +32,15 @@ class EditableList extends React.Component {
         return this.props.data[i].apiId;
       })
     });
+  }
+
+  componentWillReceiveProps = nextProps => {
+    if (nextProps.data && this.state.data && nextProps.data.length !== this.state.data.length) {
+      this.setState({
+        data: nextProps.data
+      })
+      setTimeout(() => window.scrollTo(0, document.body.scrollHeight), 10)
+    }
   }
 
   render() {
