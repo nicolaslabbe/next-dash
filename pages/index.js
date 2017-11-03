@@ -94,7 +94,7 @@ class Page extends React.Component {
           <Bric url="/db?type=news" name="news" icon="info" />
           <Bric url="/list?type=notes" name="notes" icon="list" />
           <Bric url="/db?type=movie" name="movie" icon="local_movies" />
-          <Bric url="/db?type=series" name="series" icon="live_tv" />
+          <Bric url="/db?type=serie" name="series" icon="live_tv" />
         </Row>
       </div>
     );

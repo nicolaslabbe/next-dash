@@ -4,9 +4,9 @@ var apicache = require("apicache");
 var express = require("express");
 var router = express.Router();
 
-let cache = apicache.middleware
+let cache = apicache.middleware;
 
-router.get("/stations", cache('1 minute'), function(req, res) {
+router.get("/stations", cache("1 minute"), function(req, res) {
   Libs.sncf
     .findAll(JSON.parse(process.env.TRAIN_STOPS), process.env.TRAIN_BEARER)
     .then(
@@ -15,7 +15,7 @@ router.get("/stations", cache('1 minute'), function(req, res) {
     );
 });
 
-router.get("/disruptions", cache('1 minute'), function(req, res) {
+router.get("/disruptions", cache("1 minute"), function(req, res) {
   Libs.sncf
     .disruptionsAll(
       JSON.parse(process.env.TRAIN_STOPS),

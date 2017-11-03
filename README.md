@@ -58,8 +58,8 @@ Install
 
 - wifi
 - ssh
-- git
-- node
+- git (sudo apt-get install git)
+- node (curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash - && sudo apt install nodejs)
 
 ```
 git clone https://github.com/nicolaslabbe/next-dash.git

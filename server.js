@@ -1,4 +1,5 @@
 const express = require("express");
+const compression = require('compression');
 const next = require("next");
 const api = require("./Api");
 const crontasks = require("./crontasks");
@@ -36,6 +37,7 @@ app.prepare().then(() => {
   //   });
   // }
 
+  server.use(compression());
   server.use(express.static("./node_modules/material-design-icons/iconfont/"));
   server.use(express.static("./static/fonts/"));
   server.use(express.static("./static/scripts/"));

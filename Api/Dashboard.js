@@ -3,9 +3,9 @@ const Libs = require("../Libs");
 var express = require("express");
 var apicache = require("apicache");
 var router = express.Router();
-let cache = apicache.middleware
+let cache = apicache.middleware;
 
-router.get("/", cache('2 minutes'), function(req, res) {
+router.get("/", cache("2 minutes"), function(req, res) {
   var promises = [];
   var results = {};
 
