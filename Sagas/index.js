@@ -9,6 +9,7 @@ import { WeatherTypes } from "../Redux/WeatherRedux";
 import { TrainTypes } from "../Redux/TrainRedux";
 import { ListTypes } from "../Redux/ListRedux";
 import { DbTypes } from "../Redux/DbRedux";
+import { DashboardTypes } from "../Redux/DashboardRedux";
 
 /* ------------- Sagas ------------- */
 
@@ -16,6 +17,7 @@ import * as weatherSagas from "./WeatherSagas";
 import * as trainSagas from "./TrainSagas";
 import * as listSagas from "./ListSagas";
 import * as dbSagas from "./DbSagas";
+import * as dashboardSagas from "./DashboardSagas";
 
 /* ------------- API ------------- */
 const api = Api.create();
@@ -24,6 +26,7 @@ const Request = {};
 
 export default function* root() {
   yield all([
+    takeLatest(DashboardTypes.DASHBOARD_REQUEST, dashboardSagas.request, api),
     takeLatest(WeatherTypes.WEATHER_REQUEST, weatherSagas.request, api),
     takeLatest(TrainTypes.TRAIN_REQUEST, trainSagas.request, api),
     takeLatest(ListTypes.LIST_REQUEST, listSagas.request, api),

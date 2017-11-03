@@ -1,3 +1,5 @@
+const baseUrl = `https://api.themoviedb.org/3/`;
+
 const getPoster = item => {
   return {
     xsr: `http://image.tmdb.org/t/p/w92${item.poster_path}`,
@@ -26,7 +28,7 @@ const getAverageIcon = count => {
   }
 };
 
-const formatSeries = result => {
+const formats = result => {
   var newResult = result.map(item => {
     var newItem = {
       id: item.id,
@@ -57,7 +59,7 @@ const formatSeries = result => {
   return newResult;
 };
 
-const formatSerie = item => {
+const format = item => {
   var newItem = {
     id: item.id,
     date: item.release_date,
@@ -182,132 +184,62 @@ const formatSerie = item => {
   return newItem;
 };
 
-const formatMovies = result => {
-  var newResult = result.map(item => {
-    var newItem = {
-      id: item.id,
-      date: item.release_date,
-      title: item.title,
-      tagline: item.tagline,
-      image: getPoster(item).sm,
-      overview: [
-        {
-          name: "vote",
-          icon: getAverageIcon(item.vote_average),
-          value: item.vote_average
-        },
-        {
-          name: "popularity",
-          icon: "favorite_border",
-          value: Math.round(item.popularity * 100) / 100
-        },
-        {
-          name: "date",
-          icon: "access_time",
-          value: item.release_date
-        }
-      ]
-    };
-    return newItem;
-  });
-  return newResult;
-};
+const popular = (apiKey, page) => {
+  return new Promise((resolve, reject) => {
+    fetch(
+      `${baseUrl}tv/popular?api_key=${apiKey}&${page}`
+    )
+      .then(response => response.json())
+      .then(responseJson => {
+        resolve(formats(responseJson.results));
+      })
+      .catch(error => {
+        reject(error);
+      });
+  })
+}
 
-const formatMovie = item => {
-  var newItem = {
-    id: item.id,
-    date: item.release_date,
-    title: item.title,
-    tagline: item.tagline,
-    description: item.overview,
-    link: item.homepage,
-    image: getPoster(item).sm,
-    images: getPoster(item),
-    details: [
-      {
-        name: "Details",
-        value: [
-          {
-            name: "date",
-            value: moment(item.release_date).format("DD MMMM YYYY")
-          },
-          {
-            name: "status",
-            value: item.status
-          },
-          {
-            name: "runtime",
-            value: `${moment
-              .duration(item.runtime, "minutes")
-              .hours()}:${moment.duration(item.runtime, "minutes").minutes()}`
-          },
-          {
-            name: "budget",
-            value: Utils.devise.toDollars(`${item.budget}`)
-          },
-          {
-            name: "revenue",
-            value: Utils.devise.toDollars(`${item.revenue}`)
-          },
-          {
-            name: "original language",
-            value: item.original_language
-          },
-          {
-            name: "original title",
-            value: item.original_title
-          },
-          {
-            name: "adult",
-            value: item.adult
-          }
-        ]
-      },
-      {
-        name: "companies",
-        value: item.production_companies.map((v, i) => {
-          return v.name;
+const findById = (apiKey, id) => {
+  return new Promise((resolve, reject) => {
+    fetch(`${baseUrl}tv/${id}?api_key=${apiKey}`)
+    .then(response => response.json())
+    .then(responseJson => {
+      var result = format(responseJson);
+
+      fetch(`${baseUrl}tv/${id}/videos?api_key=${apiKey}`)
+        .then(response => response.json())
+        .then(responseJson => {
+          result.videos = responseJson.results;
+
+          resolve(result);
         })
-      },
-      {
-        name: "country",
-        value: item.production_countries.map((v, i) => {
-          return v.name;
-        })
-      },
-      {
-        name: "genres",
-        value: item.genres.map((v, i) => {
-          return v.name;
-        })
-      },
-      {
-        name: "popularity",
-        value: [
-          {
-            name: "popularity",
-            value: item.popularity
-          },
-          {
-            name: "vote_average",
-            value: item.vote_average
-          },
-          {
-            name: "vote_count",
-            value: item.vote_count
-          }
-        ]
-      }
-    ]
-  };
-  return newItem;
-};
+        .catch(error => {
+          reject(error);
+        });
+    })
+    .catch(error => {
+      reject(error);
+    });
+  })
+}
+
+const search = (apiKey, query, page) => {
+  return new Promise((resolve, reject) => {
+    fetch(
+      `${baseUrl}search/tv?api_key=${apiKey}&query=${query}&${page}&include_adult=true`
+    )
+      .then(response => response.json())
+      .then(responseJson => {
+        resolve(formats(responseJson.results));
+      })
+      .catch(error => {
+        reject(error);
+      });
+  })
+}
 
 module.exports = {
-  getPoster,
-  getAverageIcon,
-  formatSeries,
-  formatSerie,
-  formatMovies,
-  formatMovie
+  popular,
+  findById,
+  search
 };

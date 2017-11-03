@@ -4,7 +4,8 @@ const req = require("./req");
 const db = require("./db");
 const sncf = require("./sncf");
 const push = require("./push");
-const tmdb = require("./tmdb");
+const tmdbSerie = require("./tmdbSerie");
+const tmdbMovie = require("./tmdbMovie");
 const weather = require("./weather");
 
 module.exports = {
@@ -14,6 +15,7 @@ module.exports = {
   req,
   sncf,
   push,
-  tmdb,
+  tmdbSerie,
+  tmdbMovie,
   weather
 };

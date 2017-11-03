@@ -35,13 +35,17 @@ class EditableList extends React.Component {
   }
 
   componentWillReceiveProps = nextProps => {
-    if (nextProps.data && this.state.data && nextProps.data.length !== this.state.data.length) {
+    if (
+      nextProps.data &&
+      this.state.data &&
+      nextProps.data.length !== this.state.data.length
+    ) {
       this.setState({
         data: nextProps.data
-      })
-      setTimeout(() => window.scrollTo(0, document.body.scrollHeight), 10)
+      });
+      setTimeout(() => window.scrollTo(0, document.body.scrollHeight), 10);
     }
-  }
+  };
 
   render() {
     const { name, data } = this.props;

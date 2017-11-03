@@ -125,6 +125,34 @@ const find = (stopId, directions, bearer, l) => {
   });
 };
 
+const findAll = (stops, bearer) => {
+  var promises = [];
+  var results = [];
+  var errors = [];
+
+  return new Promise((resolve, reject) => {
+
+    Array.prototype.forEach.call(stops, item => {
+      promises.push(
+        find(item.id, item.direction, bearer).then(
+          result => {
+            results.push(result);
+          },
+          error => errors.push(error)
+        )
+      );
+    });
+
+    Promise.all(promises)
+      .then(() => {
+        resolve(results);
+      })
+      .catch(e => {
+        reject(errors);
+      });
+  })
+}
+
 const disruptions = (stopId, bearer) => {
   const date = new Date()
     .toISOString()
@@ -155,7 +183,37 @@ const disruptions = (stopId, bearer) => {
   });
 };
 
+const disruptionsAll = (stops, bearer) => {
+  var promises = [];
+  var results = [];
+  var errors = [];
+
+  return new Promise((resolve, reject) => {
+
+    Array.prototype.forEach.call(stops, item => {
+      promises.push(
+        disruptions(item.id, bearer).then(
+          result => {
+            results.push(result);
+          },
+          error => errors.push(error)
+        )
+      );
+    });
+
+    Promise.all(promises)
+      .then(() => {
+        resolve(results);
+      })
+      .catch(e => {
+        reject(errors);
+      });
+  })
+}
+
 module.exports = {
   find,
-  disruptions
+  findAll,
+  disruptions,
+  disruptionsAll
 };

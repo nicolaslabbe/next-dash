@@ -3,7 +3,6 @@ import { createStore, applyMiddleware } from "redux";
 import createSagaMiddleware from "redux-saga";
 import withRedux from "next-redux-wrapper";
 import withReduxSaga from "next-redux-saga";
-import Link from "next/link";
 import Raven from "raven-js";
 
 Raven.config(
@@ -16,16 +15,16 @@ import Utils from "../Utils";
 import rootReducer from "../Redux";
 
 // Reduceurs
-import WeatherActions from "../Redux/WeatherRedux";
-import TrainActions from "../Redux/TrainRedux";
+import DashboardActions from "../Redux/DashboardRedux";
 import ListActions from "../Redux/ListRedux";
 
 // Components
 import { Header, AppIcon } from "../components/ui";
-import { Row, Column, Content } from "../components/layout";
+import { Bric } from "../components/rich";
 
 class Page extends React.Component {
   static async getInitialProps({ store, isServer }) {
+    store.dispatch(DashboardActions.dashboardRequest());
     return {};
   }
 
@@ -86,75 +85,28 @@ class Page extends React.Component {
     return (
       <div>
         <Header title="index" />
-        <Row>
-          <Column>
-            <Content>
-              <Link prefetch href="/train">
-                <a>
-                  <AppIcon className="train" name="train" />
-                </a>
-              </Link>
-            </Content>
-          </Column>
-          <Column>
-            <Content>
-              <Link prefetch href="/weather">
-                <a>
-                  <AppIcon className="weather" name="wb_sunny" />
-                </a>
-              </Link>
-            </Content>
-          </Column>
-          <Column>
-            <Content>
-              <Link prefetch href="/db?type=news">
-                <a>
-                  <AppIcon className="news" name="info" />
-                </a>
-              </Link>
-            </Content>
-          </Column>
-          <Column>
-            <Content>
-              <Link prefetch href="/list?type=notes">
-                <a>
-                  <AppIcon className="notes" name="list" />
-                </a>
-              </Link>
-            </Content>
-          </Column>
-          <Column>
-            <Content>
-              <Link prefetch href="/db?type=movie">
-                <a>
-                  <AppIcon className="movie" name="local_movies" />
-                </a>
-              </Link>
-            </Content>
-          </Column>
-          <Column>
-            <Content>
-              <Link prefetch href="/db?type=serie">
-                <a>
-                  <AppIcon className="movie" name="live_tv" />
-                </a>
-              </Link>
-            </Content>
-          </Column>
-        </Row>
+        <Bric link="/train" name="train" />
+        <Bric link="/weather" name="weather" />
+        <Bric link="/db?type=news" name="news" />
+        <Bric link="/list?type=notes" name="notes" />
+        <Bric link="/db?type=movie" name="movie" />
+        <Bric link="/db?type=series" name="series" />
       </div>
     );
   }
 }
 
 const mapStateToProps = state => {
-  return {};
+  console.log('* * * * * * * * * * * * * * * * * * * * * * * * * * * * *')
+  console.log('state', state)
+  return {
+    dashboard: state.dashboard
+  };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    save: (name, item, duplicate) =>
-      dispatch(ListActions.listAdd(name, item, duplicate))
+    save: (name, item, duplicate) => dispatch(ListActions.listAdd(name, item, duplicate))
   };
 };
 
