@@ -1,5 +1,5 @@
 const express = require("express");
-const compression = require('compression');
+const compression = require("compression");
 const next = require("next");
 const api = require("./Api");
 const crontasks = require("./crontasks");
