@@ -151,9 +151,7 @@ const format = item => {
 
 const popular = (apiKey, page) => {
   return new Promise((resolve, reject) => {
-    fetch(
-      `${baseUrl}movie/popular?api_key=${apiKey}&${page}`
-    )
+    fetch(`${baseUrl}movie/popular?api_key=${apiKey}&${page}`)
       .then(response => response.json())
       .then(responseJson => {
         resolve(formats(responseJson.results));
@@ -161,32 +159,32 @@ const popular = (apiKey, page) => {
       .catch(error => {
         reject(error);
       });
-  })
-}
+  });
+};
 
 const findById = (apiKey, id) => {
   return new Promise((resolve, reject) => {
     fetch(`${baseUrl}movie/${id}?api_key=${apiKey}`)
-    .then(response => response.json())
-    .then(responseJson => {
-      var result = format(responseJson);
+      .then(response => response.json())
+      .then(responseJson => {
+        var result = format(responseJson);
 
-      fetch(`${baseUrl}movie/${id}/videos?api_key=${apiKey}`)
-        .then(response => response.json())
-        .then(responseJson => {
-          result.videos = responseJson.results;
+        fetch(`${baseUrl}movie/${id}/videos?api_key=${apiKey}`)
+          .then(response => response.json())
+          .then(responseJson => {
+            result.videos = responseJson.results;
 
-          resolve(result);
-        })
-        .catch(error => {
-          reject(error);
-        });
-    })
-    .catch(error => {
-      reject(error);
-    });
-  })
-}
+            resolve(result);
+          })
+          .catch(error => {
+            reject(error);
+          });
+      })
+      .catch(error => {
+        reject(error);
+      });
+  });
+};
 
 const search = (apiKey, query, page) => {
   return new Promise((resolve, reject) => {
@@ -200,8 +198,8 @@ const search = (apiKey, query, page) => {
       .catch(error => {
         reject(error);
       });
-  })
-}
+  });
+};
 
 module.exports = {
   popular,

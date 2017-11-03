@@ -20,6 +20,7 @@ import ListActions from "../Redux/ListRedux";
 
 // Components
 import { Header, AppIcon } from "../components/ui";
+import { Row } from "../components/layout";
 import { Bric } from "../components/rich";
 
 class Page extends React.Component {
@@ -73,9 +74,11 @@ class Page extends React.Component {
   componentWillMount = () => {
     if (typeof window !== "undefined") {
       this.registerServiceWorker();
-      if (typeof window.Notification !== "undefined"
-        && window.Notification !== null
-        && window.Notification.permission !== "granted") {
+      if (
+        typeof window.Notification !== "undefined" &&
+        window.Notification !== null &&
+        window.Notification.permission !== "granted"
+      ) {
         this.askPermission();
       }
     }
@@ -85,20 +88,20 @@ class Page extends React.Component {
     return (
       <div>
         <Header title="index" />
-        <Bric link="/train" name="train" />
-        <Bric link="/weather" name="weather" />
-        <Bric link="/db?type=news" name="news" />
-        <Bric link="/list?type=notes" name="notes" />
-        <Bric link="/db?type=movie" name="movie" />
-        <Bric link="/db?type=series" name="series" />
+        <Row>
+          <Bric url="/train" name="train" icon="train" />
+          <Bric url="/weather" name="weather" icon="wb_sunny" />
+          <Bric url="/db?type=news" name="news" icon="info" />
+          <Bric url="/list?type=notes" name="notes" icon="list" />
+          <Bric url="/db?type=movie" name="movie" icon="local_movies" />
+          <Bric url="/db?type=series" name="series" icon="live_tv" />
+        </Row>
       </div>
     );
   }
 }
 
 const mapStateToProps = state => {
-  console.log('* * * * * * * * * * * * * * * * * * * * * * * * * * * * *')
-  console.log('state', state)
   return {
     dashboard: state.dashboard
   };
@@ -106,7 +109,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    save: (name, item, duplicate) => dispatch(ListActions.listAdd(name, item, duplicate))
+    save: (name, item, duplicate) =>
+      dispatch(ListActions.listAdd(name, item, duplicate))
   };
 };
 

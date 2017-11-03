@@ -7,14 +7,14 @@
     "dev": "nodemon server.js",
     "lint": "eslint --ignore-path .gitignore --config .eslintrc *.js",
     "build": "next build",
-    "start":
-      "NODE_ENV=production npm run build && NODE_ENV=production pm2 startOrRestart ecosystem.config.js",
+    "start": "NODE_ENV=production npm run build && NODE_ENV=production pm2 startOrRestart ecosystem.config.js",
     "stop": "pm2 delete RPI-DATA",
     "precommit": "lint-staged"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "apicache": "^1.1.0",
     "autoprefixer": "^7.1.5",
     "babel-loader": "^7.1.2",
     "babel-plugin-wrap-in-js": "^1.1.1",
@@ -70,6 +70,8 @@
     "prettier": "^1.7.4"
   },
   "lint-staged": {
-    "*.{js,json,css}": ["prettier --parser flow --write"]
+    "*.{js,json,css}": [
+      "prettier --parser flow --write"
+    ]
   }
 }

@@ -5,18 +5,18 @@ import { connect } from "react-redux";
 
 import Utils from "../../Utils";
 import { Row, Column, Content } from "../layout";
+import { AppIcon } from "../ui";
 
 class Bric extends React.Component {
-
   render() {
-    const { link, name } = this.props;
+    const { url, name, icon } = this.props;
 
     return (
       <Column>
         <Content>
-          <Link prefetch href={link}>
+          <Link prefetch href={url}>
             <a>
-              {name}
+              <AppIcon className={name} name={icon} />
             </a>
           </Link>
         </Content>
@@ -30,8 +30,7 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = dispatch => {
-  return {
-  };
+  return {};
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Bric);

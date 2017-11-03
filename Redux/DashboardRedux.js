@@ -20,7 +20,7 @@ export const INITIAL_STATE = Immutable({
 
 /* ------------- Reducers ------------- */
 
-export const dashboardRequest = (state) => {
+export const dashboardRequest = state => {
   return {
     ...state,
     fetching: true,

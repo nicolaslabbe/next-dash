@@ -1,9 +1,11 @@
 const Libs = require("../Libs");
-
+var apicache = require("apicache");
 var express = require("express");
 var router = express.Router();
 
-router.get("/current", function(req, res) {
+let cache = apicache.middleware
+
+router.get("/current", cache('10 minutes'), function(req, res) {
   Libs.weather
     .find(process.env.OPEN_WEATHER_CITY, process.env.OPEN_WEATHER)
     .then(

@@ -131,7 +131,6 @@ const findAll = (stops, bearer) => {
   var errors = [];
 
   return new Promise((resolve, reject) => {
-
     Array.prototype.forEach.call(stops, item => {
       promises.push(
         find(item.id, item.direction, bearer).then(
@@ -150,8 +149,8 @@ const findAll = (stops, bearer) => {
       .catch(e => {
         reject(errors);
       });
-  })
-}
+  });
+};
 
 const disruptions = (stopId, bearer) => {
   const date = new Date()
@@ -189,7 +188,6 @@ const disruptionsAll = (stops, bearer) => {
   var errors = [];
 
   return new Promise((resolve, reject) => {
-
     Array.prototype.forEach.call(stops, item => {
       promises.push(
         disruptions(item.id, bearer).then(
@@ -208,8 +206,8 @@ const disruptionsAll = (stops, bearer) => {
       .catch(e => {
         reject(errors);
       });
-  })
-}
+  });
+};
 
 module.exports = {
   find,

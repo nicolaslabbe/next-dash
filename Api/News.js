@@ -1,8 +1,10 @@
 const fetch = require("fetch-everywhere");
 const Libs = require("../Libs");
-
+var apicache = require("apicache");
 var express = require("express");
 var router = express.Router();
+
+let cache = apicache.middleware
 
 const getPoster = item => {
   return {
@@ -36,7 +38,7 @@ const formatResult = result => {
   return newResult;
 };
 
-router.get("/:page?", function(req, res) {
+router.get("/:page?", cache('2 minutes'), function(req, res) {
   const source = "time";
   const sort = "latest";
   fetch(
