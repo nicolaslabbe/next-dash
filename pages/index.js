@@ -25,7 +25,7 @@ import { Bric } from "../components/rich";
 
 class Page extends React.Component {
   static async getInitialProps({ store, isServer }) {
-    store.dispatch(DashboardActions.dashboardRequest());
+    //store.dispatch(DashboardActions.dashboardRequest());
     return {};
   }
 

@@ -4,6 +4,9 @@ import Utils from "../Utils";
 const create = () => {
   return {
     get: url => {
+console.log(`${typeof window !== "undefined"
+            ? Utils.config.url_public
+            : Utils.config.url_server}${url}`)
       return new Promise(resolve => {
         fetch(
           `${typeof window !== "undefined"
