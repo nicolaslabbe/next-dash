@@ -4,9 +4,9 @@ const next = require("next");
 const api = require("./Api");
 const crontasks = require("./crontasks");
 const bodyParser = require("body-parser");
-const https = require('https');
-const http = require('http');
-const fs = require('fs');
+const https = require("https");
+const http = require("http");
+const fs = require("fs");
 const dev = process.env.NODE_ENV !== "production";
 const app = next({ dev });
 const handle = app.getRequestHandler();
@@ -45,15 +45,15 @@ app.prepare().then(() => {
     return handle(req, res);
   });
 
-  var options
+  var options;
   try {
     options = {
-      key: fs.readFileSync('/etc/letsencrypt/live/example.com/privkey.pem'),
-      cert: fs.readFileSync('/etc/letsencrypt/live/example.com/cert.pem'),
-      ca: fs.readFileSync('/etc/letsencrypt/live/example.com/chain.pem')
-    }
-  }catch(e) {
-    options = {}
+      key: fs.readFileSync("/etc/letsencrypt/live/example.com/privkey.pem"),
+      cert: fs.readFileSync("/etc/letsencrypt/live/example.com/cert.pem"),
+      ca: fs.readFileSync("/etc/letsencrypt/live/example.com/chain.pem")
+    };
+  } catch (e) {
+    options = {};
   }
 
   http.createServer(exp).listen(process.env.PORT, err => {
@@ -62,7 +62,9 @@ app.prepare().then(() => {
   });
   https.createServer(options, exp).listen(process.env.PORT_SSL, err => {
     if (err) throw err;
-    console.log(`> Ready on http://${process.env.DOMAIN}:${process.env.PORT_SSL}`);
+    console.log(
+      `> Ready on http://${process.env.DOMAIN}:${process.env.PORT_SSL}`
+    );
   });
 
   // exp.listen(process.env.PORT_SERVER, err => {
