@@ -6,13 +6,13 @@ const create = () => {
     get: url => {
       console.log(
         `${typeof window !== "undefined"
-          ? window.top.location.href
+          ? window.top.location.href.replace(/\/$/, '')
           : Utils.config.url}${url}`
       );
       return new Promise(resolve => {
         fetch(
           `${typeof window !== "undefined"
-            ? window.top.location.href
+            ? window.top.location.href.replace(/\/$/, '')
             : Utils.config.url}${url}`
         )
           .then(response => response.json())
@@ -34,7 +34,7 @@ const create = () => {
       return new Promise(resolve => {
         fetch(
           `${typeof window !== "undefined"
-            ? window.top.location.href
+            ? window.top.location.href.replace(/\/$/, '')
             : Utils.config.url}${url}`,
           {
             method: "POST",
@@ -63,7 +63,7 @@ const create = () => {
       return new Promise(resolve => {
         fetch(
           `${typeof window !== "undefined"
-            ? window.top.location.href
+            ? window.top.location.href.replace(/\/$/, '')
             : Utils.config.url}${url}`,
           {
             method: "DELETE",
