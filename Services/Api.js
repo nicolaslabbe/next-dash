@@ -6,14 +6,14 @@ const create = () => {
     get: url => {
       console.log(
         `${typeof window !== "undefined"
-          ? Utils.config.url_public
-          : Utils.config.url_server}${url}`
+          ? window.top.location.href
+          : Utils.config.url}${url}`
       );
       return new Promise(resolve => {
         fetch(
           `${typeof window !== "undefined"
-            ? Utils.config.url_public
-            : Utils.config.url_server}${url}`
+            ? window.top.location.href
+            : Utils.config.url}${url}`
         )
           .then(response => response.json())
           .then(responseJson => {
@@ -34,8 +34,8 @@ const create = () => {
       return new Promise(resolve => {
         fetch(
           `${typeof window !== "undefined"
-            ? Utils.config.url_public
-            : Utils.config.url_server}${url}`,
+            ? window.top.location.href
+            : Utils.config.url}${url}`,
           {
             method: "POST",
             headers: {
@@ -63,8 +63,8 @@ const create = () => {
       return new Promise(resolve => {
         fetch(
           `${typeof window !== "undefined"
-            ? Utils.config.url_public
-            : Utils.config.url_server}${url}`,
+            ? window.top.location.href
+            : Utils.config.url}${url}`,
           {
             method: "DELETE",
             headers: {

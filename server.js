@@ -4,13 +4,9 @@ const next = require("next");
 const api = require("./Api");
 const crontasks = require("./crontasks");
 const bodyParser = require("body-parser");
-// const Raven = require("raven");
-
-// Raven.config(
-//   `https://${process.env.SENTRY_KEY}:${process.env
-//     .SENTRY_SECRET}@sentry.io/${process.env.SENTRY_PROJECT_ID}`
-// ).install();
-
+const https = require('https');
+const http = require('http');
+const fs = require('fs');
 const dev = process.env.NODE_ENV !== "production";
 const app = next({ dev });
 const handle = app.getRequestHandler();
@@ -20,36 +16,20 @@ Object.keys(crontasks).map((cron, i) => {
 });
 
 app.prepare().then(() => {
-  const server = express();
-
-  // if (process.env.NODE_ENV === "production") {
-  //   // server.use(Raven.requestHandler());
-
-  //   // server.get("/error", function mainHandler(req, res) {
-  //   //   throw new Error("Broke!");
-  //   // });
-
-  //   server.use(Raven.errorHandler());
-
-  //   server.use(function onError(err, req, res, next) {
-  //     res.statusCode = 500;
-  //     res.end(res.sentry + "\n");
-  //   });
-  // }
-
-  server.use(compression());
-  server.use(express.static("./node_modules/material-design-icons/iconfont/"));
-  server.use(express.static("./static/fonts/"));
-  server.use(express.static("./static/scripts/"));
-  server.use(express.static("./static/app/"));
-  server.use(bodyParser.json());
-  server.use(
+  const exp = express();
+  exp.use(compression());
+  exp.use(express.static("./node_modules/material-design-icons/iconfont/"));
+  exp.use(express.static("./static/fonts/"));
+  exp.use(express.static("./static/scripts/"));
+  exp.use(express.static("./static/app/"));
+  exp.use(bodyParser.json());
+  exp.use(
     bodyParser.urlencoded({
       extended: true
     })
   );
 
-  server.use(function(req, res, next) {
+  exp.use(function(req, res, next) {
     res.setHeader("Access-Control-Allow-Origin", "*");
     res.setHeader("Access-Control-Allow-Methods", "GET, POST");
     res.setHeader(
@@ -59,17 +39,34 @@ app.prepare().then(() => {
     next();
   });
 
-  server.use("/api", api);
+  exp.use("/api", api);
 
-  server.get("*", (req, res) => {
+  exp.get("*", (req, res) => {
     return handle(req, res);
   });
 
-  server.listen(process.env.PORT_SERVER, err => {
+  var options
+  try {
+    options = {
+      key: fs.readFileSync('/etc/letsencrypt/live/example.com/privkey.pem'),
+      cert: fs.readFileSync('/etc/letsencrypt/live/example.com/cert.pem'),
+      ca: fs.readFileSync('/etc/letsencrypt/live/example.com/chain.pem')
+    }
+  }catch(e) {
+    options = {}
+  }
+
+  http.createServer(exp).listen(process.env.PORT, err => {
     if (err) throw err;
-    console.log(
-      `> Ready on ${process.env.PROTOCOL}://${process.env
-        .DOMAIN_PUBLIC}:${process.env.PORT_SERVER}`
-    );
+    console.log(`> Ready on https://${process.env.DOMAIN}:${process.env.PORT}`);
   });
+  https.createServer(options, exp).listen(process.env.PORT_SSL, err => {
+    if (err) throw err;
+    console.log(`> Ready on http://${process.env.DOMAIN}:${process.env.PORT_SSL}`);
+  });
+
+  // exp.listen(process.env.PORT_SERVER, err => {
+  //   if (err) throw err;
+  //   console.log(`> Ready on ${process.env.PROTOCOL}://${process.env.DOMAIN_PUBLIC}:${process.env.PORT_SERVER}`);
+  // });
 });
