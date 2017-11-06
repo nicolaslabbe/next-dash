@@ -1,10 +1,15 @@
 import fetch from "fetch-everywhere";
+import Utils from "../Utils";
 
 const create = () => {
   return {
     get: url => {
       return new Promise(resolve => {
-        fetch(`${(typeof window !== "undefined") ? Utils.config.url_public : Utils.config.url_server}${url}`)
+        fetch(
+          `${typeof window !== "undefined"
+            ? Utils.config.url_public
+            : Utils.config.url_server}${url}`
+        )
           .then(response => response.json())
           .then(responseJson => {
             if (responseJson.error) {
@@ -22,13 +27,18 @@ const create = () => {
     },
     post: (url, data) => {
       return new Promise(resolve => {
-        fetch(`${(typeof window !== "undefined") ? Utils.config.url_public : Utils.config.url_server}${url}`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify(data)
-        })
+        fetch(
+          `${typeof window !== "undefined"
+            ? Utils.config.url_public
+            : Utils.config.url_server}${url}`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify(data)
+          }
+        )
           .then(response => response.json())
           .then(responseJson => {
             if (responseJson.error) {
@@ -46,12 +56,17 @@ const create = () => {
     },
     delete: url => {
       return new Promise(resolve => {
-        fetch(`${(typeof window !== "undefined") ? Utils.config.url_public : Utils.config.url_server}${url}`, {
-          method: "DELETE",
-          headers: {
-            "Content-Type": "application/json"
+        fetch(
+          `${typeof window !== "undefined"
+            ? Utils.config.url_public
+            : Utils.config.url_server}${url}`,
+          {
+            method: "DELETE",
+            headers: {
+              "Content-Type": "application/json"
+            }
           }
-        })
+        )
           .then(response => response.json())
           .then(responseJson => {
             if (responseJson.error) {
