@@ -4,7 +4,7 @@ const create = () => {
   return {
     get: url => {
       return new Promise(resolve => {
-        fetch(url)
+        fetch(`${(typeof window !== "undefined") ? Utils.config.url_public : Utils.config.url_server}${url}`)
           .then(response => response.json())
           .then(responseJson => {
             if (responseJson.error) {
@@ -22,7 +22,7 @@ const create = () => {
     },
     post: (url, data) => {
       return new Promise(resolve => {
-        fetch(url, {
+        fetch(`${(typeof window !== "undefined") ? Utils.config.url_public : Utils.config.url_server}${url}`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json"
@@ -46,7 +46,7 @@ const create = () => {
     },
     delete: url => {
       return new Promise(resolve => {
-        fetch(url, {
+        fetch(`${(typeof window !== "undefined") ? Utils.config.url_public : Utils.config.url_server}${url}`, {
           method: "DELETE",
           headers: {
             "Content-Type": "application/json"

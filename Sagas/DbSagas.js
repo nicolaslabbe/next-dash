@@ -3,7 +3,7 @@ import { call, put } from "redux-saga/effects";
 import Utils from "../Utils";
 
 export function* search(api, { name, query, page }) {
-  var json = yield api.get(`${Utils.config.url}/api/${name}/${query}/${page}`);
+  var json = yield api.get(`/api/${name}/${query}/${page}`);
 
   if (json.error) {
     yield put(DbActions.dbSearchFailure(name, json.error));
@@ -13,7 +13,7 @@ export function* search(api, { name, query, page }) {
 }
 
 export function* request(api, { name, page }) {
-  var json = yield api.get(`${Utils.config.url}/api/${name}/${page}`);
+  var json = yield api.get(`/api/${name}/${page}`);
 
   if (json.error) {
     yield put(DbActions.dbFailure(name, json.error));
@@ -23,7 +23,7 @@ export function* request(api, { name, page }) {
 }
 
 export function* detail(api, { name, id }) {
-  var json = yield api.get(`${Utils.config.url}/api/${name}/find/${id}`);
+  var json = yield api.get(`/api/${name}/find/${id}`);
 
   if (json.error) {
     yield put(DbActions.dbDetailFailure(name, json.error));
