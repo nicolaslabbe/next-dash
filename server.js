@@ -69,7 +69,7 @@ app.prepare().then(() => {
     if (err) throw err;
     console.log(
       `> Ready on ${process.env.PROTOCOL}://${process.env.DOMAIN}:${process.env
-        .PORT}`
+        .PORT_SERVER}`
     );
   });
 });
