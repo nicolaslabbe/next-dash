@@ -65,7 +65,7 @@ app.prepare().then(() => {
     return handle(req, res);
   });
 
-  server.listen(process.env.PORT, err => {
+  server.listen(process.env.PORT_SERVER, err => {
     if (err) throw err;
     console.log(
       `> Ready on ${process.env.PROTOCOL}://${process.env.DOMAIN}:${process.env
