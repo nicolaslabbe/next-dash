@@ -88,8 +88,10 @@ class Page extends React.Component {
     return (
       <div>
         <Row>
-          {this.props.dashboard.items && this.props.dashboard.items.map((item, i) =>
-            <Bric {...item} key={i} />)}
+          {this.props.dashboard.items &&
+            this.props.dashboard.items.map((item, i) => (
+              <Bric {...item} key={i} />
+            ))}
         </Row>
       </div>
     );

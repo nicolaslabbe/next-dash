@@ -36,11 +36,10 @@ const format = result => {
 const find = (source, sort, apiKey, page) => {
   return new Promise((resolve, reject) => {
     Utils.url
-      .get(`https://newsapi.org/v1/articles?source=${source}&sortBy=${sort}&apiKey=${apiKey}`)
-      .then(
-        (result) => resolve(format(result)),
-        (error) => reject(error)
+      .get(
+        `https://newsapi.org/v1/articles?source=${source}&sortBy=${sort}&apiKey=${apiKey}`
       )
+      .then(result => resolve(format(result)), error => reject(error));
   });
 };
 

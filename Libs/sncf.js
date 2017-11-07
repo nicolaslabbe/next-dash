@@ -96,22 +96,20 @@ const formatDisruptions = disruptions => {
 const find = (stopId, directions, bearer, l) => {
   return new Promise((resolve, reject) => {
     Utils.url
-      .get(`https://api.sncf.com/v1/coverage/sncf/stop_areas/stop_area:OCE:SA:${stopId}/departures?data_freshness=realtime&count=100`,
+      .get(
+        `https://api.sncf.com/v1/coverage/sncf/stop_areas/stop_area:OCE:SA:${stopId}/departures?data_freshness=realtime&count=100`,
         {
           method: "GET",
           headers: {
             Authorization: "" + bearer
           }
-        })
-      .then(
-        (result) => resolve(formatStations(
-          stopId,
-          directions,
-          l,
-          result.departures
-        )),
-        (error) => reject(error)
+        }
       )
+      .then(
+        result =>
+          resolve(formatStations(stopId, directions, l, result.departures)),
+        error => reject(error)
+      );
   });
 };
 
@@ -143,17 +141,19 @@ const findAll = (stops, bearer) => {
 const disruptions = (stopId, bearer) => {
   return new Promise((resolve, reject) => {
     Utils.url
-      .get(`https://api.sncf.com/v1/coverage/sncf/stop_areas/stop_area:OCE:SA:${stopId}/departures?data_freshness=realtime&count=100`,
+      .get(
+        `https://api.sncf.com/v1/coverage/sncf/stop_areas/stop_area:OCE:SA:${stopId}/departures?data_freshness=realtime&count=100`,
         {
           method: "GET",
           headers: {
             Authorization: "" + bearer
           }
-        })
-      .then(
-        (result) => resolve(formatDisruptions(result.departures)),
-        (error) => reject(error)
+        }
       )
+      .then(
+        result => resolve(formatDisruptions(result.departures)),
+        error => reject(error)
+      );
   });
 };
 
