@@ -58,12 +58,12 @@ app.prepare().then(() => {
 
   http.createServer(exp).listen(process.env.PORT, err => {
     if (err) throw err;
-    console.log(`> Ready on https://${process.env.DOMAIN}:${process.env.PORT}`);
+    console.log(`> Ready on http://${process.env.DOMAIN}:${process.env.PORT}`);
   });
   https.createServer(options, exp).listen(process.env.PORT_SSL, err => {
     if (err) throw err;
     console.log(
-      `> Ready on http://${process.env.DOMAIN}:${process.env.PORT_SSL}`
+      `> Ready on https://${process.env.DOMAIN}:${process.env.PORT_SSL}`
     );
   });
 

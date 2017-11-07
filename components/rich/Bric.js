@@ -9,14 +9,22 @@ import { AppIcon } from "../ui";
 
 class Bric extends React.Component {
   render() {
-    const { url, name, icon } = this.props;
+    const { url, name, icon, size , className, items} = this.props;
 
     return (
-      <Column>
+      <Column className={`bric ${className}`}
+        xs={size.xs ? size.xs : null}
+        sm={size.sm ? size.sm : null}
+        md={size.md ? size.md : null}
+        lg={size.lg ? size.lg : null}
+        >
         <Content>
           <Link prefetch href={url}>
             <a>
-              <AppIcon className={name} name={icon} />
+              <div className="title">{name}</div>
+              {items && items.map((item, i) => {
+
+              })}
             </a>
           </Link>
         </Content>

@@ -26,6 +26,8 @@
 @import './modules/ui/video.scss';
 @import './modules/ui/bottom-input.scss';
 
+@import './modules/rich/bric.scss';
+
 @include font-face('Roboto', '/Roboto/Roboto-Medium', null, null, ttf);
 @include font-face('Roboto Light', '/Roboto/Roboto-Light', '300', 'normal', ttf);
 @include font-face('Roboto Thin', '/Roboto/Roboto-Thin', '100', 'normal', ttf);

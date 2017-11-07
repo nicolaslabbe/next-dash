@@ -94,34 +94,24 @@ const formatDisruptions = disruptions => {
 };
 
 const find = (stopId, directions, bearer, l) => {
-  var limit = l || 10;
-  const date = new Date()
-    .toISOString()
-    .replace(/-|:/g, "")
-    .split(".")[0];
   return new Promise((resolve, reject) => {
-    fetch(
-      `https://api.sncf.com/v1/coverage/sncf/stop_areas/stop_area:OCE:SA:${stopId}/departures?data_freshness=realtime&count=100`,
-      {
-        method: "GET",
-        headers: {
-          Authorization: "" + bearer
-        }
-      }
-    )
-      .then(response => response.json())
-      .then(responseJson => {
-        var stations = formatStations(
+    Utils.url
+      .get(`https://api.sncf.com/v1/coverage/sncf/stop_areas/stop_area:OCE:SA:${stopId}/departures?data_freshness=realtime&count=100`,
+        {
+          method: "GET",
+          headers: {
+            Authorization: "" + bearer
+          }
+        })
+      .then(
+        (result) => resolve(formatStations(
           stopId,
           directions,
-          limit,
-          responseJson.departures
-        );
-        resolve(stations);
-      })
-      .catch(error => {
-        reject(e);
-      });
+          l,
+          result.departures
+        )),
+        (error) => reject(error)
+      )
   });
 };
 
@@ -134,9 +124,7 @@ const findAll = (stops, bearer) => {
     Array.prototype.forEach.call(stops, item => {
       promises.push(
         find(item.id, item.direction, bearer).then(
-          result => {
-            results.push(result);
-          },
+          result => results.push(result),
           error => errors.push(error)
         )
       );
@@ -153,32 +141,19 @@ const findAll = (stops, bearer) => {
 };
 
 const disruptions = (stopId, bearer) => {
-  const date = new Date()
-    .toISOString()
-    .replace(/-|:/g, "")
-    .split(".")[0];
   return new Promise((resolve, reject) => {
-    fetch(
-      `https://api.sncf.com/v1/coverage/sncf/stop_areas/stop_area:OCE:SA:${stopId}/departures?data_freshness=realtime&count=100`,
-      {
-        method: "GET",
-        headers: {
-          Authorization: "" + bearer
-        }
-      }
-    )
-      .then(response => response.json())
-      .then(responseJson => {
-        var disruptions = formatDisruptions(responseJson.disruptions);
-        if (disruptions.length > 0) {
-          resolve(disruptions);
-        } else {
-          reject(null);
-        }
-      })
-      .catch(error => {
-        reject(e);
-      });
+    Utils.url
+      .get(`https://api.sncf.com/v1/coverage/sncf/stop_areas/stop_area:OCE:SA:${stopId}/departures?data_freshness=realtime&count=100`,
+        {
+          method: "GET",
+          headers: {
+            Authorization: "" + bearer
+          }
+        })
+      .then(
+        (result) => resolve(formatDisruptions(result.departures)),
+        (error) => reject(error)
+      )
   });
 };
 

@@ -25,7 +25,7 @@ import { Bric } from "../components/rich";
 
 class Page extends React.Component {
   static async getInitialProps({ store, isServer }) {
-    //store.dispatch(DashboardActions.dashboardRequest());
+    store.dispatch(DashboardActions.dashboardRequest());
     return {};
   }
 
@@ -87,14 +87,9 @@ class Page extends React.Component {
   render() {
     return (
       <div>
-        <Header title="index" />
         <Row>
-          <Bric url="/train" name="train" icon="train" />
-          <Bric url="/weather" name="weather" icon="wb_sunny" />
-          <Bric url="/db?type=news" name="news" icon="info" />
-          <Bric url="/list?type=notes" name="notes" icon="list" />
-          <Bric url="/db?type=movie" name="movie" icon="local_movies" />
-          <Bric url="/db?type=serie" name="series" icon="live_tv" />
+          {this.props.dashboard.items && this.props.dashboard.items.map((item, i) =>
+            <Bric {...item} key={i} />)}
         </Row>
       </div>
     );
