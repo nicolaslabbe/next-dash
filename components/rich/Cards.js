@@ -25,7 +25,10 @@ class Cards extends React.Component {
   goToDetail = item => {
     if (item.id) {
       this.props.callDetail(this.props.type, item.id);
-      Router.push(`/db/detail?type=${this.props.type}&display=${this.props.display}&id=${item.id}`);
+      Router.push(
+        `/db/detail?type=${this.props.type}&display=${this.props
+          .display}&id=${item.id}`
+      );
     } else if (item.url) {
       if (typeof window !== "undefined") {
         window.open(item.url);
@@ -82,8 +85,9 @@ class Cards extends React.Component {
 
     return (
       <div>
-        {items && Array.isArray(items)
-          ? items.map((item, i) => <Card
+        {items && Array.isArray(items) ? (
+          items.map((item, i) => (
+            <Card
               key={i}
               title={item.title}
               date={Utils.date.timestampToHumain(item.date)}
@@ -93,19 +97,20 @@ class Cards extends React.Component {
               {item.overview ? this.getOverview(item.overview) : null}
               {item.details ? this.getDetails(item.details) : null}
               {item.videos ? this.getVideos(item.videos) : null}
-            </Card>)
-          : items
-            ? <Card
-                title={items.title}
-                date={Utils.date.timestampToHumain(items.date)}
-                onClick={e => (!detail ? this.goToDetail(items) : null)}
-                image={items.image}
-              >
-                {items.overview ? this.getOverview(items.overview) : null}
-                {items.details ? this.getDetails(items.details) : null}
-                {items.videos ? this.getVideos(items.videos) : null}
-              </Card>
-            : null}
+            </Card>
+          ))
+        ) : items ? (
+          <Card
+            title={items.title}
+            date={Utils.date.timestampToHumain(items.date)}
+            onClick={e => (!detail ? this.goToDetail(items) : null)}
+            image={items.image}
+          >
+            {items.overview ? this.getOverview(items.overview) : null}
+            {items.details ? this.getDetails(items.details) : null}
+            {items.videos ? this.getVideos(items.videos) : null}
+          </Card>
+        ) : null}
       </div>
     );
   }

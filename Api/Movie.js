@@ -6,32 +6,38 @@ var router = express.Router();
 
 let cache = apicache.middleware;
 
-router.get("/:page?", /* cache("2 minutes"),*/ function(req, res) {
-  if (req.params.page > 1) {
-    return Libs.status.success(res, [])
+router.get(
+  "/:page?",
+  /* cache("2 minutes"),*/ function(req, res) {
+    if (req.params.page > 1) {
+      return Libs.status.success(res, []);
+    }
+    Libs.db
+      .all("movie")
+      .then(
+        data => {
+          Libs.status.success(res, data);
+        },
+        error => Libs.status.success(res, [])
+      )
+      .catch(error => Libs.status.success(res, []));
   }
-  Libs.db
-    .all('movie')
-    .then(
-      data => {
-        Libs.status.success(res, data)
-      },
-      error => Libs.status.success(res, [])
-    )
-    .catch(error => Libs.status.success(res, []));
-});
+);
 
-router.get("/find/:id", /* cache("2 minutes"), */ function(req, res) {
-  Libs.tmdbMovie
-    .findById(process.env.IMDB_API_KEY, req.params.id)
-    .then(
-      result => Libs.status.success(res, result),
-      error => Libs.status.error(res, error)
-    )
-    .catch(error => {
-      Libs.status.error(res, error)
-    });
-});
+router.get(
+  "/find/:id",
+  /* cache("2 minutes"), */ function(req, res) {
+    Libs.tmdbMovie
+      .findById(process.env.IMDB_API_KEY, req.params.id)
+      .then(
+        result => Libs.status.success(res, result),
+        error => Libs.status.error(res, error)
+      )
+      .catch(error => {
+        Libs.status.error(res, error);
+      });
+  }
+);
 
 router.get("/:query/:page", cache("2 minutes"), function(req, res) {
   Libs.tmdbMovie

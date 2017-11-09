@@ -7,7 +7,7 @@ class Card extends React.Component {
   onClickAction = e => {
     const { onClick } = this.props;
     // if (!this.refs.footer.contains(e.target)) {
-      onClick && onClick(e);
+    onClick && onClick(e);
     // }
   };
 

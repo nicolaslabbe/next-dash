@@ -13,54 +13,53 @@ const getStations = (station, departures) => {
         name: station.stop_areas && station.stop_areas[0].name,
         coord: station.stop_areas && station.stop_areas[0].coord
       },
-      items:[]
+      items: []
     };
     Array.prototype.forEach.call(departures, departure => {
       stations.items.push({
         left: departure.display_informations.direction,
         right: Utils.date.HHmm(departure.stop_date_time.departure_date_time),
-        rightIcon: departure.disruptions && departure.disruptions.length > 0 ? 'warning' : null
+        rightIcon:
+          departure.disruptions && departure.disruptions.length > 0
+            ? "warning"
+            : null
       });
     });
 
     return stations;
-  }catch(e) {
-    return Utils.error.catch(e)
+  } catch (e) {
+    return Utils.error.catch(e);
   }
 };
 
 const find = (stopId, bearer) => {
   return new Promise((resolve, reject) => {
     Utils.url
-      .get(
-        `https://api.sncf.com/v1/coverage/sncf/stop_areas/${stopId}`,
-        {
-          Authorization: "" + bearer
-        }
-      )
+      .get(`https://api.sncf.com/v1/coverage/sncf/stop_areas/${stopId}`, {
+        Authorization: "" + bearer
+      })
       .then(
-        station =>
-          {
-            Utils.url
-              .get(
-                `https://api.sncf.com/v1/coverage/sncf/stop_areas/${stopId}/departures?data_freshness=realtime&count=100`,
-                {
-                  Authorization: "" + bearer
-                })
-                .then(
-                  result =>
-                    {
-                      resolve(getStations(station, result.departures))
-                    },
-                  error => reject(error)
-                );
-          },
+        station => {
+          Utils.url
+            .get(
+              `https://api.sncf.com/v1/coverage/sncf/stop_areas/${stopId}/departures?data_freshness=realtime&count=100`,
+              {
+                Authorization: "" + bearer
+              }
+            )
+            .then(
+              result => {
+                resolve(getStations(station, result.departures));
+              },
+              error => reject(error)
+            );
+        },
         error => reject(error)
       );
   });
 };
 
-const formatSearch = (places) => {
+const formatSearch = places => {
   var results = {
     items: []
   };
@@ -77,14 +76,12 @@ const formatSearch = (places) => {
 const search = (query, bearer) => {
   return new Promise((resolve, reject) => {
     Utils.url
-      .get(
-        `https://api.sncf.com/v1/coverage/sncf/places?q=${query}`,
-        {
-          Authorization: "" + bearer
-        }
-      )
+      .get(`https://api.sncf.com/v1/coverage/sncf/places?q=${query}`, {
+        Authorization: "" + bearer
+      })
       .then(
-        result => resolve(result && result.places ? formatSearch(result.places) : []),
+        result =>
+          resolve(result && result.places ? formatSearch(result.places) : []),
         error => reject(error)
       );
   });

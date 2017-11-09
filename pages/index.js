@@ -85,13 +85,14 @@ class Page extends React.Component {
   };
 
   render() {
-    const { dashboard } = this.props
+    const { dashboard } = this.props;
     return (
       <div>
         <Row>
-          {dashboard && dashboard.items && Array.isArray(dashboard.items) && dashboard.items.map((item, i) => (
-              <Bric {...item} key={i} />
-            ))}
+          {dashboard &&
+            dashboard.items &&
+            Array.isArray(dashboard.items) &&
+            dashboard.items.map((item, i) => <Bric {...item} key={i} />)}
         </Row>
       </div>
     );

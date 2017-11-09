@@ -28,7 +28,11 @@ export default function* root() {
     takeLatest(WeatherTypes.WEATHER_REQUEST, weatherSagas.request, api),
     takeLatest(ListTypes.FAVORITE_GET_REQUEST, listSagas.favorite, api),
     takeLatest(ListTypes.FAVORITE_ADD_REQUEST, listSagas.favoriteAdd, api),
-    takeLatest(ListTypes.FAVORITE_REMOVE_REQUEST, listSagas.favoriteRemove, api),
+    takeLatest(
+      ListTypes.FAVORITE_REMOVE_REQUEST,
+      listSagas.favoriteRemove,
+      api
+    ),
     takeLatest(ListTypes.LIST_REQUEST, listSagas.request, api),
     takeLatest(ListTypes.LIST_ADD, listSagas.add, api),
     takeLatest(ListTypes.LIST_REMOVE, listSagas.remove, api),

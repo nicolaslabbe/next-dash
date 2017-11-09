@@ -87,7 +87,7 @@ class Page extends React.Component {
             display={display}
             type={type}
             items={result[type]}
-            />
+          />
         ) : null}
         <MenuBottom current="news" />
       </ScrollView>

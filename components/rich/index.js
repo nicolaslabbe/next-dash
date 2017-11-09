@@ -3,9 +3,4 @@ import Lists from "./Lists";
 import Bric from "./Bric";
 import List from "./List";
 
-export {
-  Cards,
-  Lists,
-  Bric,
-  List
-};
+export { Cards, Lists, Bric, List };

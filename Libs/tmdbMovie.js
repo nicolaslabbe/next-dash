@@ -64,8 +64,8 @@ const formats = result => {
       return newItem;
     });
     return results;
-  }catch(e) {
-    return Utils.error.catch(e)
+  } catch (e) {
+    return Utils.error.catch(e);
   }
 };
 
@@ -82,96 +82,100 @@ const format = item => {
         image: getPoster(item).sm,
         images: getPoster(item)
       },
-      items: [{
-        id: item.id,
-        date: item.release_date,
-        title: item.title,
-        tagline: item.tagline,
-        description: item.overview,
-        link: item.homepage,
-        image: getPoster(item).sm,
-        images: getPoster(item),
-        details: [
-          {
-            name: "Details",
-            value: [
-              {
-                name: "date",
-                value: moment(item.release_date).format("DD MMMM YYYY")
-              },
-              {
-                name: "status",
-                value: item.status
-              },
-              {
-                name: "runtime",
-                value: `${moment
-                  .duration(item.runtime, "minutes")
-                  .hours()}:${moment.duration(item.runtime, "minutes").minutes()}`
-              },
-              {
-                name: "budget",
-                value: Utils.devise.toDollars(`${item.budget}`)
-              },
-              {
-                name: "revenue",
-                value: Utils.devise.toDollars(`${item.revenue}`)
-              },
-              {
-                name: "original language",
-                value: item.original_language
-              },
-              {
-                name: "original title",
-                value: item.original_title
-              },
-              {
-                name: "adult",
-                value: item.adult
-              }
-            ]
-          },
-          {
-            name: "companies",
-            value: item.production_companies.map((v, i) => {
-              return v.name;
-            })
-          },
-          {
-            name: "country",
-            value: item.production_countries.map((v, i) => {
-              return v.name;
-            })
-          },
-          {
-            name: "genres",
-            value: item.genres.map((v, i) => {
-              return v.name;
-            })
-          },
-          {
-            name: "popularity",
-            value: [
-              {
-                name: "popularity",
-                value: item.popularity
-              },
-              {
-                name: "vote_average",
-                value: item.vote_average
-              },
-              {
-                name: "vote_count",
-                value: item.vote_count
-              }
-            ]
-          }
-        ]
-      }]
+      items: [
+        {
+          id: item.id,
+          date: item.release_date,
+          title: item.title,
+          tagline: item.tagline,
+          description: item.overview,
+          link: item.homepage,
+          image: getPoster(item).sm,
+          images: getPoster(item),
+          details: [
+            {
+              name: "Details",
+              value: [
+                {
+                  name: "date",
+                  value: moment(item.release_date).format("DD MMMM YYYY")
+                },
+                {
+                  name: "status",
+                  value: item.status
+                },
+                {
+                  name: "runtime",
+                  value: `${moment
+                    .duration(item.runtime, "minutes")
+                    .hours()}:${moment
+                    .duration(item.runtime, "minutes")
+                    .minutes()}`
+                },
+                {
+                  name: "budget",
+                  value: Utils.devise.toDollars(`${item.budget}`)
+                },
+                {
+                  name: "revenue",
+                  value: Utils.devise.toDollars(`${item.revenue}`)
+                },
+                {
+                  name: "original language",
+                  value: item.original_language
+                },
+                {
+                  name: "original title",
+                  value: item.original_title
+                },
+                {
+                  name: "adult",
+                  value: item.adult
+                }
+              ]
+            },
+            {
+              name: "companies",
+              value: item.production_companies.map((v, i) => {
+                return v.name;
+              })
+            },
+            {
+              name: "country",
+              value: item.production_countries.map((v, i) => {
+                return v.name;
+              })
+            },
+            {
+              name: "genres",
+              value: item.genres.map((v, i) => {
+                return v.name;
+              })
+            },
+            {
+              name: "popularity",
+              value: [
+                {
+                  name: "popularity",
+                  value: item.popularity
+                },
+                {
+                  name: "vote_average",
+                  value: item.vote_average
+                },
+                {
+                  name: "vote_count",
+                  value: item.vote_count
+                }
+              ]
+            }
+          ]
+        }
+      ]
     };
     return newItem;
-  }catch(e) {
-    return Utils.error.catch(e)
+  } catch (e) {
+    return Utils.error.catch(e);
   }
 };
 
@@ -195,7 +199,7 @@ const findById = (apiKey, id) => {
       .then(responseJson => {
         var result = format(responseJson);
         if (result.error) {
-          return reject(result)
+          return reject(result);
         }
 
         fetch(`${baseUrl}movie/${id}/videos?api_key=${apiKey}`)
@@ -222,9 +226,9 @@ const search = (apiKey, query, page) => {
     )
       .then(response => response.json())
       .then(responseJson => {
-        var result = formats(responseJson.results)
+        var result = formats(responseJson.results);
         if (result.error) {
-          return reject(result)
+          return reject(result);
         }
         resolve(result);
       })

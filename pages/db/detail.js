@@ -19,7 +19,6 @@ import { List } from "../../components/rich";
 import Utils from "../../Utils";
 
 class Page extends React.Component {
-
   static async getInitialProps({ store, isServer, query }) {
     store.dispatch(dbActions.dbDetailRequest(query.type, query.id));
     return {
@@ -32,24 +31,21 @@ class Page extends React.Component {
   render() {
     const { result, display, type, item } = this.props;
 
-    var favorite = result[type] && Array.isArray(result[type])
-      ? result[type][0] && result[type][0].detail
-      : result[type].detail
+    var favorite =
+      result[type] && Array.isArray(result[type])
+        ? result[type][0] && result[type][0].detail
+        : result[type].detail;
 
     return (
       <div className={type}>
-        <Header
-          item={favorite}
-          title={type}
-          close
-          type={type} />
+        <Header item={favorite} title={type} close type={type} />
         {result[type] ? (
           <List
             detail={true}
             display={display}
             type={type}
             items={result[type]}
-            />
+          />
         ) : null}
         <MenuBottom />
       </div>

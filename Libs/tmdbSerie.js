@@ -64,8 +64,8 @@ const formats = result => {
       return newItem;
     });
     return results;
-  }catch(e) {
-    return Utils.error.catch(e)
+  } catch (e) {
+    return Utils.error.catch(e);
   }
 };
 
@@ -83,131 +83,132 @@ const format = item => {
         images: getPoster(item)
       },
       items: [
-      {
-        id: item.id,
-        date: item.release_date,
-        title: item.name,
-        tagline: item.overview,
-        description: item.overview,
-        link: item.homepage,
-        image: getPoster(item).sm,
-        images: getPoster(item),
-        details: [
-          {
-            name: "Author",
-            value:
-              item.created_by &&
-              item.created_by.map((v, i) => {
-                return v.name;
-              })
-          },
-          {
-            name: "Details",
-            value: [
-              {
-                name: "date",
-                value: moment(item.first_air_date).format("DD MMMM YYYY")
-              },
-              {
-                name: "status",
-                value: item.status
-              },
-              {
-                name: "type",
-                value: item.type
-              },
-              {
-                name: "runtime",
-                value: `${moment
-                  .duration(item.episode_run_time, "minutes")
-                  .hours()}:${moment
-                  .duration(item.episode_run_time, "minutes")
-                  .minutes()}`
-              },
-              {
-                name: "number_of_seasons",
-                value: item.number_of_seasons
-              },
-              {
-                name: "number_of_episodes",
-                value: item.number_of_episodes
-              },
-              {
-                name: "original language",
-                value: item.original_language
-              },
-              {
-                name: "original title",
-                value: item.original_name
-              }
-            ]
-          },
-          {
-            name: "networks",
-            value:
-              item.networks &&
-              item.networks.map((v, i) => {
-                return v.name;
-              })
-          },
-          {
-            name: "production_companies",
-            value:
-              item.production_companies &&
-              item.production_companies.map((v, i) => {
-                return v.name;
-              })
-          },
-          {
-            name: "country",
-            value:
-              item.production_countries &&
-              item.production_countries.map((v, i) => {
-                return v.name;
-              })
-          },
-          {
-            name: "genres",
-            value:
-              item.genres &&
-              item.genres.map((v, i) => {
-                return v.name;
-              })
-          },
-          {
-            name: "seasons",
-            value:
-              item.seasons &&
-              item.seasons.map((v, i) => {
-                return {
-                  name: `season ${v.season_number} (${v.air_date})`,
-                  value: `episodes ${v.episode_count}`
-                };
-              })
-          },
-          {
-            name: "popularity",
-            value: [
-              {
-                name: "popularity",
-                value: item.popularity
-              },
-              {
-                name: "vote_average",
-                value: item.vote_average
-              },
-              {
-                name: "vote_count",
-                value: item.vote_count
-              }
-            ]
-          }
-        ]
-      }]
+        {
+          id: item.id,
+          date: item.release_date,
+          title: item.name,
+          tagline: item.overview,
+          description: item.overview,
+          link: item.homepage,
+          image: getPoster(item).sm,
+          images: getPoster(item),
+          details: [
+            {
+              name: "Author",
+              value:
+                item.created_by &&
+                item.created_by.map((v, i) => {
+                  return v.name;
+                })
+            },
+            {
+              name: "Details",
+              value: [
+                {
+                  name: "date",
+                  value: moment(item.first_air_date).format("DD MMMM YYYY")
+                },
+                {
+                  name: "status",
+                  value: item.status
+                },
+                {
+                  name: "type",
+                  value: item.type
+                },
+                {
+                  name: "runtime",
+                  value: `${moment
+                    .duration(item.episode_run_time, "minutes")
+                    .hours()}:${moment
+                    .duration(item.episode_run_time, "minutes")
+                    .minutes()}`
+                },
+                {
+                  name: "number_of_seasons",
+                  value: item.number_of_seasons
+                },
+                {
+                  name: "number_of_episodes",
+                  value: item.number_of_episodes
+                },
+                {
+                  name: "original language",
+                  value: item.original_language
+                },
+                {
+                  name: "original title",
+                  value: item.original_name
+                }
+              ]
+            },
+            {
+              name: "networks",
+              value:
+                item.networks &&
+                item.networks.map((v, i) => {
+                  return v.name;
+                })
+            },
+            {
+              name: "production_companies",
+              value:
+                item.production_companies &&
+                item.production_companies.map((v, i) => {
+                  return v.name;
+                })
+            },
+            {
+              name: "country",
+              value:
+                item.production_countries &&
+                item.production_countries.map((v, i) => {
+                  return v.name;
+                })
+            },
+            {
+              name: "genres",
+              value:
+                item.genres &&
+                item.genres.map((v, i) => {
+                  return v.name;
+                })
+            },
+            {
+              name: "seasons",
+              value:
+                item.seasons &&
+                item.seasons.map((v, i) => {
+                  return {
+                    name: `season ${v.season_number} (${v.air_date})`,
+                    value: `episodes ${v.episode_count}`
+                  };
+                })
+            },
+            {
+              name: "popularity",
+              value: [
+                {
+                  name: "popularity",
+                  value: item.popularity
+                },
+                {
+                  name: "vote_average",
+                  value: item.vote_average
+                },
+                {
+                  name: "vote_count",
+                  value: item.vote_count
+                }
+              ]
+            }
+          ]
+        }
+      ]
     };
     return newItem;
-  }catch(e) {
-    return Utils.error.catch(e)
+  } catch (e) {
+    return Utils.error.catch(e);
   }
 };
 

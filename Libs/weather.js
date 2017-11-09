@@ -110,8 +110,8 @@ const format = responseJson => {
     });
 
     return [result];
-  }catch(e) {
-    return Utils.error.catch(e)
+  } catch (e) {
+    return Utils.error.catch(e);
   }
 };
 
@@ -122,9 +122,9 @@ const find = (cityId, apiKey) => {
     )
       .then(response => response.json())
       .then(responseJson => {
-        var result = format(responseJson)
+        var result = format(responseJson);
         if (result.error) {
-          return reject(result)
+          return reject(result);
         }
         resolve(result);
       })
@@ -142,14 +142,17 @@ const formatSearch = list => {
     Array.prototype.forEach.call(list, item => {
       results.items.push({
         left: item.name,
-        rightIcon: item.weather && item.weather[0] ? getIcon(item.weather[0].icon) : null,
+        rightIcon:
+          item.weather && item.weather[0]
+            ? getIcon(item.weather[0].icon)
+            : null,
         id: item.id
       });
     });
 
     return results;
-  }catch(e) {
-    return Utils.error.catch(e)
+  } catch (e) {
+    return Utils.error.catch(e);
   }
 };
 
@@ -160,9 +163,9 @@ const search = (query, apiKey, page) => {
     )
       .then(response => response.json())
       .then(responseJson => {
-        var result = formatSearch(responseJson.list)
+        var result = formatSearch(responseJson.list);
         if (result.error) {
-          return reject(result)
+          return reject(result);
         }
         resolve(result);
       })

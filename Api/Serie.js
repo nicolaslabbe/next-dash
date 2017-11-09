@@ -6,21 +6,24 @@ var router = express.Router();
 
 let cache = apicache.middleware;
 
-router.get("/:page?", /* cache("2 minutes"),*/ function(req, res) {
-  if (req.params.page > 1) {
-    return Libs.status.success(res, [])
-  }
+router.get(
+  "/:page?",
+  /* cache("2 minutes"),*/ function(req, res) {
+    if (req.params.page > 1) {
+      return Libs.status.success(res, []);
+    }
 
-  Libs.db
-    .all('serie')
-    .then(
-      data => {
-        Libs.status.success(res, data)
-      },
-      error => Libs.status.success(res, [])
-    )
-    .catch(error => Libs.status.success(res, []));
-});
+    Libs.db
+      .all("serie")
+      .then(
+        data => {
+          Libs.status.success(res, data);
+        },
+        error => Libs.status.success(res, [])
+      )
+      .catch(error => Libs.status.success(res, []));
+  }
+);
 
 router.get("/:page?", cache("2 minutes"), function(req, res) {
   Libs.tmdbSerie

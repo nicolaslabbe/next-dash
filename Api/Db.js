@@ -43,7 +43,7 @@ router.post("/:name?", function(req, res) {
         .then(
           data => {
             if (data.length > 0) {
-              Libs.status.error(res, {error: "entry already exist"});
+              Libs.status.error(res, { error: "entry already exist" });
             } else {
               Libs.db
                 .add(req.params.name, req.body.item)

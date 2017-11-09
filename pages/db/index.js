@@ -41,9 +41,7 @@ class Page extends React.Component {
   render() {
     const { result, type, display } = this.props;
     return (
-      <ScrollView
-        onScrollEnd={() => this.more(type)}
-        className={type}>
+      <ScrollView onScrollEnd={() => this.more(type)} className={type}>
         <Header title={type} close />
         {result[type] ? (
           <List
@@ -51,14 +49,16 @@ class Page extends React.Component {
             display={display}
             type={type}
             items={result[type]}
-            />
+          />
         ) : null}
         <MenuBottom
           items={[
             {
               name: "search",
               icon: "search",
-              path: `/db/search?type=${type}${display ? '&display=' + display : ''}`
+              path: `/db/search?type=${type}${display
+                ? "&display=" + display
+                : ""}`
             }
           ]}
         />

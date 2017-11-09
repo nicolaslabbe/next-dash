@@ -21,13 +21,17 @@ class Header extends React.Component {
 
   componentWillReceiveProps = nextProps => {
     if (!this.state.item && nextProps.item) {
-      if (typeof nextProps.item !== "undefined" && nextProps.item
-          && typeof nextProps.item.id !== "undefined" && nextProps.item.id) {
-        this.props.getFavorite(this.props.type, 'id', nextProps.item.id)
+      if (
+        typeof nextProps.item !== "undefined" &&
+        nextProps.item &&
+        typeof nextProps.item.id !== "undefined" &&
+        nextProps.item.id
+      ) {
+        this.props.getFavorite(this.props.type, "id", nextProps.item.id);
       }
       this.setState({
         item: nextProps.item
-      })
+      });
     }
   };
 
@@ -36,14 +40,11 @@ class Header extends React.Component {
   };
 
   favorite = () => {
-    const { item, current, type, favorite } = this.props
+    const { item, current, type, favorite } = this.props;
 
     if (this.isFavorite()) {
-      this.props.removeFromFavorite(
-        type,
-        [favorite.apiId]
-      );
-    }else {
+      this.props.removeFromFavorite(type, [favorite.apiId]);
+    } else {
       this.props.addToFavorite(
         type,
         item,
@@ -53,21 +54,21 @@ class Header extends React.Component {
 
     this.setState({
       liking: true
-    })
+    });
   };
 
   isFavorite = () => {
-    const { item, favorite } = this.props
+    const { item, favorite } = this.props;
 
     if (favorite && item && item.id === favorite.id) {
-      return true
-    }else {
-      return false
+      return true;
+    } else {
+      return false;
     }
-  }
+  };
 
   render() {
-    const { item, current, type } = this.props
+    const { item, current, type } = this.props;
 
     return (
       <Row className="header" alignXs="center" valignXs="middle">
@@ -108,9 +109,12 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    getFavorite: (name, key, value) => dispatch(ListActions.favoriteGetRequest(name, key, value)),
-    addToFavorite: (name, item, duplicate) => dispatch(ListActions.favoriteAddRequest(name, item, duplicate)),
-    removeFromFavorite: (name, id) => dispatch(ListActions.favoriteRemoveRequest(name, id))
+    getFavorite: (name, key, value) =>
+      dispatch(ListActions.favoriteGetRequest(name, key, value)),
+    addToFavorite: (name, item, duplicate) =>
+      dispatch(ListActions.favoriteAddRequest(name, item, duplicate)),
+    removeFromFavorite: (name, id) =>
+      dispatch(ListActions.favoriteRemoveRequest(name, id))
   };
 };
 

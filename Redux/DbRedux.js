@@ -48,7 +48,9 @@ export const dbDetailFailure = (state, { name, error }) => {
 
 export const dbSearchRequest = (state, { name, query, page }) => {
   var newSearch = {};
-  newSearch[name] = {items: page > 1 && state.search[name] ? state.search[name] : []};
+  newSearch[name] = {
+    items: page > 1 && state.search[name] ? state.search[name] : []
+  };
   return { ...state, search: { ...state.search, ...newSearch } };
 };
 

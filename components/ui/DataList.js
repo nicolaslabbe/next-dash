@@ -87,7 +87,7 @@ class DataList extends React.Component {
 
     return (
       <Row
-        className={`line ${selected ? 'selected' : null}`}
+        className={`line ${selected ? "selected" : null}`}
         key={i}
         onClick={event =>
           multiSelect
