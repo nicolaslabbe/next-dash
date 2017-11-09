@@ -9,13 +9,13 @@ let cache = apicache.middleware;
 router.get(
   "/:page?",
   /* cache("2 minutes"),*/ function(req, res) {
-  Libs.quefaire
-    .list(process.env.PARIS_CONNECT, Libs.req.page(req))
-    .then(
-      result => Libs.status.success(res, result),
-      error => Libs.status.error(res, error)
-    )
-    .catch(error => Libs.status.success(res, error));
+    Libs.quefaire
+      .list(process.env.PARIS_CONNECT, Libs.req.page(req))
+      .then(
+        result => Libs.status.success(res, result),
+        error => Libs.status.error(res, error)
+      )
+      .catch(error => Libs.status.success(res, error));
   }
 );
 
