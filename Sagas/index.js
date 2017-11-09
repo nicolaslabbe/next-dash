@@ -5,14 +5,12 @@ import Utils from "../Utils";
 
 /* ------------- Types ------------- */
 
-import { WeatherTypes } from "../Redux/WeatherRedux";
 import { ListTypes } from "../Redux/ListRedux";
 import { DbTypes } from "../Redux/DbRedux";
 import { DashboardTypes } from "../Redux/DashboardRedux";
 
 /* ------------- Sagas ------------- */
 
-import * as weatherSagas from "./WeatherSagas";
 import * as listSagas from "./ListSagas";
 import * as dbSagas from "./DbSagas";
 import * as dashboardSagas from "./DashboardSagas";
@@ -25,7 +23,6 @@ const Request = {};
 export default function* root() {
   yield all([
     takeLatest(DashboardTypes.DASHBOARD_REQUEST, dashboardSagas.request, api),
-    takeLatest(WeatherTypes.WEATHER_REQUEST, weatherSagas.request, api),
     takeLatest(ListTypes.FAVORITE_GET_REQUEST, listSagas.favorite, api),
     takeLatest(ListTypes.FAVORITE_ADD_REQUEST, listSagas.favoriteAdd, api),
     takeLatest(

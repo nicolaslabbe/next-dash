@@ -5,6 +5,7 @@ const Db = require("./Db");
 const Fixture = require("./Fixture");
 const Movie = require("./Movie");
 const Serie = require("./Serie");
+const Quefaire = require("./Quefaire");
 const Push = require("./Push");
 const Dashboard = require("./Dashboard");
 
@@ -13,6 +14,7 @@ var router = express.Router();
 
 // define the home page route
 router.use("/dashboard", Dashboard);
+router.use("/quefaire", Quefaire);
 router.use("/weather", Weather);
 router.use("/news", News);
 router.use("/train", Train);

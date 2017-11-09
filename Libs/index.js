@@ -8,6 +8,7 @@ const tmdbSerie = require("./tmdbSerie");
 const tmdbMovie = require("./tmdbMovie");
 const weather = require("./weather");
 const news = require("./news");
+const quefaire = require("./quefaire");
 
 module.exports = {
   db,
@@ -19,5 +20,6 @@ module.exports = {
   tmdbSerie,
   tmdbMovie,
   weather,
-  news
+  news,
+  quefaire
 };
