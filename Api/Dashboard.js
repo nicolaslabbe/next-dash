@@ -5,94 +5,42 @@ var apicache = require("apicache");
 var router = express.Router();
 let cache = apicache.middleware;
 
-router.get("/", cache("2 minutes"), function(req, res) {
+router.get("/", /* cache("2 minutes"), */ function(req, res) {
   var promises = [];
   var results = [];
 
-  promises.push(
-    Libs.weather
-      .find(process.env.OPEN_WEATHER_CITY, process.env.OPEN_WEATHER)
-      .then(
-        result =>
-          results.push({
-            items: result,
-            error: null,
-            url: "/weather",
-            name: "weather",
-            className: "weather",
-            icon: "wb_sunny",
-            size: {
-              xs: 12,
-              sm: 6
-            }
-          }),
-        error => (results.weather = { items: [], error: error })
-      )
-  );
+  results.push({
+    url: "/db?type=news",
+    name: "news",
+    className: "news",
+    icon: "info",
+    size: {
+      xs: 12,
+      sm: 6
+    }
+  });
 
-  promises.push(
-    Libs.sncf
-      .findAll(JSON.parse(process.env.TRAIN_STOPS), process.env.TRAIN_BEARER)
-      .then(
-        result =>
-          results.push({
-            items: result,
-            error: null,
-            url: "/train",
-            name: "train",
-            className: "train",
-            icon: "train",
-            size: {
-              xs: 12,
-              sm: 6
-            }
-          }),
-        error => (results.stations = { items: [], error: error })
-      )
-  );
+  results.push({
+    url: "/db?type=weather&display=list",
+    name: "weather",
+    className: "weather",
+    icon: "wb_sunny",
+    size: {
+      xs: 12,
+      sm: 6
+    }
+  });
 
-  promises.push(
-    Libs.sncf
-      .disruptionsAll(
-        JSON.parse(process.env.TRAIN_STOPS),
-        process.env.TRAIN_BEARER
-      )
-      .then(
-        result =>
-          results.push({
-            items: result,
-            error: null,
-            url: "/train/disruptions",
-            name: "disruptions",
-            className: "disruptions",
-            icon: "train",
-            size: {
-              xs: 12,
-              sm: 6
-            }
-          }),
-        error => (results.disruptions = { items: [], error: error })
-      )
-  );
-
-  promises.push(
-    Libs.news.find("time", "latest", process.env.NEWS_TOKEN, 1).then(
-      result =>
-        results.push({
-          items: result,
-          error: null,
-          url: "/db?type=news",
-          name: "news",
-          className: "news",
-          icon: "info",
-          size: {
-            xs: 12,
-            sm: 6
-          }
-        }),
-      error => (results.news = { items: [], error: error })
-    )
-  );
+  results.push({
+    url: "/db?type=train&display=list",
+    name: "train",
+    className: "train",
+    icon: "train",
+    size: {
+      xs: 12,
+      sm: 6
+    }
+  });
 
   results.push({
     url: "/db?type=movie",

@@ -63,13 +63,21 @@ const getIcon = code => {
 };
 
 const format = responseJson => {
-  var first = responseJson.list[0];
-  responseJson.list.shift();
+  try {
+    var first = responseJson.list[0];
+    responseJson.list.shift();
 
-  var result = [
-    {
-      title: "current",
+    var result = {
+      detail: {
+        left: responseJson.city.name,
+        name: responseJson.city.name,
+        id: responseJson.city.id
+      },
       items: [
+        {
+          left: responseJson.city.name,
+          rightIcon: getIcon(first.weather[0].icon)
+        },
         {
           left: "degree",
           right: `${first.main.temp}°C`
@@ -87,44 +95,76 @@ const format = responseJson => {
           right: first.weather[0].description
         },
         {
-          left: "time",
-          right: Utils.date.HHmm(first.dt_txt)
-        },
-        {
-          left: "icon",
-          rightIcon: getIcon(first.weather[0].icon)
-        },
-        {
           left: "wind",
           right: `${first.wind.speed}km`
         }
       ]
-    },
-    {
-      title: "futur",
-      items: []
-    }
-  ];
+    };
 
-  Array.prototype.forEach.call(responseJson.list, value => {
-    result[1].items.push({
-      left: Utils.date.HHmm(value.dt_txt),
-      right: `${value.main.temp}°C`,
-      rightIcon: getIcon(first.weather[0].icon)
+    Array.prototype.forEach.call(responseJson.list, value => {
+      result.items.push({
+        left: Utils.date.HHmm(value.dt_txt),
+        right: `${value.main.temp}°C`,
+        rightIcon: getIcon(first.weather[0].icon)
+      });
     });
-  });
 
-  return [result];
+    return [result];
+  }catch(e) {
+    return Utils.error.catch(e)
+  }
 };
 
 const find = (cityId, apiKey) => {
   return new Promise((resolve, reject) => {
     fetch(
-      `http://api.openweathermap.org/data/2.5/forecast/${cityId}?units=metric&id=${cityId}&APPID=${apiKey}`
+      `http://api.openweathermap.org/data/2.5/forecast/${cityId}?units=metric&APPID=${apiKey}`
     )
       .then(response => response.json())
       .then(responseJson => {
-        resolve(format(responseJson));
+        var result = format(responseJson)
+        if (result.error) {
+          return reject(result)
+        }
+        resolve(result);
+      })
+      .catch(error => {
+        reject(error);
+      });
+  });
+};
+
+const formatSearch = list => {
+  try {
+    var results = {
+      items: []
+    };
+    Array.prototype.forEach.call(list, item => {
+      results.items.push({
+        left: item.name,
+        rightIcon: item.weather && item.weather[0] ? getIcon(item.weather[0].icon) : null,
+        id: item.id
+      });
+    });
+
+    return results;
+  }catch(e) {
+    return Utils.error.catch(e)
+  }
+};
+
+const search = (query, apiKey, page) => {
+  return new Promise((resolve, reject) => {
+    fetch(
+      `http://api.openweathermap.org/data/2.5/find?APPID=${apiKey}&q=${query}`
+    )
+      .then(response => response.json())
+      .then(responseJson => {
+        var result = formatSearch(responseJson.list)
+        if (result.error) {
+          return reject(result)
+        }
+        resolve(result);
       })
       .catch(error => {
         reject(error);
@@ -134,5 +174,6 @@ const find = (cityId, apiKey) => {
 
 module.exports = {
   format,
+  search,
   find
 };

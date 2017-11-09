@@ -1,3 +1,6 @@
+const moment = require("moment");
+const Utils = require("../Utils");
+
 const baseUrl = `https://api.themoviedb.org/3/`;
 
 const getPoster = item => {
@@ -29,159 +32,183 @@ const getAverageIcon = count => {
 };
 
 const formats = result => {
-  var newResult = result.map(item => {
-    var newItem = {
-      id: item.id,
-      date: item.release_date,
-      title: item.name,
-      tagline: item.overview,
-      image: getPoster(item).sm,
-      overview: [
-        {
-          name: "vote",
-          icon: getAverageIcon(item.vote_average),
-          value: item.vote_average
-        },
-        {
-          name: "popularity",
-          icon: "favorite_border",
-          value: Math.round(item.popularity * 100) / 100
-        },
-        {
-          name: "date",
-          icon: "access_time",
-          value: item.release_date
-        }
-      ]
+  try {
+    var results = {
+      items: []
     };
-    return newItem;
-  });
-  return newResult;
-};
-
-const format = item => {
-  var newItem = {
-    id: item.id,
-    date: item.release_date,
-    title: item.name,
-    tagline: item.overview,
-    description: item.overview,
-    link: item.homepage,
-    image: getPoster(item).sm,
-    images: getPoster(item),
-    details: [
-      {
-        name: "Author",
-        value:
-          item.created_by &&
-          item.created_by.map((v, i) => {
-            return v.name;
-          })
-      },
-      {
-        name: "Details",
-        value: [
+    results.items = result.map(item => {
+      var newItem = {
+        id: item.id,
+        date: item.release_date,
+        title: item.name,
+        tagline: item.overview,
+        image: getPoster(item).sm,
+        overview: [
           {
-            name: "date",
-            value: moment(item.first_air_date).format("DD MMMM YYYY")
-          },
-          {
-            name: "status",
-            value: item.status
-          },
-          {
-            name: "type",
-            value: item.type
-          },
-          {
-            name: "runtime",
-            value: `${moment
-              .duration(item.episode_run_time, "minutes")
-              .hours()}:${moment
-              .duration(item.episode_run_time, "minutes")
-              .minutes()}`
-          },
-          {
-            name: "number_of_seasons",
-            value: item.number_of_seasons
-          },
-          {
-            name: "number_of_episodes",
-            value: item.number_of_episodes
-          },
-          {
-            name: "original language",
-            value: item.original_language
-          },
-          {
-            name: "original title",
-            value: item.original_name
-          }
-        ]
-      },
-      {
-        name: "networks",
-        value:
-          item.networks &&
-          item.networks.map((v, i) => {
-            return v.name;
-          })
-      },
-      {
-        name: "production_companies",
-        value:
-          item.production_companies &&
-          item.production_companies.map((v, i) => {
-            return v.name;
-          })
-      },
-      {
-        name: "country",
-        value:
-          item.production_countries &&
-          item.production_countries.map((v, i) => {
-            return v.name;
-          })
-      },
-      {
-        name: "genres",
-        value:
-          item.genres &&
-          item.genres.map((v, i) => {
-            return v.name;
-          })
-      },
-      {
-        name: "seasons",
-        value:
-          item.seasons &&
-          item.seasons.map((v, i) => {
-            return {
-              name: `season ${v.season_number} (${v.air_date})`,
-              value: `episodes ${v.episode_count}`
-            };
-          })
-      },
-      {
-        name: "popularity",
-        value: [
-          {
-            name: "popularity",
-            value: item.popularity
-          },
-          {
-            name: "vote_average",
+            name: "vote",
+            icon: getAverageIcon(item.vote_average),
             value: item.vote_average
           },
           {
-            name: "vote_count",
-            value: item.vote_count
+            name: "popularity",
+            icon: "favorite_border",
+            value: Math.round(item.popularity * 100) / 100
+          },
+          {
+            name: "date",
+            icon: "access_time",
+            value: item.release_date
           }
         ]
-      }
-    ]
-  };
-  return newItem;
+      };
+      return newItem;
+    });
+    return results;
+  }catch(e) {
+    return Utils.error.catch(e)
+  }
+};
+
+const format = item => {
+  try {
+    var newItem = {
+      detail: {
+        id: item.id,
+        date: item.release_date,
+        title: item.name,
+        tagline: item.overview,
+        description: item.overview,
+        link: item.homepage,
+        image: getPoster(item).sm,
+        images: getPoster(item)
+      },
+      items: [
+      {
+        id: item.id,
+        date: item.release_date,
+        title: item.name,
+        tagline: item.overview,
+        description: item.overview,
+        link: item.homepage,
+        image: getPoster(item).sm,
+        images: getPoster(item),
+        details: [
+          {
+            name: "Author",
+            value:
+              item.created_by &&
+              item.created_by.map((v, i) => {
+                return v.name;
+              })
+          },
+          {
+            name: "Details",
+            value: [
+              {
+                name: "date",
+                value: moment(item.first_air_date).format("DD MMMM YYYY")
+              },
+              {
+                name: "status",
+                value: item.status
+              },
+              {
+                name: "type",
+                value: item.type
+              },
+              {
+                name: "runtime",
+                value: `${moment
+                  .duration(item.episode_run_time, "minutes")
+                  .hours()}:${moment
+                  .duration(item.episode_run_time, "minutes")
+                  .minutes()}`
+              },
+              {
+                name: "number_of_seasons",
+                value: item.number_of_seasons
+              },
+              {
+                name: "number_of_episodes",
+                value: item.number_of_episodes
+              },
+              {
+                name: "original language",
+                value: item.original_language
+              },
+              {
+                name: "original title",
+                value: item.original_name
+              }
+            ]
+          },
+          {
+            name: "networks",
+            value:
+              item.networks &&
+              item.networks.map((v, i) => {
+                return v.name;
+              })
+          },
+          {
+            name: "production_companies",
+            value:
+              item.production_companies &&
+              item.production_companies.map((v, i) => {
+                return v.name;
+              })
+          },
+          {
+            name: "country",
+            value:
+              item.production_countries &&
+              item.production_countries.map((v, i) => {
+                return v.name;
+              })
+          },
+          {
+            name: "genres",
+            value:
+              item.genres &&
+              item.genres.map((v, i) => {
+                return v.name;
+              })
+          },
+          {
+            name: "seasons",
+            value:
+              item.seasons &&
+              item.seasons.map((v, i) => {
+                return {
+                  name: `season ${v.season_number} (${v.air_date})`,
+                  value: `episodes ${v.episode_count}`
+                };
+              })
+          },
+          {
+            name: "popularity",
+            value: [
+              {
+                name: "popularity",
+                value: item.popularity
+              },
+              {
+                name: "vote_average",
+                value: item.vote_average
+              },
+              {
+                name: "vote_count",
+                value: item.vote_count
+              }
+            ]
+          }
+        ]
+      }]
+    };
+    return newItem;
+  }catch(e) {
+    return Utils.error.catch(e)
+  }
 };
 
 const popular = (apiKey, page) => {
@@ -207,7 +234,7 @@ const findById = (apiKey, id) => {
         fetch(`${baseUrl}tv/${id}/videos?api_key=${apiKey}`)
           .then(response => response.json())
           .then(responseJson => {
-            result.videos = responseJson.results;
+            result.items[0].videos = responseJson.results;
 
             resolve(result);
           })

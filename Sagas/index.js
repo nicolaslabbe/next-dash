@@ -6,7 +6,6 @@ import Utils from "../Utils";
 /* ------------- Types ------------- */
 
 import { WeatherTypes } from "../Redux/WeatherRedux";
-import { TrainTypes } from "../Redux/TrainRedux";
 import { ListTypes } from "../Redux/ListRedux";
 import { DbTypes } from "../Redux/DbRedux";
 import { DashboardTypes } from "../Redux/DashboardRedux";
@@ -14,7 +13,6 @@ import { DashboardTypes } from "../Redux/DashboardRedux";
 /* ------------- Sagas ------------- */
 
 import * as weatherSagas from "./WeatherSagas";
-import * as trainSagas from "./TrainSagas";
 import * as listSagas from "./ListSagas";
 import * as dbSagas from "./DbSagas";
 import * as dashboardSagas from "./DashboardSagas";
@@ -28,7 +26,9 @@ export default function* root() {
   yield all([
     takeLatest(DashboardTypes.DASHBOARD_REQUEST, dashboardSagas.request, api),
     takeLatest(WeatherTypes.WEATHER_REQUEST, weatherSagas.request, api),
-    takeLatest(TrainTypes.TRAIN_REQUEST, trainSagas.request, api),
+    takeLatest(ListTypes.FAVORITE_GET_REQUEST, listSagas.favorite, api),
+    takeLatest(ListTypes.FAVORITE_ADD_REQUEST, listSagas.favoriteAdd, api),
+    takeLatest(ListTypes.FAVORITE_REMOVE_REQUEST, listSagas.favoriteRemove, api),
     takeLatest(ListTypes.LIST_REQUEST, listSagas.request, api),
     takeLatest(ListTypes.LIST_ADD, listSagas.add, api),
     takeLatest(ListTypes.LIST_REMOVE, listSagas.remove, api),

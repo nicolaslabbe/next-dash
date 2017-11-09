@@ -12,7 +12,7 @@ import DbActions from "../../Redux/DbRedux";
 
 // Components
 import { Header, MenuBottom, ScrollView } from "../../components/ui";
-import { Cards } from "../../components/rich";
+import { List } from "../../components/rich";
 
 class Page extends React.Component {
   constructor(props) {
@@ -26,7 +26,8 @@ class Page extends React.Component {
   static async getInitialProps({ store, isServer, query }) {
     store.dispatch(DbActions.dbRequest(query.type, 1));
     return {
-      type: query.type
+      type: query.type,
+      display: query.display
     };
   }
 
@@ -38,30 +39,26 @@ class Page extends React.Component {
   };
 
   render() {
-    const { result } = this.props;
-    const type = this.props.url.query.type;
-
+    const { result, type, display } = this.props;
     return (
-      <ScrollView onScrollEnd={() => this.more(type)} className="movie">
+      <ScrollView
+        onScrollEnd={() => this.more(type)}
+        className={type}>
         <Header title={type} close />
-        {result[this.props.type] && result[this.props.type].items ? (
-          <Cards
+        {result[type] ? (
+          <List
             detail={false}
+            display={display}
             type={type}
-            items={result[this.props.type].items}
-          />
+            items={result[type]}
+            />
         ) : null}
         <MenuBottom
           items={[
             {
-              name: "favorites",
-              icon: "stars",
-              path: `/db/favorites?type=${type}`
-            },
-            {
               name: "search",
               icon: "search",
-              path: `/db/search?type=${type}`
+              path: `/db/search?type=${type}${display ? '&display=' + display : ''}`
             }
           ]}
         />

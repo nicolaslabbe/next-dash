@@ -47,11 +47,12 @@ class Header extends React.Component {
     const open =
       this.state.open === null ? "" : this.state.open ? "open" : "close";
     const { items } = this.props;
+
     return (
       <div className={`menu-bottom ${open}`}>
         <div className="items">
-          {items &&
-            items.map((item, i) => {
+          {items && items.length > 1
+            && items.map((item, i) => {
               return (
                 <Link key={i} prefetch href={`${item.path}`}>
                   <a className="item">
@@ -64,7 +65,7 @@ class Header extends React.Component {
               );
             })}
         </div>
-        {items ? (
+        {items && items.length > 1 ?
           <div ref="main">
             <AppIcon
               className="red main visible-close"
@@ -77,15 +78,24 @@ class Header extends React.Component {
               onClick={event => this.toggleMenu(event)}
             />
           </div>
-        ) : (
-          <div>
-            <AppIcon
-              className="red main visible-close"
-              name="arrow_back"
-              onClick={event => Router.back()}
-            />
-          </div>
-        )}
+        : items && items.length === 1
+            ?
+              <Link prefetch href={`${items[0].path}`}>
+                <a className="item">
+                  <AppIcon
+                    className={`${items[0].name} main`}
+                    name={`${items[0].icon}`}
+                  />
+                </a>
+              </Link>
+            :
+              <div>
+                <AppIcon
+                  className="red main visible-close"
+                  name="arrow_back"
+                  onClick={event => Router.back()}
+                />
+              </div>}
       </div>
     );
   }

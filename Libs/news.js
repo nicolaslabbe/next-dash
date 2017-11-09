@@ -13,24 +13,31 @@ const getPoster = item => {
 };
 
 const format = result => {
-  var newResult = result.map(item => {
-    var newItem = {
-      date: item.publishedAt,
-      title: item.title,
-      tagline: item.description,
-      url: item.url,
-      image: getPoster(item).sm,
-      overview: [
-        {
-          name: "author",
-          icon: "create",
-          value: item.author
-        }
-      ]
+  try {
+    var results = {
+      items: []
     };
-    return newItem;
-  });
-  return newResult;
+    results.items = result && result.articles && result.articles.map(item => {
+      var newItem = {
+        date: item.publishedAt,
+        title: item.title,
+        tagline: item.description,
+        url: item.url,
+        image: getPoster(item).sm,
+        overview: [
+          {
+            name: "author",
+            icon: "create",
+            value: item.author
+          }
+        ]
+      };
+      return newItem;
+    });
+    return results;
+  }catch(e) {
+    return Utils.error.catch(e)
+  }
 };
 
 const find = (source, sort, apiKey, page) => {
@@ -39,7 +46,13 @@ const find = (source, sort, apiKey, page) => {
       .get(
         `https://newsapi.org/v1/articles?source=${source}&sortBy=${sort}&apiKey=${apiKey}`
       )
-      .then(result => resolve(format(result)), error => reject(error));
+      .then(results => {
+        var result = format(results)
+        if (result.error) {
+          return reject(result)
+        }
+        resolve(result);
+      }, error => reject(error));
   });
 };
 

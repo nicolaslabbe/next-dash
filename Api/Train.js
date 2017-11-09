@@ -6,24 +6,37 @@ var router = express.Router();
 
 let cache = apicache.middleware;
 
-router.get("/stations", cache("1 minute"), function(req, res) {
+router.get("/:page?", /* cache("2 minutes"), */ function(req, res) {
+  if (req.params.page > 1) {
+    return Libs.status.success(res, [])
+  }
+
+  Libs.db
+    .all('train')
+    .then(
+      data => {
+        Libs.status.success(res, data)
+      },
+      error => Libs.status.success(res, [])
+    )
+    .catch(error => Libs.status.success(res, []));
+});
+
+router.get("/find/:id", /* cache("1 minute"), */ function(req, res) {
   Libs.sncf
-    .findAll(JSON.parse(process.env.TRAIN_STOPS), process.env.TRAIN_BEARER)
+    .find(req.params.id, process.env.TRAIN_BEARER)
     .then(
       result => Libs.status.success(res, result),
-      error => Libs.status.error(res, errors)
+      error => Libs.status.error(res, error)
     );
 });
 
-router.get("/disruptions", cache("1 minute"), function(req, res) {
+router.get("/:query/:page", /* cache("1 minute"), */ function(req, res) {
   Libs.sncf
-    .disruptionsAll(
-      JSON.parse(process.env.TRAIN_STOPS),
-      process.env.TRAIN_BEARER
-    )
+    .search(req.params.query, process.env.TRAIN_BEARER)
     .then(
       result => Libs.status.success(res, result),
-      error => Libs.status.error(res, errors)
+      error => Libs.status.error(res, error)
     );
 });
 

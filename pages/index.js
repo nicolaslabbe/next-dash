@@ -29,67 +29,67 @@ class Page extends React.Component {
     return {};
   }
 
-  registerServiceWorker = () => {
-    if (navigator && "serviceWorker" in navigator) {
-      navigator.serviceWorker
-        .register("service-worker.js")
-        .then(registration => {
-          const subscribeOptions = {
-            userVisibleOnly: true,
-            applicationServerKey: Utils.string.urlBase64ToUint8Array(
-              process.env.WEB_PUSH_PUBLIC_KEY
-            )
-          };
+  // registerServiceWorker = () => {
+  //   if (navigator && "serviceWorker" in navigator) {
+  //     navigator.serviceWorker
+  //       .register("service-worker.js")
+  //       .then(registration => {
+  //         const subscribeOptions = {
+  //           userVisibleOnly: true,
+  //           applicationServerKey: Utils.string.urlBase64ToUint8Array(
+  //             process.env.WEB_PUSH_PUBLIC_KEY
+  //           )
+  //         };
 
-          return registration.pushManager.subscribe(subscribeOptions);
-        })
-        .then(pushSubscription => {
-          // if (Notification.permission !== 'granted') {
-          this.props.save("web-push", pushSubscription, {
-            key: "endpoint",
-            value: pushSubscription.endpoint
-          });
-          // }
-          return pushSubscription;
-        });
-    }
-  };
+  //         return registration.pushManager.subscribe(subscribeOptions);
+  //       })
+  //       .then(pushSubscription => {
+  //         // if (Notification.permission !== 'granted') {
+  //         this.props.save("web-push", pushSubscription, {
+  //           key: "endpoint",
+  //           value: pushSubscription.endpoint
+  //         });
+  //         // }
+  //         return pushSubscription;
+  //       });
+  //   }
+  // };
 
-  askPermission = () => {
-    return new Promise((resolve, reject) => {
-      const permissionResult = Notification.requestPermission(result => {
-        resolve(result);
-      });
+  // askPermission = () => {
+  //   return new Promise((resolve, reject) => {
+  //     const permissionResult = Notification.requestPermission(result => {
+  //       resolve(result);
+  //     });
 
-      if (permissionResult) {
-        permissionResult.then(resolve, reject);
-      }
-    }).then(permissionResult => {
-      if (permissionResult !== "granted") {
-        throw new Error("We weren't granted permission.");
-      }
-    });
-  };
+  //     if (permissionResult) {
+  //       permissionResult.then(resolve, reject);
+  //     }
+  //   }).then(permissionResult => {
+  //     if (permissionResult !== "granted") {
+  //       throw new Error("We weren't granted permission.");
+  //     }
+  //   });
+  // };
 
   componentWillMount = () => {
-    if (typeof window !== "undefined") {
-      this.registerServiceWorker();
-      if (
-        typeof window.Notification !== "undefined" &&
-        window.Notification !== null &&
-        window.Notification.permission !== "granted"
-      ) {
-        this.askPermission();
-      }
-    }
+    // if (typeof window !== "undefined") {
+    //   this.registerServiceWorker();
+    //   if (
+    //     typeof window.Notification !== "undefined" &&
+    //     window.Notification !== null &&
+    //     window.Notification.permission !== "granted"
+    //   ) {
+    //     this.askPermission();
+    //   }
+    // }
   };
 
   render() {
+    const { dashboard } = this.props
     return (
       <div>
         <Row>
-          {this.props.dashboard.items &&
-            this.props.dashboard.items.map((item, i) => (
+          {dashboard && dashboard.items && Array.isArray(dashboard.items) && dashboard.items.map((item, i) => (
               <Bric {...item} key={i} />
             ))}
         </Row>

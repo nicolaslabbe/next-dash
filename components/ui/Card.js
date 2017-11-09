@@ -6,9 +6,9 @@ import { Text, ButtonText } from "../ui";
 class Card extends React.Component {
   onClickAction = e => {
     const { onClick } = this.props;
-    if (!this.refs.footer.contains(e.target)) {
+    // if (!this.refs.footer.contains(e.target)) {
       onClick && onClick(e);
-    }
+    // }
   };
 
   render() {
@@ -29,21 +29,6 @@ class Card extends React.Component {
                 this.props.description.replace(/<\/?[^>]+(>|$)/g, "")}
             </Text>
             {this.props.children}
-          </div>
-          <div className="card-footer" ref="footer">
-            {this.props.actions
-              ? this.props.actions.map((action, i) => {
-                  return (
-                    <ButtonText
-                      key={i}
-                      color="regular"
-                      onClick={e => action.fn && action.fn(e)}
-                    >
-                      {action.name}
-                    </ButtonText>
-                  );
-                })
-              : null}
           </div>
         </div>
       </div>

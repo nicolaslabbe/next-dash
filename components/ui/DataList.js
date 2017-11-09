@@ -87,7 +87,7 @@ class DataList extends React.Component {
 
     return (
       <Row
-        className={`line ${selected ? "selected" : null}`}
+        className={`line ${selected ? 'selected' : null}`}
         key={i}
         onClick={event =>
           multiSelect
@@ -131,9 +131,7 @@ class DataList extends React.Component {
         dataElement = this.renderRow(data.join(", "), 1, null, null);
       }
     } else if (data && typeof data === "object") {
-      dataElement = data.map((item, i) => {
-        return this.renderRow(item, i, left, right, leftIcon, rightIcon);
-      });
+      dataElement = this.renderRow(data, 1, left, right, leftIcon, rightIcon);
     } else if (data) {
       dataElement = this.renderRow(data, 1, null, null);
     }

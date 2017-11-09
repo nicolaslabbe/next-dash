@@ -17,7 +17,8 @@ import {
   BottomInput,
   ScrollView
 } from "../../components/ui";
-import { Cards } from "../../components/rich";
+
+import { List } from "../../components/rich";
 
 class Page extends React.Component {
   constructor(props) {
@@ -32,7 +33,8 @@ class Page extends React.Component {
 
   static async getInitialProps({ store, isServer, query }) {
     return {
-      type: query.type
+      type: query.type,
+      display: query.display
     };
   }
 
@@ -66,29 +68,27 @@ class Page extends React.Component {
   };
 
   render() {
-    const { search } = this.props;
-    const type = this.props.url.query.type;
-    const fetching =
-      (search[this.props.type] && search[this.props.type].fetching) || false;
+    const { result, display, type } = this.props;
 
     return (
       <ScrollView
-        loading={fetching}
+        loading={false}
         onScrollEnd={() => this.handlePagination()}
-        className="movie"
+        className={type}
       >
-        <Header title="movie" close />
-        {search[this.props.type] ? (
-          <Cards
-            detail={false}
-            type={type}
-            items={search[this.props.type].items}
-          />
-        ) : null}
+        <Header title={this.props.type} close />
         <BottomInput
           onChange={value => this.handleChange(value)}
           onSubmit={value => this.handleSubmit(value)}
         />
+        {result[type] ? (
+          <List
+            detail={false}
+            display={display}
+            type={type}
+            items={result[type]}
+            />
+        ) : null}
         <MenuBottom current="news" />
       </ScrollView>
     );
@@ -97,7 +97,7 @@ class Page extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    search: state.db.search || {}
+    result: state.db.search || {}
   };
 };
 

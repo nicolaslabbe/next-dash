@@ -1,15 +1,9 @@
 const success = (res, data) => {
-  res.status(200).send({
-    status: 200,
-    result: data
-  });
+  res.status(200).send(data);
 };
 
 const error = (res, err) => {
-  res.status(400).send({
-    status: 400,
-    error: err
-  });
+  res.status(400).send(err);
 };
 
 module.exports = {

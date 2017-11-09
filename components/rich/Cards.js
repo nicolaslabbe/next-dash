@@ -7,7 +7,7 @@ import dbActions from "../../Redux/DbRedux";
 import ListActions from "../../Redux/ListRedux";
 
 import Utils from "../../Utils";
-import { Card, TextIcon, DataList, Video } from "../../components/ui";
+import { Card, TextIcon, DataList, List, Video } from "../../components/ui";
 
 class Cards extends React.Component {
   save = item => {
@@ -25,26 +25,12 @@ class Cards extends React.Component {
   goToDetail = item => {
     if (item.id) {
       this.props.callDetail(this.props.type, item.id);
-      Router.push(`/db/detail?type=${this.props.type}&id=${item.id}`);
+      Router.push(`/db/detail?type=${this.props.type}&display=${this.props.display}&id=${item.id}`);
     } else if (item.url) {
       if (typeof window !== "undefined") {
         window.open(item.url);
       }
     }
-  };
-
-  getActions = item => {
-    const { detail } = this.props;
-    return [
-      {
-        name: "open",
-        fn: () => this.goToDetail(item)
-      },
-      {
-        name: this.props.delete ? "delete" : "save",
-        fn: () => (this.props.delete ? this.delete(item) : this.save(item))
-      }
-    ];
   };
 
   getDetails = item => {
@@ -92,27 +78,34 @@ class Cards extends React.Component {
   }
 
   render() {
-    const { items, detail, type } = this.props;
+    const { items, detail, type, display } = this.props;
 
     return (
       <div>
-        {items &&
-          items.map((item, i) => {
-            return (
-              <Card
-                key={i}
-                title={item.title}
-                date={Utils.date.timestampToHumain(item.date)}
-                onClick={e => (!detail ? this.goToDetail(item) : null)}
-                actions={this.getActions(item)}
-                image={item.image}
+        {items && Array.isArray(items)
+          ? items.map((item, i) => <Card
+              key={i}
+              title={item.title}
+              date={Utils.date.timestampToHumain(item.date)}
+              onClick={e => (!detail ? this.goToDetail(item) : null)}
+              image={item.image}
+            >
+              {item.overview ? this.getOverview(item.overview) : null}
+              {item.details ? this.getDetails(item.details) : null}
+              {item.videos ? this.getVideos(item.videos) : null}
+            </Card>)
+          : items
+            ? <Card
+                title={items.title}
+                date={Utils.date.timestampToHumain(items.date)}
+                onClick={e => (!detail ? this.goToDetail(items) : null)}
+                image={items.image}
               >
-                {item.overview ? this.getOverview(item.overview) : null}
-                {item.details ? this.getDetails(item.details) : null}
-                {item.videos ? this.getVideos(item.videos) : null}
+                {items.overview ? this.getOverview(items.overview) : null}
+                {items.details ? this.getDetails(items.details) : null}
+                {items.videos ? this.getVideos(items.videos) : null}
               </Card>
-            );
-          })}
+            : null}
       </div>
     );
   }
