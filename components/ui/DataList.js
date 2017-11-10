@@ -9,50 +9,11 @@ import { Icon } from "../ui";
 class DataList extends React.Component {
   constructor(props) {
     super(props);
-
-    this.state = {
-      selected: [],
-      multiSelect: false
-    };
   }
-
-  componentWillReceiveProps = nextProps => {
-    if (this.state.multiSelect && !nextProps.multiSelect) {
-      this.setState({
-        selected: [],
-        multiSelect: nextProps.multiSelect
-      });
-    } else if (!this.state.multiSelect && nextProps.multiSelect) {
-      this.setState({
-        multiSelect: nextProps.multiSelect
-      });
-    }
-  };
-
-  onSelect = (event, item, i) => {
-    var index = this.state.selected.indexOf(i);
-    var selected = [];
-    if (index > -1) {
-      this.state.selected.splice(index, 1);
-      selected = this.state.selected;
-    } else {
-      selected = [...this.state.selected, i];
-    }
-    this.setState({
-      selected
-    });
-    this.props.onSelectedChange && this.props.onSelectedChange(selected);
-  };
 
   onClick = (event, item, i) => {
     const { onClick } = this.props;
     onClick && onClick(item, i);
-  };
-
-  onClickIcon = (event, item, i) => {
-    event.stopPropagation();
-    const { onClickIcon } = this.props;
-    onClickIcon && onClickIcon(item, i);
   };
 
   display = (key, item) => {
@@ -78,34 +39,21 @@ class DataList extends React.Component {
     }
   };
 
-  renderRow = (item, i, left, right, leftIcon, rightIcon) => {
+  renderRow = (item, i, left = "left", right = "right", leftIcon = "leftIcon", rightIcon = "rightIcon") => {
     const { multiSelect, max } = this.props;
     if (max && i >= max) {
       return null;
     }
-    var selected = this.state.selected.indexOf(i) >= 0;
 
     return (
       <Row
-        className={`line ${selected ? "selected" : null}`}
+        className={`line`}
         key={i}
-        onClick={event =>
-          multiSelect
-            ? this.onSelect(event, item, i)
-            : this.onClick(event, item, i)}
+        onClick={event => this.onClick(event, item, i)}
       >
         <Column xs={right ? 6 : 12} className="left">
-          <Content>
-            {multiSelect ? (
-              selected ? (
-                <Icon name="check_box" />
-              ) : (
-                <Icon name="check_box_outline_blank" />
-              )
-            ) : null}
-            {this.display(left, item)}
-            {this.displayIcon(leftIcon, item)}
-          </Content>
+          {this.display(left, item)}
+          {this.displayIcon(leftIcon, item)}
         </Column>
         {right ? (
           <Column xs={6} className="right">
@@ -119,7 +67,7 @@ class DataList extends React.Component {
     );
   };
 
-  getDataElement = (left, right, leftIcon, rightIcon, data) => {
+  getDataElement = (left = "left", right = "right", leftIcon = "leftIcon", rightIcon = "rightIcon", data) => {
     var dataElement = null;
 
     if (data && Array.isArray(data)) {

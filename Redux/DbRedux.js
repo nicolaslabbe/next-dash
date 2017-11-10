@@ -63,6 +63,8 @@ export const dbSearchSuccess = (state, { name, search }) => {
 };
 
 export const dbSearchFailure = (state, { name, error }) => {
+  console.log('* * * * * * * * * * * * * * * * * * * * * * * * * * * * *')
+  console.log('dbSearchFailure', error)
   var newSearch = {};
   newSearch[name] = [];
   return { ...state, search: { ...state.search, ...newSearch } };

@@ -7,13 +7,13 @@ module.exports.get = (url, headers) => {
       .then(response => response.json())
       .then(responseJson => {
         if (responseJson.error) {
-          reject(responseJson);
+          resolve(responseJson);
         } else {
           resolve(responseJson);
         }
       })
       .catch(error => {
-        reject(error);
+        resolve(error);
       });
   });
 };
@@ -30,13 +30,13 @@ module.exports.post = (url, headers, data) => {
       })
       .then(responseJson => {
         if (responseJson.error) {
-          reject(responseJson);
+          resolve(responseJson);
         } else {
           resolve(responseJson);
         }
       })
       .catch(error => {
-        reject(error);
+        resolve(error);
       });
   });
 };
@@ -50,13 +50,13 @@ module.exports.delete = (url, headers) => {
       .then(response => response.json())
       .then(responseJson => {
         if (responseJson.error) {
-          reject(responseJson);
+          resolve(responseJson);
         } else {
           resolve(responseJson);
         }
       })
       .catch(error => {
-        reject(error);
+        resolve(error);
       });
   });
 };

@@ -47,17 +47,17 @@ const formats = result => {
           {
             name: "vote",
             icon: getAverageIcon(item.vote_average),
-            value: item.vote_average
+            left: item.vote_average
           },
           {
             name: "popularity",
             icon: "favorite_border",
-            value: Math.round(item.popularity * 100) / 100
+            left: Math.round(item.popularity * 100) / 100
           },
           {
             name: "date",
             icon: "access_time",
-            value: item.release_date
+            left: item.release_date
           }
         ]
       };
@@ -80,7 +80,24 @@ const format = item => {
         description: item.overview,
         link: item.homepage,
         image: getPoster(item).sm,
-        images: getPoster(item)
+        images: getPoster(item),
+        overview: [
+          {
+            name: "vote",
+            icon: getAverageIcon(item.vote_average),
+            left: item.vote_average
+          },
+          {
+            name: "popularity",
+            icon: "favorite_border",
+            left: Math.round(item.popularity * 100) / 100
+          },
+          {
+            name: "date",
+            icon: "access_time",
+            left: item.release_date
+          }
+        ]
       },
       items: [
         {
@@ -94,78 +111,78 @@ const format = item => {
           images: getPoster(item),
           details: [
             {
-              name: "Details",
-              value: [
+              left: "Details",
+              right: [
                 {
-                  name: "date",
-                  value: moment(item.release_date).format("DD MMMM YYYY")
+                  left: "date",
+                  right: moment(item.release_date).format("DD MMMM YYYY")
                 },
                 {
-                  name: "status",
-                  value: item.status
+                  left: "status",
+                  right: item.status
                 },
                 {
-                  name: "runtime",
-                  value: `${moment
+                  left: "runtime",
+                  right: `${moment
                     .duration(item.runtime, "minutes")
                     .hours()}:${moment
                     .duration(item.runtime, "minutes")
                     .minutes()}`
                 },
                 {
-                  name: "budget",
-                  value: Utils.devise.toDollars(`${item.budget}`)
+                  left: "budget",
+                  right: Utils.devise.toDollars(`${item.budget}`)
                 },
                 {
-                  name: "revenue",
-                  value: Utils.devise.toDollars(`${item.revenue}`)
+                  left: "revenue",
+                  right: Utils.devise.toDollars(`${item.revenue}`)
                 },
                 {
-                  name: "original language",
-                  value: item.original_language
+                  left: "original language",
+                  right: item.original_language
                 },
                 {
-                  name: "original title",
-                  value: item.original_title
+                  left: "original title",
+                  right: item.original_title
                 },
                 {
-                  name: "adult",
-                  value: item.adult
+                  left: "adult",
+                  right: item.adult
                 }
               ]
             },
             {
-              name: "companies",
-              value: item.production_companies.map((v, i) => {
+              left: "companies",
+              right: item.production_companies.map((v, i) => {
                 return v.name;
               })
             },
             {
-              name: "country",
-              value: item.production_countries.map((v, i) => {
+              left: "country",
+              right: item.production_countries.map((v, i) => {
                 return v.name;
               })
             },
             {
-              name: "genres",
-              value: item.genres.map((v, i) => {
+              left: "genres",
+              right: item.genres.map((v, i) => {
                 return v.name;
               })
             },
             {
-              name: "popularity",
-              value: [
+              left: "popularity",
+              right: [
                 {
-                  name: "popularity",
-                  value: item.popularity
+                  left: "popularity",
+                  right: item.popularity
                 },
                 {
-                  name: "vote_average",
-                  value: item.vote_average
+                  left: "vote_average",
+                  right: item.vote_average
                 },
                 {
-                  name: "vote_count",
-                  value: item.vote_count
+                  left: "vote_count",
+                  right: item.vote_count
                 }
               ]
             }

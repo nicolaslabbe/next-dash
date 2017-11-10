@@ -47,17 +47,17 @@ const formats = result => {
           {
             name: "vote",
             icon: getAverageIcon(item.vote_average),
-            value: item.vote_average
+            left: item.vote_average
           },
           {
             name: "popularity",
             icon: "favorite_border",
-            value: Math.round(item.popularity * 100) / 100
+            left: Math.round(item.popularity * 100) / 100
           },
           {
             name: "date",
             icon: "access_time",
-            value: item.release_date
+            left: item.release_date
           }
         ]
       };
@@ -80,7 +80,24 @@ const format = item => {
         description: item.overview,
         link: item.homepage,
         image: getPoster(item).sm,
-        images: getPoster(item)
+        images: getPoster(item),
+        overview: [
+          {
+            name: "vote",
+            icon: getAverageIcon(item.vote_average),
+            left: item.vote_average
+          },
+          {
+            name: "popularity",
+            icon: "favorite_border",
+            left: Math.round(item.popularity * 100) / 100
+          },
+          {
+            name: "date",
+            icon: "access_time",
+            left: item.release_date
+          }
+        ]
       },
       items: [
         {
