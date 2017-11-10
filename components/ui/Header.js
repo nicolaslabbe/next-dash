@@ -6,7 +6,7 @@ import { connect } from "react-redux";
 import { Row, Column, Content } from "../layout";
 
 // ui
-import { Title, ButtonIcon, ContextMenu } from "../ui";
+import { Title, ButtonIcon } from "../ui";
 
 import SqlActions from "../../Redux/SqlRedux";
 
@@ -83,9 +83,6 @@ class Header extends React.Component {
               />
             )}
             <Title>{this.props.title}</Title>
-            {this.props.menu ? (
-              <ContextMenu actions={this.props.menu} right />
-            ) : null}
             {this.props.item && (
               <ButtonIcon
                 className="favorite"
