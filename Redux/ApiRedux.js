@@ -4,18 +4,18 @@ import Immutable from "seamless-immutable";
 /* ------------- Types and Action Creators ------------- */
 
 const { Types, Creators } = createActions({
-  dbDetailRequest: ["name", "id"],
-  dbDetailSuccess: ["name", "detail"],
-  dbDetailFailure: ["name", "error"],
-  dbSearchRequest: ["name", "query", "page"],
-  dbSearchSuccess: ["name", "search"],
-  dbSearchFailure: ["name", "error"],
-  dbRequest: ["name", "page"],
-  dbSuccess: ["name", "result"],
-  dbFailure: ["error"]
+  apiDetailRequest: ["name", "id"],
+  apiDetailSuccess: ["name", "detail"],
+  apiDetailFailure: ["name", "error"],
+  apiSearchRequest: ["name", "query", "page"],
+  apiSearchSuccess: ["name", "search"],
+  apiSearchFailure: ["name", "error"],
+  apiRequest: ["name", "page"],
+  apiSuccess: ["name", "result"],
+  apiFailure: ["error"]
 });
 
-export const DbTypes = Types;
+export const ApiTypes = Types;
 export default Creators;
 
 /* ------------- Initial State ------------- */
@@ -28,25 +28,25 @@ export const INITIAL_STATE = Immutable({
 
 /* ------------- Reducers ------------- */
 
-export const dbDetailRequest = (state, { name, id }) => {
+export const apiDetailRequest = (state, { name, id }) => {
   var newDetail = {};
   newDetail[name] = [];
   return { ...state, detail: { ...state.detail, ...newDetail } };
 };
 
-export const dbDetailSuccess = (state, { name, detail }) => {
+export const apiDetailSuccess = (state, { name, detail }) => {
   var newDetail = {};
   newDetail[name] = detail;
   return { ...state, detail: { ...state.detail, ...newDetail } };
 };
 
-export const dbDetailFailure = (state, { name, error }) => {
+export const apiDetailFailure = (state, { name, error }) => {
   var newDetail = {};
   newDetail[name] = [];
   return { ...state, storage: { ...state.storage, ...newDetail } };
 };
 
-export const dbSearchRequest = (state, { name, query, page }) => {
+export const apiSearchRequest = (state, { name, query, page }) => {
   var newSearch = {};
   newSearch[name] = {
     items:
@@ -57,7 +57,7 @@ export const dbSearchRequest = (state, { name, query, page }) => {
   return { ...state, search: { ...state.search, ...newSearch } };
 };
 
-export const dbSearchSuccess = (state, { name, search }) => {
+export const apiSearchSuccess = (state, { name, search }) => {
   var newSearch = {};
   newSearch[name] = {
     items:
@@ -68,25 +68,25 @@ export const dbSearchSuccess = (state, { name, search }) => {
   return { ...state, search: { ...state.search, ...newSearch } };
 };
 
-export const dbSearchFailure = (state, { name, error }) => {
+export const apiSearchFailure = (state, { name, error }) => {
   var newSearch = {};
   newSearch[name] = [];
   return { ...state, search: { ...state.search, ...newSearch } };
 };
 
-export const dbRequest = (state, { name, page }) => {
+export const apiRequest = (state, { name, page }) => {
   var newResult = {};
   newResult[name] = page > 1 && state.result[name] ? state.result[name] : [];
   return { ...state, result: { ...state.result, ...newResult } };
 };
 
-export const dbSuccess = (state, { name, result }) => {
+export const apiSuccess = (state, { name, result }) => {
   var newResult = {};
   newResult[name] = [...state.result[name], ...result];
   return { ...state, result: { ...state.result, ...newResult } };
 };
 
-export const dbFailure = (state, { name, error }) => {
+export const apiFailure = (state, { name, error }) => {
   var newResult = {};
   newResult[name] = [];
   return { ...state, result: { ...state.result, ...newResult } };
@@ -95,13 +95,13 @@ export const dbFailure = (state, { name, error }) => {
 /* ------------- Hookup Reducers To Types ------------- */
 
 export const reducer = createReducer(INITIAL_STATE, {
-  [Types.DB_DETAIL_REQUEST]: dbDetailRequest,
-  [Types.DB_DETAIL_SUCCESS]: dbDetailSuccess,
-  [Types.DB_DETAIL_FAILURE]: dbDetailFailure,
-  [Types.DB_SEARCH_REQUEST]: dbSearchRequest,
-  [Types.DB_SEARCH_SUCCESS]: dbSearchSuccess,
-  [Types.DB_SEARCH_FAILURE]: dbSearchFailure,
-  [Types.DB_REQUEST]: dbRequest,
-  [Types.DB_SUCCESS]: dbSuccess,
-  [Types.DB_FAILURE]: dbFailure
+  [Types.API_DETAIL_REQUEST]: apiDetailRequest,
+  [Types.API_DETAIL_SUCCESS]: apiDetailSuccess,
+  [Types.API_DETAIL_FAILURE]: apiDetailFailure,
+  [Types.API_SEARCH_REQUEST]: apiSearchRequest,
+  [Types.API_SEARCH_SUCCESS]: apiSearchSuccess,
+  [Types.API_SEARCH_FAILURE]: apiSearchFailure,
+  [Types.API_REQUEST]: apiRequest,
+  [Types.API_SUCCESS]: apiSuccess,
+  [Types.API_FAILURE]: apiFailure
 });

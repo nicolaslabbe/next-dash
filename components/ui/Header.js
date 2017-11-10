@@ -8,7 +8,7 @@ import { Row, Column, Content } from "../layout";
 // ui
 import { Title, ButtonIcon, ContextMenu } from "../ui";
 
-import ListActions from "../../Redux/ListRedux";
+import SqlActions from "../../Redux/SqlRedux";
 
 class Header extends React.Component {
   constructor(props) {
@@ -103,18 +103,18 @@ class Header extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    favorite: state.list.favorite
+    favorite: state.sql.favorite
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
     getFavorite: (name, key, value) =>
-      dispatch(ListActions.favoriteGetRequest(name, key, value)),
+      dispatch(SqlActions.favoriteGetRequest(name, key, value)),
     addToFavorite: (name, item, duplicate) =>
-      dispatch(ListActions.favoriteAddRequest(name, item, duplicate)),
+      dispatch(SqlActions.favoriteAddRequest(name, item, duplicate)),
     removeFromFavorite: (name, id) =>
-      dispatch(ListActions.favoriteRemoveRequest(name, id))
+      dispatch(SqlActions.favoriteRemoveRequest(name, id))
   };
 };
 

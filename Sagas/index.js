@@ -5,14 +5,14 @@ import Utils from "../Utils";
 
 /* ------------- Types ------------- */
 
-import { ListTypes } from "../Redux/ListRedux";
-import { DbTypes } from "../Redux/DbRedux";
+import { SqlTypes } from "../Redux/SqlRedux";
+import { ApiTypes } from "../Redux/ApiRedux";
 import { DashboardTypes } from "../Redux/DashboardRedux";
 
 /* ------------- Sagas ------------- */
 
-import * as listSagas from "./ListSagas";
-import * as dbSagas from "./DbSagas";
+import * as sqlSagas from "./SqlSagas";
+import * as apiSagas from "./ApiSagas";
 import * as dashboardSagas from "./DashboardSagas";
 
 /* ------------- API ------------- */
@@ -23,19 +23,15 @@ const Request = {};
 export default function* root() {
   yield all([
     takeLatest(DashboardTypes.DASHBOARD_REQUEST, dashboardSagas.request, api),
-    takeLatest(ListTypes.FAVORITE_GET_REQUEST, listSagas.favorite, api),
-    takeLatest(ListTypes.FAVORITE_ADD_REQUEST, listSagas.favoriteAdd, api),
-    takeLatest(
-      ListTypes.FAVORITE_REMOVE_REQUEST,
-      listSagas.favoriteRemove,
-      api
-    ),
-    takeLatest(ListTypes.LIST_REQUEST, listSagas.request, api),
-    takeLatest(ListTypes.LIST_ADD, listSagas.add, api),
-    takeLatest(ListTypes.LIST_REMOVE, listSagas.remove, api),
-    takeLatest(ListTypes.LIST_REMOVE_ALL, listSagas.removeAll, api),
-    takeLatest(DbTypes.DB_REQUEST, dbSagas.request, api),
-    takeLatest(DbTypes.DB_DETAIL_REQUEST, dbSagas.detail, api),
-    takeLatest(DbTypes.DB_SEARCH_REQUEST, dbSagas.search, api)
+    takeLatest(SqlTypes.FAVORITE_GET_REQUEST, sqlSagas.favorite, api),
+    takeLatest(SqlTypes.FAVORITE_ADD_REQUEST, sqlSagas.favoriteAdd, api),
+    takeLatest(SqlTypes.FAVORITE_REMOVE_REQUEST, sqlSagas.favoriteRemove, api),
+    takeLatest(SqlTypes.SQL_REQUEST, sqlSagas.request, api),
+    takeLatest(SqlTypes.SQL_ADD, sqlSagas.add, api),
+    takeLatest(SqlTypes.SQL_REMOVE, sqlSagas.remove, api),
+    takeLatest(SqlTypes.SQL_REMOVE_ALL, sqlSagas.removeAll, api),
+    takeLatest(ApiTypes.API_REQUEST, apiSagas.request, api),
+    takeLatest(ApiTypes.API_DETAIL_REQUEST, apiSagas.detail, api),
+    takeLatest(ApiTypes.API_SEARCH_REQUEST, apiSagas.search, api)
   ]);
 }

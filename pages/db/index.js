@@ -8,7 +8,7 @@ import withReduxSaga from "next-redux-saga";
 import rootReducer from "../../Redux";
 
 // Reduceurs
-import DbActions from "../../Redux/DbRedux";
+import ApiActions from "../../Redux/ApiRedux";
 
 // Components
 import { Header, MenuBottom, ScrollView } from "../../components/ui";
@@ -24,7 +24,7 @@ class Page extends React.Component {
   }
 
   static async getInitialProps({ store, isServer, query }) {
-    store.dispatch(DbActions.dbRequest(query.type, 1));
+    store.dispatch(ApiActions.apiRequest(query.type, 1));
     return {
       type: query.type,
       display: query.display
@@ -69,13 +69,13 @@ class Page extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    result: state.db.result || {}
+    result: state.api.result || {}
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    more: (type, page) => dispatch(DbActions.dbRequest(type, page))
+    more: (type, page) => dispatch(ApiActions.apiRequest(type, page))
   };
 };
 

@@ -66,17 +66,6 @@ router.get(
       }
     });
 
-    results.push({
-      url: "/db?type=notes",
-      name: "notes",
-      className: "notes",
-      icon: "list",
-      size: {
-        xs: 12,
-        sm: 6
-      }
-    });
-
     Promise.all(promises)
       .then(() => {
         Libs.status.success(res, results);

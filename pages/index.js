@@ -16,7 +16,7 @@ import rootReducer from "../Redux";
 
 // Reduceurs
 import DashboardActions from "../Redux/DashboardRedux";
-import ListActions from "../Redux/ListRedux";
+import SqlActions from "../Redux/SqlRedux";
 
 // Components
 import { Header, AppIcon } from "../components/ui";
@@ -108,7 +108,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     save: (name, item, duplicate) =>
-      dispatch(ListActions.listAdd(name, item, duplicate))
+      dispatch(SqlActions.sqlAdd(name, item, duplicate))
   };
 };
 

@@ -1,4 +1,4 @@
-import ListActions from "../Redux/ListRedux";
+import SqlActions from "../Redux/SqlRedux";
 import { call, put } from "redux-saga/effects";
 import Utils from "../Utils";
 
@@ -6,9 +6,9 @@ export function* request(api, { name }) {
   var json = yield api.get(`/api/db/${name}`);
 
   if (json.error) {
-    yield put(ListActions.listFailure(name, json.error));
+    yield put(SqlActions.sqlFailure(name, json.error));
   } else {
-    yield put(ListActions.listSuccess(name, json));
+    yield put(SqlActions.sqlSuccess(name, json));
   }
 }
 
@@ -19,9 +19,9 @@ export function* add(api, { name, item, duplicate }) {
   });
 
   if (json.error) {
-    yield put(ListActions.listFailure(name, json.error));
+    yield put(SqlActions.sqlFailure(name, json.error));
   } else {
-    yield put(ListActions.listAddSuccess(name, json));
+    yield put(SqlActions.sqlAddSuccess(name, json));
   }
 }
 
@@ -29,9 +29,9 @@ export function* find(api, { name, key, value }) {
   var json = yield api.get(`/api/db/${name}/${key}/${value}`);
 
   if (json.error) {
-    yield put(ListActions.listFindFailure(json.error));
+    yield put(SqlActions.sqlFindFailure(json.error));
   } else {
-    yield put(ListActions.listFindSuccess(json));
+    yield put(SqlActions.sqlFindSuccess(json));
   }
 }
 
@@ -40,12 +40,12 @@ export function* remove(api, { name, id }) {
     var json = yield api.delete(`/api/db/${name}/apiId/${encodeURI(id)}`);
 
     if (json.error) {
-      yield put(ListActions.listFailure(json.error));
+      yield put(SqlActions.sqlFailure(json.error));
     } else {
-      yield put(ListActions.listSuccess(name, []));
+      yield put(SqlActions.sqlSuccess(name, []));
     }
   } else {
-    yield put(ListActions.listFailure("no apiId"));
+    yield put(SqlActions.sqlFailure("no apiId"));
   }
 }
 
@@ -53,9 +53,9 @@ export function* removeAll(api, { name }) {
   var json = yield api.delete(`/api/db/${name}`);
 
   if (json.error) {
-    yield put(ListActions.listFailure(json.error));
+    yield put(SqlActions.sqlFailure(json.error));
   } else {
-    yield put(ListActions.listSuccess(name, []));
+    yield put(SqlActions.sqlSuccess(name, []));
   }
 }
 
@@ -63,9 +63,9 @@ export function* favorite(api, { name, key, value }) {
   var json = yield api.get(`/api/db/${name}/${key}/${value}`);
 
   if (json.error) {
-    yield put(ListActions.favoriteError(json.error));
+    yield put(SqlActions.favoriteError(json.error));
   } else {
-    yield put(ListActions.favoriteSuccess(json));
+    yield put(SqlActions.favoriteSuccess(json));
   }
 }
 
@@ -76,9 +76,9 @@ export function* favoriteAdd(api, { name, item, duplicate }) {
   });
 
   if (json.error) {
-    yield put(ListActions.favoriteError(json.error));
+    yield put(SqlActions.favoriteError(json.error));
   } else {
-    yield put(ListActions.favoriteSuccess(json));
+    yield put(SqlActions.favoriteSuccess(json));
   }
 }
 
@@ -87,11 +87,11 @@ export function* favoriteRemove(api, { name, id }) {
     var json = yield api.delete(`/api/db/${name}/apiId/${encodeURI(id)}`);
 
     if (json.error) {
-      yield put(ListActions.favoriteError(json.error));
+      yield put(SqlActions.favoriteError(json.error));
     } else {
-      yield put(ListActions.favoriteSuccess(null));
+      yield put(SqlActions.favoriteSuccess(null));
     }
   } else {
-    yield put(ListActions.favoriteError("no apiId"));
+    yield put(SqlActions.favoriteError("no apiId"));
   }
 }

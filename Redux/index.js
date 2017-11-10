@@ -6,8 +6,8 @@ import rootSaga from "../Sagas";
 // creates the store
 export default state => {
   const rootReducer = combineReducers({
-    list: require("./ListRedux").reducer,
-    db: require("./DbRedux").reducer,
+    sql: require("./SqlRedux").reducer,
+    api: require("./ApiRedux").reducer,
     dashboard: require("./DashboardRedux").reducer
   });
 

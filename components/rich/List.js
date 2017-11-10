@@ -5,8 +5,6 @@ import Utils from "../../Utils";
 
 import { Card, DataList, TextIcon, Text, Video } from "../../components/ui";
 
-import dbActions from "../../Redux/DbRedux";
-
 class List extends React.Component {
   goToDetail = item => {
     const { detail } = this.props;

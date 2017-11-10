@@ -8,7 +8,7 @@ import withReduxSaga from "next-redux-saga";
 import rootReducer from "../../Redux";
 
 // Reduceurs
-import DbActions from "../../Redux/DbRedux";
+import ApiActions from "../../Redux/ApiRedux";
 
 // Components
 import {
@@ -97,14 +97,14 @@ class Page extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    result: state.db.search || {}
+    result: state.api.search || {}
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
     find: (type, name, page) =>
-      dispatch(DbActions.dbSearchRequest(type, name, page))
+      dispatch(ApiActions.apiSearchRequest(type, name, page))
   };
 };
 

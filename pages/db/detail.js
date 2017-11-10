@@ -10,7 +10,7 @@ import { connect } from "react-redux";
 import rootReducer from "../../Redux";
 
 // Reduceurs
-import dbActions from "../../Redux/DbRedux";
+import ApiActions from "../../Redux/ApiRedux";
 
 // Components
 import { Header, MenuBottom, Card } from "../../components/ui";
@@ -20,7 +20,7 @@ import Utils from "../../Utils";
 
 class Page extends React.Component {
   static async getInitialProps({ store, isServer, query }) {
-    store.dispatch(dbActions.dbDetailRequest(query.type, query.id));
+    store.dispatch(ApiActions.apiDetailRequest(query.type, query.id));
     return {
       type: query.type,
       id: query.id,
@@ -55,13 +55,13 @@ class Page extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    result: state.db.detail || {}
+    result: state.api.detail || {}
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    getDetail: (type, id) => dispatch(dbActions.dbDetailRequest(type, id))
+    getDetail: (type, id) => dispatch(ApiActions.apiDetailRequest(type, id))
   };
 };
 
