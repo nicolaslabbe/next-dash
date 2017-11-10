@@ -28,4 +28,4 @@ class Bric extends React.Component {
   }
 }
 
-export default Bric
+export default Bric;
