@@ -1,11 +1,7 @@
 import React from "react";
-import Router from "next/router";
 import Link from "next/link";
-import { connect } from "react-redux";
 
-import Utils from "../../Utils";
 import { Row, Column, Content } from "../layout";
-import { AppIcon } from "../ui";
 
 class Bric extends React.Component {
   render() {
@@ -32,12 +28,4 @@ class Bric extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
-  return {};
-};
-
-const mapDispatchToProps = dispatch => {
-  return {};
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Bric);
+export default Bric

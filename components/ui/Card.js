@@ -1,7 +1,7 @@
 import React from "react";
 
 // ui
-import { Text, ButtonText } from "../ui";
+import { Text } from "../ui";
 
 class Card extends React.Component {
   onClickAction = e => {
