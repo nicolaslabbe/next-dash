@@ -27,20 +27,14 @@
 
 body,
 html {
-    background: black;
+  background: black;
 	font-family: $ff;
 	font-size: $fz;
 	padding: 0px;
-    margin: 0px;
-    position: relative;
-    height : 100%;
-    width : 100%;
-
-    &.keyboardVisible {
-        // position: fixed;
-    	   // height: 200px;
-        // overflow: hidden;
-    }
+  margin: 0px;
+  position: relative;
+  height : 100%;
+  width : 100%;
 }
 
 .row {
