@@ -27,15 +27,6 @@ const create = () => {
         {
           "Content-Type": "application/json"
         }
-      ),
-    test: url =>
-      Utils.url.delete(
-        `${typeof window !== "undefined"
-          ? window.top.location.origin
-          : Utils.config.url}${url}`,
-        {
-          "Content-Type": "application/json"
-        }
       )
   };
 };
