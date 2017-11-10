@@ -24,7 +24,6 @@ class Cards extends React.Component {
 
   goToDetail = item => {
     if (item.id) {
-      this.props.callDetail(this.props.type, item.id);
       Router.push(
         `/db/detail?type=${this.props.type}&display=${this.props
           .display}&id=${item.id}`
@@ -124,8 +123,7 @@ const mapDispatchToProps = dispatch => {
   return {
     callSave: (name, item, duplicate) =>
       dispatch(ListActions.listAdd(name, item, duplicate)),
-    callRemove: (name, id) => dispatch(ListActions.listRemove(name, id)),
-    callDetail: (type, id) => dispatch(dbActions.dbDetailRequest(type, id))
+    callRemove: (name, id) => dispatch(ListActions.listRemove(name, id))
   };
 };
 
