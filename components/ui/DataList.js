@@ -39,7 +39,14 @@ class DataList extends React.Component {
     }
   };
 
-  renderRow = (item, i, left = "left", right = "right", leftIcon = "leftIcon", rightIcon = "rightIcon") => {
+  renderRow = (
+    item,
+    i,
+    left = "left",
+    right = "right",
+    leftIcon = "leftIcon",
+    rightIcon = "rightIcon"
+  ) => {
     const { multiSelect, max } = this.props;
     if (max && i >= max) {
       return null;
@@ -67,7 +74,13 @@ class DataList extends React.Component {
     );
   };
 
-  getDataElement = (left = "left", right = "right", leftIcon = "leftIcon", rightIcon = "rightIcon", data) => {
+  getDataElement = (
+    left = "left",
+    right = "right",
+    leftIcon = "leftIcon",
+    rightIcon = "rightIcon",
+    data
+  ) => {
     var dataElement = null;
 
     if (data && Array.isArray(data)) {
