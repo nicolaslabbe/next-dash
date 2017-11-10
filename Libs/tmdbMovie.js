@@ -57,7 +57,7 @@ const formats = result => {
           {
             name: "date",
             icon: "access_time",
-            left: item.release_date
+            left: moment(item.release_date).format("DD MMMM YYYY")
           }
         ]
       };
@@ -95,7 +95,7 @@ const format = item => {
           {
             name: "date",
             icon: "access_time",
-            left: item.release_date
+            left: moment(item.release_date).format("DD MMMM YYYY")
           }
         ]
       },

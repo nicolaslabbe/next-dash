@@ -57,7 +57,7 @@ const formats = result => {
           {
             name: "date",
             icon: "access_time",
-            left: item.release_date
+            left: moment(item.release_date).format("DD MMMM YYYY")
           }
         ]
       };
@@ -95,7 +95,7 @@ const format = item => {
           {
             name: "date",
             icon: "access_time",
-            left: item.release_date
+            left: moment(item.release_date).format("DD MMMM YYYY")
           }
         ]
       },
@@ -111,111 +111,111 @@ const format = item => {
           images: getPoster(item),
           details: [
             {
-              name: "Author",
-              value:
+              left: "Author",
+              right:
                 item.created_by &&
                 item.created_by.map((v, i) => {
                   return v.name;
                 })
             },
             {
-              name: "Details",
-              value: [
+              left: "Details",
+              right: [
                 {
-                  name: "date",
-                  value: moment(item.first_air_date).format("DD MMMM YYYY")
+                  left: "date",
+                  right: moment(item.first_air_date).format("DD MMMM YYYY")
                 },
                 {
-                  name: "status",
-                  value: item.status
+                  left: "status",
+                  right: item.status
                 },
                 {
-                  name: "type",
-                  value: item.type
+                  left: "type",
+                  right: item.type
                 },
                 {
-                  name: "runtime",
-                  value: `${moment
+                  left: "runtime",
+                  right: `${moment
                     .duration(item.episode_run_time, "minutes")
                     .hours()}:${moment
                     .duration(item.episode_run_time, "minutes")
                     .minutes()}`
                 },
                 {
-                  name: "number_of_seasons",
-                  value: item.number_of_seasons
+                  left: "number_of_seasons",
+                  right: item.number_of_seasons
                 },
                 {
-                  name: "number_of_episodes",
-                  value: item.number_of_episodes
+                  left: "number_of_episodes",
+                  right: item.number_of_episodes
                 },
                 {
-                  name: "original language",
-                  value: item.original_language
+                  left: "original language",
+                  right: item.original_language
                 },
                 {
-                  name: "original title",
-                  value: item.original_name
+                  left: "original title",
+                  right: item.original_name
                 }
               ]
             },
             {
-              name: "networks",
-              value:
+              left: "networks",
+              right:
                 item.networks &&
                 item.networks.map((v, i) => {
                   return v.name;
                 })
             },
             {
-              name: "production_companies",
-              value:
+              left: "production_companies",
+              right:
                 item.production_companies &&
                 item.production_companies.map((v, i) => {
                   return v.name;
                 })
             },
             {
-              name: "country",
-              value:
+              left: "country",
+              right:
                 item.production_countries &&
                 item.production_countries.map((v, i) => {
                   return v.name;
                 })
             },
             {
-              name: "genres",
-              value:
+              left: "genres",
+              right:
                 item.genres &&
                 item.genres.map((v, i) => {
                   return v.name;
                 })
             },
             {
-              name: "seasons",
-              value:
+              left: "seasons",
+              right:
                 item.seasons &&
                 item.seasons.map((v, i) => {
                   return {
-                    name: `season ${v.season_number} (${v.air_date})`,
-                    value: `episodes ${v.episode_count}`
+                    left: `season ${v.season_number} (${v.air_date})`,
+                    right: `episodes ${v.episode_count}`
                   };
                 })
             },
             {
-              name: "popularity",
-              value: [
+              left: "popularity",
+              right: [
                 {
-                  name: "popularity",
-                  value: item.popularity
+                  left: "popularity",
+                  right: item.popularity
                 },
                 {
-                  name: "vote_average",
-                  value: item.vote_average
+                  left: "vote_average",
+                  right: item.vote_average
                 },
                 {
-                  name: "vote_count",
-                  value: item.vote_count
+                  left: "vote_count",
+                  right: item.vote_count
                 }
               ]
             }

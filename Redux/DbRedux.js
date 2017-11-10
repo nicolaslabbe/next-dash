@@ -49,7 +49,7 @@ export const dbDetailFailure = (state, { name, error }) => {
 export const dbSearchRequest = (state, { name, query, page }) => {
   var newSearch = {};
   newSearch[name] = {
-    items: page > 1 && state.search[name] ? state.search[name] : []
+    items: page > 1 && state.search[name] && state.search[name].items ? state.search[name].items : []
   };
   return { ...state, search: { ...state.search, ...newSearch } };
 };
@@ -57,14 +57,12 @@ export const dbSearchRequest = (state, { name, query, page }) => {
 export const dbSearchSuccess = (state, { name, search }) => {
   var newSearch = {};
   newSearch[name] = {
-    items: [...state.search[name].items, ...search.items]
+    items: (search && search.items ? [...state.search[name].items, ...search.items] : state.search[name].items)
   };
   return { ...state, search: { ...state.search, ...newSearch } };
 };
 
 export const dbSearchFailure = (state, { name, error }) => {
-  console.log("* * * * * * * * * * * * * * * * * * * * * * * * * * * * *");
-  console.log("dbSearchFailure", error);
   var newSearch = {};
   newSearch[name] = [];
   return { ...state, search: { ...state.search, ...newSearch } };
