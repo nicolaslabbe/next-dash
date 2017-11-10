@@ -21,7 +21,6 @@ const sendPushString = () => {
   //     )
   //   );
   // });
-
   // Promise.all(promises)
   //   .then(function() {
   //     var pushString = "";
