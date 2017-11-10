@@ -109,7 +109,7 @@ const format = responseJson => {
       });
     });
 
-    return [result];
+    return result;
   } catch (e) {
     return Utils.error.catch(e);
   }
