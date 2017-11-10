@@ -31,7 +31,7 @@ router.get(
       .find(req.params.id, process.env.OPEN_WEATHER)
       .then(
         result => Libs.status.success(res, result),
-        error => Libs.status.error(res, errors)
+        error => Libs.status.error(res, error)
       );
   }
 );
@@ -43,7 +43,7 @@ router.get(
       .search(req.params.query, process.env.OPEN_WEATHER)
       .then(
         result => Libs.status.success(res, result),
-        error => Libs.status.error(res, errors)
+        error => Libs.status.error(res, error)
       );
   }
 );
