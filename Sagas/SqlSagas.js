@@ -69,7 +69,9 @@ export function* favorite(api, { name, key, value }) {
   }
 }
 
-export function* favoriteAdd(api, { name, item, duplicate }) {
+export function* favoriteAdd(api, { name, id, duplicate }) {
+  var item = yield api.get(`/api/${name}/detail/${id}`);
+
   var json = yield api.post(`/api/db/${name}`, {
     item: item,
     duplicate: duplicate

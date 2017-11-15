@@ -5,7 +5,7 @@ import Immutable from "seamless-immutable";
 
 const { Types, Creators } = createActions({
   favoriteGetRequest: ["name", "key", "value"],
-  favoriteAddRequest: ["name", "item", "duplicate"],
+  favoriteAddRequest: ["name", "id", "duplicate"],
   favoriteRemoveRequest: ["name", "id"],
   favoriteSuccess: ["item"],
   favoriteError: ["error"],
@@ -36,10 +36,10 @@ export const favoriteGetRequest = (state, { name, key, value }) => {
   };
 };
 
-export const favoriteAddRequest = (state, { name, item, duplicate }) => {
+export const favoriteAddRequest = (state, { name, id, duplicate }) => {
   return {
     ...state,
-    favorite: Array.isArray(item) ? item[0] : item
+    favorite: null
   };
 };
 

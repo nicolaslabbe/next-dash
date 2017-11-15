@@ -38,6 +38,18 @@ router.get(
 );
 
 router.get(
+  "/detail/:id",
+  /* cache("1 minute"), */ function(req, res) {
+    Libs.sncf
+      .detail(req.params.id, process.env.TRAIN_BEARER)
+      .then(
+        result => Libs.status.success(res, result),
+        error => Libs.status.error(res, error)
+      );
+  }
+);
+
+router.get(
   "/:query/:page",
   /* cache("1 minute"), */ function(req, res) {
     Libs.sncf

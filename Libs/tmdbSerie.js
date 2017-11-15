@@ -33,10 +33,8 @@ const getAverageIcon = count => {
 
 const formats = result => {
   try {
-    var results = {
-      items: []
-    };
-    results.items = result.map(item => {
+    var results = [];
+    results = result.map(item => {
       var newItem = {
         id: item.id,
         date: item.release_date,
@@ -69,155 +67,142 @@ const formats = result => {
   }
 };
 
+const formatDetail = item => {
+  try {
+    var newItem = {
+      id: item.id,
+      date: item.release_date,
+      title: item.name,
+      tagline: item.overview,
+      description: item.overview,
+      link: item.homepage,
+      image: getPoster(item).sm,
+      images: getPoster(item)
+    };
+    return newItem;
+  } catch (e) {
+    return Utils.error.catch(e);
+  }
+};
+
 const format = item => {
   try {
     var newItem = {
-      detail: {
-        id: item.id,
-        date: item.release_date,
-        title: item.name,
-        tagline: item.overview,
-        description: item.overview,
-        link: item.homepage,
-        image: getPoster(item).sm,
-        images: getPoster(item),
-        overview: [
-          {
-            name: "vote",
-            icon: getAverageIcon(item.vote_average),
-            left: item.vote_average
-          },
-          {
-            name: "popularity",
-            icon: "favorite_border",
-            left: Math.round(item.popularity * 100) / 100
-          },
-          {
-            name: "date",
-            icon: "access_time",
-            left: moment(item.release_date).format("DD MMMM YYYY")
-          }
-        ]
-      },
-      items: [
+      id: item.id,
+      date: item.release_date,
+      title: item.name,
+      tagline: item.overview,
+      description: item.overview,
+      link: item.homepage,
+      image: getPoster(item).sm,
+      images: getPoster(item),
+      details: [
         {
-          id: item.id,
-          date: item.release_date,
-          title: item.name,
-          tagline: item.overview,
-          description: item.overview,
-          link: item.homepage,
-          image: getPoster(item).sm,
-          images: getPoster(item),
-          details: [
+          left: "Author",
+          right:
+            item.created_by &&
+            item.created_by.map((v, i) => {
+              return v.name;
+            })
+        },
+        {
+          left: "Details",
+          right: [
             {
-              left: "Author",
-              right:
-                item.created_by &&
-                item.created_by.map((v, i) => {
-                  return v.name;
-                })
+              left: "date",
+              right: moment(item.first_air_date).format("DD MMMM YYYY")
             },
             {
-              left: "Details",
-              right: [
-                {
-                  left: "date",
-                  right: moment(item.first_air_date).format("DD MMMM YYYY")
-                },
-                {
-                  left: "status",
-                  right: item.status
-                },
-                {
-                  left: "type",
-                  right: item.type
-                },
-                {
-                  left: "runtime",
-                  right: `${moment
-                    .duration(item.episode_run_time, "minutes")
-                    .hours()}:${moment
-                    .duration(item.episode_run_time, "minutes")
-                    .minutes()}`
-                },
-                {
-                  left: "number_of_seasons",
-                  right: item.number_of_seasons
-                },
-                {
-                  left: "number_of_episodes",
-                  right: item.number_of_episodes
-                },
-                {
-                  left: "original language",
-                  right: item.original_language
-                },
-                {
-                  left: "original title",
-                  right: item.original_name
-                }
-              ]
+              left: "status",
+              right: item.status
             },
             {
-              left: "networks",
-              right:
-                item.networks &&
-                item.networks.map((v, i) => {
-                  return v.name;
-                })
+              left: "type",
+              right: item.type
             },
             {
-              left: "production_companies",
-              right:
-                item.production_companies &&
-                item.production_companies.map((v, i) => {
-                  return v.name;
-                })
+              left: "runtime",
+              right: `${moment
+                .duration(item.episode_run_time, "minutes")
+                .hours()}:${moment
+                .duration(item.episode_run_time, "minutes")
+                .minutes()}`
             },
             {
-              left: "country",
-              right:
-                item.production_countries &&
-                item.production_countries.map((v, i) => {
-                  return v.name;
-                })
+              left: "number_of_seasons",
+              right: item.number_of_seasons
             },
             {
-              left: "genres",
-              right:
-                item.genres &&
-                item.genres.map((v, i) => {
-                  return v.name;
-                })
+              left: "number_of_episodes",
+              right: item.number_of_episodes
             },
             {
-              left: "seasons",
-              right:
-                item.seasons &&
-                item.seasons.map((v, i) => {
-                  return {
-                    left: `season ${v.season_number} (${v.air_date})`,
-                    right: `episodes ${v.episode_count}`
-                  };
-                })
+              left: "original language",
+              right: item.original_language
             },
+            {
+              left: "original title",
+              right: item.original_name
+            }
+          ]
+        },
+        {
+          left: "networks",
+          right:
+            item.networks &&
+            item.networks.map((v, i) => {
+              return v.name;
+            })
+        },
+        {
+          left: "production_companies",
+          right:
+            item.production_companies &&
+            item.production_companies.map((v, i) => {
+              return v.name;
+            })
+        },
+        {
+          left: "country",
+          right:
+            item.production_countries &&
+            item.production_countries.map((v, i) => {
+              return v.name;
+            })
+        },
+        {
+          left: "genres",
+          right:
+            item.genres &&
+            item.genres.map((v, i) => {
+              return v.name;
+            })
+        },
+        {
+          left: "seasons",
+          right:
+            item.seasons &&
+            item.seasons.map((v, i) => {
+              return {
+                left: `season ${v.season_number} (${v.air_date})`,
+                right: `episodes ${v.episode_count}`
+              };
+            })
+        },
+        {
+          left: "popularity",
+          right: [
             {
               left: "popularity",
-              right: [
-                {
-                  left: "popularity",
-                  right: item.popularity
-                },
-                {
-                  left: "vote_average",
-                  right: item.vote_average
-                },
-                {
-                  left: "vote_count",
-                  right: item.vote_count
-                }
-              ]
+              right: item.popularity
+            },
+            {
+              left: "vote_average",
+              right: item.vote_average
+            },
+            {
+              left: "vote_count",
+              right: item.vote_count
             }
           ]
         }
@@ -229,12 +214,12 @@ const format = item => {
   }
 };
 
-const popular = (apiKey, page) => {
+const video = (apiKey, id) => {
   return new Promise((resolve, reject) => {
-    fetch(`${baseUrl}tv/popular?api_key=${apiKey}&${page}`)
+    fetch(`${baseUrl}tv/${id}/videos?api_key=${apiKey}`)
       .then(response => response.json())
       .then(responseJson => {
-        resolve(formats(responseJson.results));
+        resolve(responseJson.results);
       })
       .catch(error => {
         reject(error);
@@ -242,23 +227,42 @@ const popular = (apiKey, page) => {
   });
 };
 
-const findById = (apiKey, id) => {
+const find = (apiKey, id) => {
   return new Promise((resolve, reject) => {
     fetch(`${baseUrl}tv/${id}?api_key=${apiKey}`)
       .then(response => response.json())
       .then(responseJson => {
         var result = format(responseJson);
+        if (result.error) {
+          return reject(result);
+        }
 
-        fetch(`${baseUrl}tv/${id}/videos?api_key=${apiKey}`)
-          .then(response => response.json())
-          .then(responseJson => {
-            result.items[0].videos = responseJson.results;
+        video(apiKey, id)
+          .then(videos => {
+            result.videos = videos;
 
             resolve(result);
           })
           .catch(error => {
             reject(error);
           });
+      })
+      .catch(error => {
+        reject(error);
+      });
+  });
+};
+
+const detail = (apiKey, id) => {
+  return new Promise((resolve, reject) => {
+    fetch(`${baseUrl}tv/${id}?api_key=${apiKey}`)
+      .then(response => response.json())
+      .then(responseJson => {
+        var result = formatDetail(responseJson);
+        if (result.error) {
+          return reject(result);
+        }
+        resolve(result);
       })
       .catch(error => {
         reject(error);
@@ -282,7 +286,7 @@ const search = (apiKey, query, page) => {
 };
 
 module.exports = {
-  popular,
-  findById,
+  find,
+  detail,
   search
 };

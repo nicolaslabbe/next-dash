@@ -1,6 +1,8 @@
 const moment = require("moment");
 const Utils = require("../Utils");
 
+const baseUrl = `http://api.openweathermap.org/data/2.5/`;
+
 const getIcon = code => {
   switch (code) {
     case "01d":
@@ -62,71 +64,62 @@ const getIcon = code => {
   }
 };
 
-const format = responseJson => {
-  try {
-    var first = responseJson.list[0];
-    responseJson.list.shift();
-
-    var result = {
-      detail: {
-        left: responseJson.city.name,
-        name: responseJson.city.name,
-        id: responseJson.city.id
-      },
-      items: [
-        {
-          left: responseJson.city.name,
-          rightIcon: getIcon(first.weather[0].icon)
-        },
-        {
-          left: "degree",
-          right: `${first.main.temp}°C`
-        },
-        {
-          left: "humidity",
-          right: `${first.main.humidity}%`
-        },
-        {
-          left: "label",
-          right: first.weather[0].main
-        },
-        {
-          left: "description",
-          right: first.weather[0].description
-        },
-        {
-          left: "wind",
-          right: `${first.wind.speed}km`
-        }
-      ]
-    };
-
-    Array.prototype.forEach.call(responseJson.list, value => {
-      result.items.push({
-        left: Utils.date.HHmm(value.dt_txt),
-        right: `${value.main.temp}°C`,
-        rightIcon: getIcon(first.weather[0].icon)
-      });
-    });
-
-    return result;
-  } catch (e) {
-    return Utils.error.catch(e);
-  }
-};
-
 const find = (cityId, apiKey) => {
   return new Promise((resolve, reject) => {
-    fetch(
-      `http://api.openweathermap.org/data/2.5/forecast/${cityId}?units=metric&APPID=${apiKey}`
-    )
+    fetch(`${baseUrl}forecast/${cityId}?units=metric&APPID=${apiKey}`)
       .then(response => response.json())
       .then(responseJson => {
-        var result = format(responseJson);
-        if (result.error) {
-          return reject(result);
+        try {
+          var first = responseJson.list[0];
+          responseJson.list.shift();
+
+          var result = [
+            {
+              ...Utils.list.make(
+                `${responseJson.city.name} (${responseJson.city &&
+                  responseJson.city.country})`,
+                null,
+                null,
+                getIcon(first.weather[0].icon)
+              )
+            },
+            {
+              ...Utils.list.make("degree", null, `${first.main.temp}°C`, null)
+            },
+            {
+              ...Utils.list.make(
+                "humidity",
+                null,
+                `${first.main.humidity}%`,
+                null
+              )
+            },
+            { ...Utils.list.make("label", null, first.weather[0].main, null) },
+            {
+              ...Utils.list.make(
+                "description",
+                null,
+                first.weather[0].description,
+                null
+              )
+            },
+            { ...Utils.list.make("wind", null, `${first.wind.speed}km`, null) }
+          ];
+          Array.prototype.forEach.call(responseJson.list, value => {
+            result.push({
+              ...Utils.list.make(
+                Utils.date.HHmm(value.dt_txt),
+                null,
+                `${value.main.temp}°C`,
+                getIcon(first.weather[0].icon)
+              )
+            });
+          });
+
+          resolve(result);
+        } catch (e) {
+          reject(Utils.error.catch(e));
         }
-        resolve(result);
       })
       .catch(error => {
         reject(error);
@@ -134,40 +127,58 @@ const find = (cityId, apiKey) => {
   });
 };
 
-const formatSearch = list => {
-  try {
-    var results = {
-      items: []
-    };
-    Array.prototype.forEach.call(list, item => {
-      results.items.push({
-        left: item.name,
-        rightIcon:
-          item.weather && item.weather[0]
-            ? getIcon(item.weather[0].icon)
-            : null,
-        id: item.id
+const detail = (cityId, apiKey) => {
+  return new Promise((resolve, reject) => {
+    fetch(`${baseUrl}forecast/${cityId}?units=metric&APPID=${apiKey}`)
+      .then(response => response.json())
+      .then(responseJson => {
+        try {
+          var result = Utils.list.make(
+            `${responseJson.city.name} (${responseJson.city.country})`,
+            null,
+            null,
+            null,
+            responseJson.city.id,
+            {
+              country: responseJson.city.country,
+              name: responseJson.city.name,
+              coord: responseJson.city.coord
+            }
+          );
+          resolve(result);
+        } catch (e) {
+          reject(Utils.error.catch(e));
+        }
+      })
+      .catch(error => {
+        reject(error);
       });
-    });
-
-    return results;
-  } catch (e) {
-    return Utils.error.catch(e);
-  }
+  });
 };
 
 const search = (query, apiKey, page) => {
   return new Promise((resolve, reject) => {
-    fetch(
-      `http://api.openweathermap.org/data/2.5/find?APPID=${apiKey}&q=${query}`
-    )
+    fetch(`${baseUrl}find?APPID=${apiKey}&q=${query}`)
       .then(response => response.json())
       .then(responseJson => {
-        var result = formatSearch(responseJson.list);
-        if (result.error) {
-          return reject(result);
+        try {
+          var results = [];
+          Array.prototype.forEach.call(responseJson.list, item => {
+            results.push(
+              Utils.list.make(
+                `${item.name} (${item && item.sys && item.sys.country})`,
+                null,
+                null,
+                getIcon(item.weather[0].icon),
+                item.id
+              )
+            );
+          });
+
+          resolve(results);
+        } catch (e) {
+          return reject(Utils.error.catch(e));
         }
-        resolve(result);
       })
       .catch(error => {
         reject(error);
@@ -176,7 +187,7 @@ const search = (query, apiKey, page) => {
 };
 
 module.exports = {
-  format,
   search,
+  detail,
   find
 };

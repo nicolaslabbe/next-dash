@@ -66,3 +66,7 @@ git clone https://github.com/nicolaslabbe/next-dash.git
 cd next-dash
 npm i
 ```
+
+# TODO
+
+http2 https://blog.yld.io/2017/11/03/http-2-in-node-js-core/#.WgmEdLAtXMU

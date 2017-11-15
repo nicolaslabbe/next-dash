@@ -11,6 +11,7 @@ import rootReducer from "../../Redux";
 
 // Reduceurs
 import ApiActions from "../../Redux/ApiRedux";
+import SqlActions from "../../Redux/SqlRedux";
 
 // Components
 import { Header, MenuBottom, Card } from "../../components/ui";
@@ -20,6 +21,7 @@ import Utils from "../../Utils";
 
 class Page extends React.Component {
   static async getInitialProps({ store, isServer, query }) {
+    store.dispatch(SqlActions.favoriteGetRequest(query.type, "id", query.id));
     store.dispatch(ApiActions.apiDetailRequest(query.type, query.id));
     return {
       type: query.type,
@@ -31,14 +33,9 @@ class Page extends React.Component {
   render() {
     const { result, display, type, item } = this.props;
 
-    var favorite =
-      result[type] && Array.isArray(result[type])
-        ? result[type][0] && result[type][0].detail
-        : result[type].detail;
-
     return (
       <div className={type}>
-        <Header item={favorite} title={type} close type={type} />
+        <Header id={this.props.id} title={type} close type={type} />
         {result[type] ? (
           <List
             detail={true}

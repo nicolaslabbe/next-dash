@@ -33,10 +33,8 @@ const getAverageIcon = count => {
 
 const formats = result => {
   try {
-    var results = {
-      items: []
-    };
-    results.items = result.map(item => {
+    var results = [];
+    results = result.map(item => {
       var newItem = {
         id: item.id,
         date: item.release_date,
@@ -69,124 +67,116 @@ const formats = result => {
   }
 };
 
+const formatDetail = item => {
+  try {
+    var newItem = {
+      id: item.id,
+      date: item.release_date,
+      title: item.title,
+      tagline: item.tagline,
+      description: item.overview,
+      link: item.homepage,
+      image: getPoster(item).sm,
+      images: getPoster(item)
+    };
+    return newItem;
+  } catch (e) {
+    return Utils.error.catch(e);
+  }
+};
+
 const format = item => {
   try {
     var newItem = {
-      detail: {
-        id: item.id,
-        date: item.release_date,
-        title: item.title,
-        tagline: item.tagline,
-        description: item.overview,
-        link: item.homepage,
-        image: getPoster(item).sm,
-        images: getPoster(item),
-        overview: [
-          {
-            name: "vote",
-            icon: getAverageIcon(item.vote_average),
-            left: item.vote_average
-          },
-          {
-            name: "popularity",
-            icon: "favorite_border",
-            left: Math.round(item.popularity * 100) / 100
-          },
-          {
-            name: "date",
-            icon: "access_time",
-            left: moment(item.release_date).format("DD MMMM YYYY")
-          }
-        ]
-      },
-      items: [
+      id: item.id,
+      date: item.release_date,
+      title: item.title,
+      tagline: item.tagline,
+      description: item.overview,
+      link: item.homepage,
+      image: getPoster(item).sm,
+      images: getPoster(item),
+      details: [
         {
-          id: item.id,
-          date: item.release_date,
-          title: item.title,
-          tagline: item.tagline,
-          description: item.overview,
-          link: item.homepage,
-          image: getPoster(item).sm,
-          images: getPoster(item),
-          details: [
+          left: "Details",
+          right: [
             {
-              left: "Details",
-              right: [
-                {
-                  left: "date",
-                  right: moment(item.release_date).format("DD MMMM YYYY")
-                },
-                {
-                  left: "status",
-                  right: item.status
-                },
-                {
-                  left: "runtime",
-                  right: `${moment
-                    .duration(item.runtime, "minutes")
-                    .hours()}:${moment
-                    .duration(item.runtime, "minutes")
-                    .minutes()}`
-                },
-                {
-                  left: "budget",
-                  right: Utils.devise.toDollars(`${item.budget}`)
-                },
-                {
-                  left: "revenue",
-                  right: Utils.devise.toDollars(`${item.revenue}`)
-                },
-                {
-                  left: "original language",
-                  right: item.original_language
-                },
-                {
-                  left: "original title",
-                  right: item.original_title
-                },
-                {
-                  left: "adult",
-                  right: item.adult
-                }
-              ]
+              ...Utils.list.make(
+                "date",
+                null,
+                moment(item.release_date).format("DD MMMM YYYY")
+              )
+            },
+            { ...Utils.list.make("status", null, item.status) },
+            {
+              ...Utils.list.make(
+                "runtime",
+                null,
+                `${moment
+                  .duration(item.runtime, "minutes")
+                  .hours()}:${moment
+                  .duration(item.runtime, "minutes")
+                  .minutes()}`
+              )
             },
             {
-              left: "companies",
-              right: item.production_companies.map((v, i) => {
-                return v.name;
-              })
+              ...Utils.list.make(
+                "budget",
+                null,
+                Utils.devise.toDollars(`${item.budget}`)
+              )
             },
             {
-              left: "country",
-              right: item.production_countries.map((v, i) => {
-                return v.name;
-              })
+              ...Utils.list.make(
+                "revenue",
+                null,
+                Utils.devise.toDollars(`${item.revenue}`)
+              )
             },
             {
-              left: "genres",
-              right: item.genres.map((v, i) => {
-                return v.name;
-              })
+              ...Utils.list.make(
+                "original language",
+                null,
+                item.original_language
+              )
             },
-            {
-              left: "popularity",
-              right: [
-                {
-                  left: "popularity",
-                  right: item.popularity
-                },
-                {
-                  left: "vote_average",
-                  right: item.vote_average
-                },
-                {
-                  left: "vote_count",
-                  right: item.vote_count
-                }
-              ]
-            }
+            { ...Utils.list.make("original title", null, item.original_title) },
+            { ...Utils.list.make("adult", null, item.adult) }
           ]
+        },
+        {
+          ...Utils.list.make(
+            "companies",
+            null,
+            item.production_companies.map((v, i) => {
+              return v.name;
+            })
+          )
+        },
+        {
+          ...Utils.list.make(
+            "country",
+            null,
+            item.production_countries.map((v, i) => {
+              return v.name;
+            })
+          )
+        },
+        {
+          ...Utils.list.make(
+            "genres",
+            null,
+            item.genres.map((v, i) => {
+              return v.name;
+            })
+          )
+        },
+        {
+          ...Utils.list.make("popularity", null, [
+            { ...Utils.list.make("popularity", null, item.popularity) },
+            { ...Utils.list.make("vote_average", null, item.vote_average) },
+            { ...Utils.list.make("vote_count", null, item.vote_count) }
+          ])
         }
       ]
     };
@@ -196,12 +186,12 @@ const format = item => {
   }
 };
 
-const popular = (apiKey, page) => {
+const video = (apiKey, id) => {
   return new Promise((resolve, reject) => {
-    fetch(`${baseUrl}movie/popular?api_key=${apiKey}&${page}`)
+    fetch(`${baseUrl}movie/${id}/videos?api_key=${apiKey}`)
       .then(response => response.json())
       .then(responseJson => {
-        resolve(formats(responseJson.results));
+        resolve(responseJson.results);
       })
       .catch(error => {
         reject(error);
@@ -209,7 +199,7 @@ const popular = (apiKey, page) => {
   });
 };
 
-const findById = (apiKey, id) => {
+const find = (apiKey, id) => {
   return new Promise((resolve, reject) => {
     fetch(`${baseUrl}movie/${id}?api_key=${apiKey}`)
       .then(response => response.json())
@@ -219,16 +209,32 @@ const findById = (apiKey, id) => {
           return reject(result);
         }
 
-        fetch(`${baseUrl}movie/${id}/videos?api_key=${apiKey}`)
-          .then(response => response.json())
-          .then(responseJson => {
-            result.items[0].videos = responseJson.results;
+        video(apiKey, id)
+          .then(videos => {
+            result.videos = videos;
 
             resolve(result);
           })
           .catch(error => {
             reject(error);
           });
+      })
+      .catch(error => {
+        reject(error);
+      });
+  });
+};
+
+const detail = (apiKey, id) => {
+  return new Promise((resolve, reject) => {
+    fetch(`${baseUrl}movie/${id}?api_key=${apiKey}`)
+      .then(response => response.json())
+      .then(responseJson => {
+        var result = formatDetail(responseJson);
+        if (result.error) {
+          return reject(result);
+        }
+        resolve(result);
       })
       .catch(error => {
         reject(error);
@@ -256,7 +262,7 @@ const search = (apiKey, query, page) => {
 };
 
 module.exports = {
-  popular,
-  findById,
+  find,
+  detail,
   search
 };

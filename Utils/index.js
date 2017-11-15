@@ -4,6 +4,7 @@ const devise = require("./devise");
 const string = require("./string");
 const url = require("./url");
 const error = require("./error");
+const list = require("./list");
 
 module.exports = {
   config,
@@ -11,5 +12,6 @@ module.exports = {
   devise,
   string,
   url,
-  error
+  error,
+  list
 };

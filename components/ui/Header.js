@@ -15,41 +15,21 @@ class Header extends React.Component {
     super(props);
 
     this.state = {
-      item: null
+      id: null
     };
   }
-
-  componentWillReceiveProps = nextProps => {
-    if (!this.state.item && nextProps.item) {
-      if (
-        typeof nextProps.item !== "undefined" &&
-        nextProps.item &&
-        typeof nextProps.item.id !== "undefined" &&
-        nextProps.item.id
-      ) {
-        this.props.getFavorite(this.props.type, "id", nextProps.item.id);
-      }
-      this.setState({
-        item: nextProps.item
-      });
-    }
-  };
 
   goBack = () => {
     Router.push("/");
   };
 
   favorite = () => {
-    const { item, current, type, favorite } = this.props;
+    const { id, current, type, favorite } = this.props;
 
     if (this.isFavorite()) {
       this.props.removeFromFavorite(type, [favorite.apiId]);
     } else {
-      this.props.addToFavorite(
-        type,
-        item,
-        item.id ? { key: "id", value: item.id } : null
-      );
+      this.props.addToFavorite(type, id, id ? { key: "id", value: id } : null);
     }
 
     this.setState({
@@ -58,9 +38,9 @@ class Header extends React.Component {
   };
 
   isFavorite = () => {
-    const { item, favorite } = this.props;
+    const { id, favorite } = this.props;
 
-    if (favorite && item && item.id === favorite.id) {
+    if (favorite && id && id == favorite.id) {
       return true;
     } else {
       return false;
@@ -68,7 +48,7 @@ class Header extends React.Component {
   };
 
   render() {
-    const { item, current, type } = this.props;
+    const { id, current, type } = this.props;
 
     return (
       <Row className="header" alignXs="center" valignXs="middle">
@@ -83,7 +63,7 @@ class Header extends React.Component {
               />
             )}
             <Title>{this.props.title}</Title>
-            {this.props.item && (
+            {id && (
               <ButtonIcon
                 className="favorite"
                 icon={this.isFavorite() ? "star" : "star_border"}
@@ -108,8 +88,8 @@ const mapDispatchToProps = dispatch => {
   return {
     getFavorite: (name, key, value) =>
       dispatch(SqlActions.favoriteGetRequest(name, key, value)),
-    addToFavorite: (name, item, duplicate) =>
-      dispatch(SqlActions.favoriteAddRequest(name, item, duplicate)),
+    addToFavorite: (name, id, duplicate) =>
+      dispatch(SqlActions.favoriteAddRequest(name, id, duplicate)),
     removeFromFavorite: (name, id) =>
       dispatch(SqlActions.favoriteRemoveRequest(name, id))
   };

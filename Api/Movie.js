@@ -28,7 +28,22 @@ router.get(
   "/find/:id",
   /* cache("2 minutes"), */ function(req, res) {
     Libs.tmdbMovie
-      .findById(process.env.IMDB_API_KEY, req.params.id)
+      .find(process.env.IMDB_API_KEY, req.params.id)
+      .then(
+        result => Libs.status.success(res, result),
+        error => Libs.status.error(res, error)
+      )
+      .catch(error => {
+        Libs.status.error(res, error);
+      });
+  }
+);
+
+router.get(
+  "/detail/:id",
+  /* cache("2 minutes"), */ function(req, res) {
+    Libs.tmdbMovie
+      .detail(process.env.IMDB_API_KEY, req.params.id)
       .then(
         result => Libs.status.success(res, result),
         error => Libs.status.error(res, error)
