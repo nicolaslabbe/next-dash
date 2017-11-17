@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
 
-import { Row, Column, Content } from "../layout";
+import { Row, Column, Content } from "../../layout";
 
 class Bric extends React.Component {
   render() {

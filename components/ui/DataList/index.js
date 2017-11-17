@@ -2,9 +2,9 @@ import React from "react";
 import { connect } from "react-redux";
 
 // Layout
-import { Row, Column, Content } from "../layout";
+import { Row, Column, Content } from "../../layout";
 
-import { Icon } from "../ui";
+import { Icon } from "../";
 
 class DataList extends React.Component {
   constructor(props) {

@@ -1,9 +1,7 @@
 import React from "react";
 import Router from "next/router";
-import { connect } from "react-redux";
-import Utils from "../../Utils";
 
-import { Card, DataList, TextIcon, Text, Video } from "../../components/ui";
+import { Card, DataList, TextIcon, Text, Video } from "../../../components/ui";
 
 class List extends React.Component {
   goToDetail = item => {
@@ -79,12 +77,4 @@ class List extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
-  return {};
-};
-
-const mapDispatchToProps = dispatch => {
-  return {};
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(List);
+export default List;

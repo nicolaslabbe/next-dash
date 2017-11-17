@@ -1,7 +1,7 @@
 import React from "react";
 
 // ui
-import { Icon } from "../ui";
+import { Icon } from "../";
 
 class ButtonIcon extends React.Component {
   render() {

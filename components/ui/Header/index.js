@@ -3,12 +3,12 @@ import Router from "next/router";
 import { connect } from "react-redux";
 
 // Layout
-import { Row, Column, Content } from "../layout";
+import { Row, Column, Content } from "../../layout";
 
 // ui
-import { Title, ButtonIcon } from "../ui";
+import { Title, ButtonIcon } from "../";
 
-import SqlActions from "../../Redux/SqlRedux";
+import SqlActions from "../../../Redux/SqlRedux";
 
 class Header extends React.Component {
   constructor(props) {

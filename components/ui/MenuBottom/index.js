@@ -3,7 +3,7 @@ import Router from "next/router";
 import Link from "next/link";
 
 // ui
-import { Title, AppIcon } from "../ui";
+import { Title, AppIcon } from "../";
 
 class Header extends React.Component {
   constructor(props) {

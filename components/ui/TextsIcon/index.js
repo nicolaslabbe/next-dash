@@ -1,7 +1,7 @@
 import React from "react";
 
 // ui
-import { TextIcon } from "../ui";
+import { TextIcon } from "../";
 
 class TextsIcon extends React.Component {
   render() {
