@@ -26,8 +26,8 @@ router.get(
 );
 
 router.get("/find/:id", cache("2 minutes"), function(req, res) {
-  Libs.tmdbSerie
-    .find(process.env.IMDB_API_KEY, req.params.id)
+  Libs.tmdb
+    .find("tv", process.env.IMDB_API_KEY, req.params.id)
     .then(
       result => Libs.status.success(res, result),
       error => Libs.status.error(res, error)
@@ -36,8 +36,8 @@ router.get("/find/:id", cache("2 minutes"), function(req, res) {
 });
 
 router.get("/detail/:id", cache("2 minutes"), function(req, res) {
-  Libs.tmdbSerie
-    .detail(process.env.IMDB_API_KEY, req.params.id)
+  Libs.tmdb
+    .detail("tv", process.env.IMDB_API_KEY, req.params.id)
     .then(
       result => Libs.status.success(res, result),
       error => Libs.status.error(res, error)
@@ -46,8 +46,13 @@ router.get("/detail/:id", cache("2 minutes"), function(req, res) {
 });
 
 router.get("/:query/:page", cache("2 minutes"), function(req, res) {
-  Libs.tmdbSerie
-    .search(process.env.IMDB_API_KEY, req.params.query, Libs.req.page(req))
+  Libs.tmdb
+    .search(
+      "tv",
+      process.env.IMDB_API_KEY,
+      req.params.query,
+      Libs.req.page(req)
+    )
     .then(
       result => Libs.status.success(res, result),
       error => Libs.status.error(res, error)

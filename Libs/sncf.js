@@ -33,7 +33,9 @@ const find = (stopId, bearer) => {
                     Utils.date.HHmm(
                       departure.stop_date_time.departure_date_time
                     ),
-                    departure.disruptions.length > 0 ? "warning" : null
+                    departure.disruptions && departure.disruptions.length > 0
+                      ? "warning"
+                      : null
                   )
                 );
               });

@@ -5,6 +5,9 @@ const string = require("./string");
 const url = require("./url");
 const error = require("./error");
 const list = require("./list");
+const card = require("./card");
+const image = require("./image");
+const video = require("./video");
 
 module.exports = {
   config,
@@ -13,5 +16,8 @@ module.exports = {
   string,
   url,
   error,
-  list
+  list,
+  card,
+  image,
+  video
 };
