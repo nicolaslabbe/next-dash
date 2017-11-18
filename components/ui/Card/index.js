@@ -19,7 +19,7 @@ class Card extends React.Component {
           <div className="card-content">
             <div className="card-header">
               <img className="card-img" src={data.image} width="100" />
-              <Text className="title">
+              <Text className="card-title">
                 {data.title && data.title.replace(/<\/?[^>]+(>|$)/g, "")}
               </Text>
             </div>

@@ -13,11 +13,6 @@ class DataList extends React.Component {
     super(props);
   }
 
-  onClick = (event, item, i) => {
-    const { onClick } = this.props;
-    onClick && onClick(item, i);
-  };
-
   getDataElement = (
     left = "left",
     right = "right",
@@ -25,6 +20,7 @@ class DataList extends React.Component {
     rightIcon = "rightIcon",
     data
   ) => {
+    const { onClick } = this.props;
     var dataElement = null;
 
     if (data && Array.isArray(data)) {
@@ -32,6 +28,7 @@ class DataList extends React.Component {
         dataElement = data.map((item, i) => {
           return (
             <Line
+              onClick={() => onClick && onClick(item)}
               key={i}
               item={item}
               left={left}
@@ -42,11 +39,17 @@ class DataList extends React.Component {
           );
         });
       } else {
-        dataElement = <Line item={data.join(", ")} />;
+        dataElement = (
+          <Line
+            onClick={() => onClick && onClick(item)}
+            item={data.join(", ")}
+          />
+        );
       }
     } else if (data && typeof data === "object") {
       dataElement = (
         <Line
+          onClick={() => onClick && onClick(item)}
           item={data}
           left={left}
           right={right}
@@ -55,7 +58,9 @@ class DataList extends React.Component {
         />
       );
     } else if (data) {
-      dataElement = <Line item={data} />;
+      dataElement = (
+        <Line onClick={() => onClick && onClick(item)} item={data} />
+      );
     }
 
     return dataElement;
@@ -75,13 +80,18 @@ class DataList extends React.Component {
     return (
       <div className="data-list">
         {head ? (
-          <div className="head" onClick={() => onClickHead && onClickHead()}>
-            <Row>
-              <Column>
-                <Content>{head}</Content>
-              </Column>
-            </Row>
-          </div>
+          <Row>
+            <Column xs="12">
+              <Content>
+                <div
+                  className="head"
+                  onClick={() => onClickHead && onClickHead()}
+                >
+                  {head}
+                </div>
+              </Content>
+            </Column>
+          </Row>
         ) : null}
         {this.getDataElement(left, right, leftIcon, rightIcon, data)}
         <style jsx>{style}</style>

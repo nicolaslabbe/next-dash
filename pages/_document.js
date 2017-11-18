@@ -1,5 +1,6 @@
 import Document, { Head, Main, NextScript } from "next/document";
 import flush from "styled-jsx/server";
+import globalStylesheet from "./global.css";
 
 export default class MyDocument extends Document {
   static getInitialProps({ renderPage }) {
@@ -59,6 +60,7 @@ export default class MyDocument extends Document {
             href="/apple-touch-icon-180x180.png"
           />
           <link rel="manifest" href="/manifest.json" />
+          <style dangerouslySetInnerHTML={{ __html: globalStylesheet }} />
         </Head>
         <body className="custom_class">
           {this.props.customValue}

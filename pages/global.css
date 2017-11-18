@@ -41,7 +41,13 @@
   font-feature-settings: "liga";
 }
 
-@include font-face("Weather&Time", "/weather/Weather&Time", "400", "normal", ttf);
+@font-face {
+  font-family: "Weather&Time";
+  font-style: normal;
+  font-weight: 400;
+  src: local("Weather&Time"), local("/weather/Weather&Time"),
+    url(/weather/Weather&Time.ttf) format("truetype");
+}
 
 .weather-icons {
   font-family: "Weather&Time";
@@ -55,6 +61,11 @@
   word-wrap: normal;
   white-space: nowrap;
   direction: ltr;
+  position: absolute;
+  text-align: center;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 
   /* Support for all WebKit browsers. */
   -webkit-font-smoothing: antialiased;
@@ -68,24 +79,38 @@
   font-feature-settings: "liga";
 }
 
-@include font-face("Roboto", "/Roboto/Roboto-Medium", null, null, ttf);
-@include font-face("Roboto Light", "/Roboto/Roboto-Light", "300", "normal", ttf);
-@include font-face("Roboto Thin", "/Roboto/Roboto-Thin", "100", "normal", ttf);
+@font-face {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 400;
+  src: local("Roboto"), local("/Roboto/Roboto-Medium"),
+    url(/Roboto/Roboto-Medium.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: "Roboto Light";
+  font-style: normal;
+  font-weight: 400;
+  src: local("Roboto Light"), local("/Roboto/Roboto-Light"),
+    url(/Roboto/Roboto-Light.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: "Roboto Thin";
+  font-style: normal;
+  font-weight: 400;
+  src: local("Roboto Thin"), local("/Roboto/Roboto-Thin"),
+    url(/Roboto/Roboto-Thin.ttf) format("truetype");
+}
 
 body,
 html {
-  font-family: "Roboto", sans-serif;
+  font-family: "Roboto Thin", sans-serif;
   background: black;
-  font-family: $ff;
-  font-size: $fz;
+  font-size: 12px;
   padding: 0px;
   margin: 0px;
   position: relative;
   height: 100%;
   width: 100%;
-}
-
-.row {
-  margin-right: 0rem;
-  margin-left: 0rem;
 }

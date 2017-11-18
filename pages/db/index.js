@@ -3,6 +3,7 @@ import { createStore, applyMiddleware } from "redux";
 import createSagaMiddleware from "redux-saga";
 import withRedux from "next-redux-wrapper";
 import withReduxSaga from "next-redux-saga";
+import globalStyles from "../global.css";
 
 // Redux
 import rootReducer from "../../Redux";
@@ -55,11 +56,14 @@ class Page extends React.Component {
           item={{
             name: "search",
             icon: "search",
-            path: `/db/search?type=${type}${display
-              ? "&display=" + display
-              : ""}`
+            path: `/db/search?type=${type}${
+              display ? "&display=" + display : ""
+            }`
           }}
         />
+        <style jsx global>
+          {globalStyles}
+        </style>
       </ScrollView>
     );
   }

@@ -36,23 +36,11 @@
 }
 
 .title {
-  font-family: $ff-light;
+  font-family: white;
   font-size: 22px;
   padding: 10px;
   position: absolute;
   bottom: 0px;
   color: #fff;
   font-weight: bolder;
-}
-
-.description {
-  padding: 10px;
-  text-align: center;
-  font-family: $ff;
-  font-size: 16px;
-}
-
-.date {
-  font-family: $ff;
-  font-size: 12px;
 }

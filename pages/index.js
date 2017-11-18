@@ -4,7 +4,6 @@ import createSagaMiddleware from "redux-saga";
 import withRedux from "next-redux-wrapper";
 import withReduxSaga from "next-redux-saga";
 import Raven from "raven-js";
-import globalStyles from "./global.css";
 
 Raven.config(
   `https://${process.env.SENTRY_KEY}@sentry.io/${process.env.SENTRY_PROJECT_ID}`
@@ -21,7 +20,7 @@ import SqlActions from "../Redux/SqlRedux";
 
 // Components
 import { Header, AppIcon } from "../components/ui";
-import { Row } from "../components/layout";
+import { Row, Column, Content } from "../components/layout";
 import { Bric } from "../components/rich";
 
 class Page extends React.Component {
@@ -90,14 +89,15 @@ class Page extends React.Component {
     return (
       <div>
         <Row>
-          {dashboard &&
-            dashboard.items &&
-            Array.isArray(dashboard.items) &&
-            dashboard.items.map((item, i) => <Bric {...item} key={i} />)}
+          <Column xs={12}>
+            <Content>
+              {dashboard &&
+                dashboard.items &&
+                Array.isArray(dashboard.items) &&
+                dashboard.items.map((item, i) => <Bric {...item} key={i} />)}
+            </Content>
+          </Column>
         </Row>
-        <style jsx global>
-          {globalStyles}
-        </style>
       </div>
     );
   }
