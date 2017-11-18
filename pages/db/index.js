@@ -52,15 +52,13 @@ class Page extends React.Component {
           />
         ) : null}
         <MenuBottom
-          items={[
-            {
-              name: "search",
-              icon: "search",
-              path: `/db/search?type=${type}${display
-                ? "&display=" + display
-                : ""}`
-            }
-          ]}
+          item={{
+            name: "search",
+            icon: "search",
+            path: `/db/search?type=${type}${display
+              ? "&display=" + display
+              : ""}`
+          }}
         />
       </ScrollView>
     );

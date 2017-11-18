@@ -4,6 +4,7 @@ import createSagaMiddleware from "redux-saga";
 import withRedux from "next-redux-wrapper";
 import withReduxSaga from "next-redux-saga";
 import Raven from "raven-js";
+import globalStyles from "./global.css";
 
 Raven.config(
   `https://${process.env.SENTRY_KEY}@sentry.io/${process.env.SENTRY_PROJECT_ID}`
@@ -94,6 +95,9 @@ class Page extends React.Component {
             Array.isArray(dashboard.items) &&
             dashboard.items.map((item, i) => <Bric {...item} key={i} />)}
         </Row>
+        <style jsx global>
+          {globalStyles}
+        </style>
       </div>
     );
   }

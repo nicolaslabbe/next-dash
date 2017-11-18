@@ -1,0 +1,14 @@
+.head {
+  display: block;
+  padding: 10px 0px;
+  line-height: 2.2rem;
+  border-top: 1px solid #fff;
+  vertical-align: middle;
+  text-align: center;
+  background: #fff;
+  color: black;
+  font-family: "Roboto", sans-serif;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 1.3rem;
+}

@@ -1,5 +1,7 @@
 import React from "react";
 
+import style from "./style.css";
+
 class BottomInput extends React.Component {
   constructor(props) {
     super(props);
@@ -59,14 +61,17 @@ class BottomInput extends React.Component {
 
   render() {
     return (
-      <input
-        className="bottom-input"
-        ref="input"
-        type="text"
-        onKeyUp={event => this.handleChange(event)}
-        onBlur={event => this.handleBlur(event)}
-        onFocus={event => this.handleFocus(event)}
-      />
+      <div>
+        <input
+          className="bottom-input"
+          ref="input"
+          type="text"
+          onKeyUp={event => this.handleChange(event)}
+          onBlur={event => this.handleBlur(event)}
+          onFocus={event => this.handleFocus(event)}
+        />
+        <style jsx>{style}</style>
+      </div>
     );
   }
 }

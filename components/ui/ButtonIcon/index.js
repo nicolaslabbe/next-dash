@@ -2,18 +2,22 @@ import React from "react";
 
 // ui
 import { Icon } from "../";
+import style from "./style.css";
 
 class ButtonIcon extends React.Component {
   render() {
-    const { className } = this.props;
+    const { className, color, onClick } = this.props;
     return (
       <div
-        className={`${className ? className : ""} button-icon ${this.props.dark
-          ? "dark"
-          : ""}`}
-        onClick={() => this.props.onClick && this.props.onClick()}
+        className="button-icon"
+        style={{ background: color || "transparent" }}
+        onClick={() => onClick && onClick()}
       >
-        <Icon name={this.props.icon} />
+        <Icon
+          color={color && color === "black" ? "white" : "black"}
+          name={this.props.icon}
+        />
+        <style jsx>{style}</style>
       </div>
     );
   }

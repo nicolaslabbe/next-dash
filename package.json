@@ -31,6 +31,7 @@
     "husky": "^0.14.3",
     "imdb-api": "^3.1.1",
     "lint-staged": "^4.3.0",
+    "lost": "^8.2.0",
     "material-design-icons": "^3.0.1",
     "momentjs": "^2.0.0",
     "next": "^3.2.2",
@@ -42,8 +43,10 @@
     "object-merge-advanced": "^6.5.0",
     "pm2": "^2.7.2",
     "postcss-copy": "^7.1.0",
+    "postcss-cssnext": "^3.0.2",
     "postcss-easy-import": "^2.1.0",
     "postcss-loader": "^2.0.8",
+    "postcss-nested": "^2.1.2",
     "postcss-url": "^7.1.2",
     "raven": "^2.2.1",
     "raven-js": "^3.19.1",
@@ -56,6 +59,7 @@
     "reduxsauce": "^0.6.0",
     "sass-loader": "^6.0.6",
     "seamless-immutable": "^7.1.2",
+    "styled-jsx-plugin-postcss": "^0.1.1",
     "url-loader": "^0.5.9",
     "web-push": "^3.2.4"
   },
@@ -73,5 +77,11 @@
   },
   "lint-staged": {
     "*.{js,json,css}": ["prettier --parser flow --write", "git add"]
+  },
+  "postcss": {
+    "plugins": {
+      "lost": {},
+      "postcss-nested": {}
+    }
   }
 }

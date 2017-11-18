@@ -1,4 +1,5 @@
 import React from "react";
+import style from "./style.css";
 
 class Video extends React.Component {
   render() {
@@ -14,11 +15,11 @@ class Video extends React.Component {
             allowFullScreen
           />
         ) : null}
+
+        <style jsx>{style}</style>
       </div>
     );
   }
 }
-
-// <iframe width="560" height="315" src="https://www.youtube.com/embed/ue80QwXMRHg" frameborder="0" allowfullscreen></iframe>
 
 export default Video;

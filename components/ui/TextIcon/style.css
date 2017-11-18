@@ -1,0 +1,19 @@
+.text-icon {
+  font-family: $ff;
+  display: inline-block;
+  padding: 10px 10px 0px 0px;
+  text-transform: uppercase;
+  font-weight: 900;
+  font-size: 15px;
+  cursor: pointer;
+  color: white;
+}
+
+.icon {
+  position: relative;
+  vertical-align: middle;
+  margin-right: 5px;
+  width: 30px;
+  height: 30px;
+  display: inline-block;
+}

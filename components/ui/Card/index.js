@@ -3,6 +3,8 @@ import React from "react";
 // ui
 import { Text } from "../";
 
+import style from "./style.css";
+
 class Card extends React.Component {
   onClickAction = e => {
     const { onClick } = this.props;
@@ -16,7 +18,7 @@ class Card extends React.Component {
         {data && (
           <div className="card-content">
             <div className="card-header">
-              <img src={data.image} width="100" />
+              <img className="card-img" src={data.image} width="100" />
               <Text className="title">
                 {data.title && data.title.replace(/<\/?[^>]+(>|$)/g, "")}
               </Text>
@@ -24,6 +26,7 @@ class Card extends React.Component {
             <div className="card-body">{this.props.children}</div>
           </div>
         )}
+        <style jsx>{style}</style>
       </div>
     );
   }

@@ -4,7 +4,9 @@ import { connect } from "react-redux";
 // Layout
 import { Row, Column, Content } from "../../layout";
 
-import { Icon } from "../";
+import { Line } from "../";
+
+import style from "./style.css";
 
 class DataList extends React.Component {
   constructor(props) {
@@ -14,64 +16,6 @@ class DataList extends React.Component {
   onClick = (event, item, i) => {
     const { onClick } = this.props;
     onClick && onClick(item, i);
-  };
-
-  display = (key, item) => {
-    if (typeof key === "function") {
-      return key(key, item);
-    } else if (typeof item === "object") {
-      return item[key];
-    } else {
-      return item;
-    }
-  };
-
-  displayIcon = (key, item) => {
-    if (typeof key === "function" && key) {
-      var itemFn = key(key, item);
-      if (itemFn) {
-        return <Icon name={key(key, item)} />;
-      }
-    } else if (typeof item === "object" && key && item[key]) {
-      return <Icon name={item[key]} />;
-    } else {
-      return null;
-    }
-  };
-
-  renderRow = (
-    item,
-    i,
-    left = "left",
-    right = "right",
-    leftIcon = "leftIcon",
-    rightIcon = "rightIcon"
-  ) => {
-    const { multiSelect, max } = this.props;
-    if (max && i >= max) {
-      return null;
-    }
-
-    return (
-      <Row
-        className={`line`}
-        key={i}
-        onClick={event => this.onClick(event, item, i)}
-      >
-        <Column xs={right ? 6 : 12} className="left">
-          {this.display(left, item)}
-          {this.displayIcon(leftIcon, item)}
-        </Column>
-        {right ? (
-          <Column xs={6} className="right">
-            <Content>
-              {this.display(right, item)}
-              {this.displayIcon(rightIcon, item)}
-            </Content>
-          </Column>
-        ) : null}
-      </Row>
-    );
   };
 
   getDataElement = (
@@ -86,15 +30,32 @@ class DataList extends React.Component {
     if (data && Array.isArray(data)) {
       if (data[0] && typeof data[0] === "object") {
         dataElement = data.map((item, i) => {
-          return this.renderRow(item, i, left, right, leftIcon, rightIcon);
+          return (
+            <Line
+              key={i}
+              item={item}
+              left={left}
+              right={right}
+              leftIcon={leftIcon}
+              rightIcon={rightIcon}
+            />
+          );
         });
       } else {
-        dataElement = this.renderRow(data.join(", "), 1, null, null);
+        dataElement = <Line item={data.join(", ")} />;
       }
     } else if (data && typeof data === "object") {
-      dataElement = this.renderRow(data, 1, left, right, leftIcon, rightIcon);
+      dataElement = (
+        <Line
+          item={data}
+          left={left}
+          right={right}
+          leftIcon={leftIcon}
+          rightIcon={rightIcon}
+        />
+      );
     } else if (data) {
-      dataElement = this.renderRow(data, 1, null, null);
+      dataElement = <Line item={data} />;
     }
 
     return dataElement;
@@ -114,13 +75,16 @@ class DataList extends React.Component {
     return (
       <div className="data-list">
         {head ? (
-          <Row className="head" onClick={() => onClickHead && onClickHead()}>
-            <Column>
-              <Content>{head}</Content>
-            </Column>
-          </Row>
+          <div className="head" onClick={() => onClickHead && onClickHead()}>
+            <Row>
+              <Column>
+                <Content>{head}</Content>
+              </Column>
+            </Row>
+          </div>
         ) : null}
         {this.getDataElement(left, right, leftIcon, rightIcon, data)}
+        <style jsx>{style}</style>
       </div>
     );
   }

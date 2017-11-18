@@ -7,6 +7,7 @@ import { Row, Column, Content } from "../../layout";
 
 // ui
 import { Title, ButtonIcon } from "../";
+import style from "./style.css";
 
 import SqlActions from "../../../Redux/SqlRedux";
 
@@ -51,29 +52,36 @@ class Header extends React.Component {
     const { id, current, type } = this.props;
 
     return (
-      <Row className="header" alignXs="center" valignXs="middle">
-        <Column autoXs>
-          <Content>
-            {this.props.close && (
-              <ButtonIcon
-                className="close"
-                icon="close"
-                onClick={() => this.goBack()}
-                dark
-              />
-            )}
-            <Title>{this.props.title}</Title>
-            {id && (
-              <ButtonIcon
-                className="favorite"
-                icon={this.isFavorite() ? "star" : "star_border"}
-                onClick={() => this.favorite()}
-                dark
-              />
-            )}
-          </Content>
-        </Column>
-      </Row>
+      <div className="header">
+        <Row alignXs="center" valignXs="middle">
+          <Column autoXs>
+            <Content>
+              {this.props.close && (
+                <div className="close">
+                  <ButtonIcon
+                    color="white"
+                    icon="close"
+                    onClick={() => this.goBack()}
+                    dark
+                  />
+                </div>
+              )}
+              <Title>{this.props.title}</Title>
+              {id && (
+                <div className="favorite">
+                  <ButtonIcon
+                    color="black"
+                    icon={this.isFavorite() ? "star" : "star_border"}
+                    onClick={() => this.favorite()}
+                    dark
+                  />
+                </div>
+              )}
+            </Content>
+          </Column>
+        </Row>
+        <style jsx>{style}</style>
+      </div>
     );
   }
 }

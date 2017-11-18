@@ -1,0 +1,18 @@
+.bottom-input {
+  position: relative;
+  width: 100%;
+  height: 40px;
+  border: 0px;
+  border-top: 0px solid #f7f9fd;
+  background: #f7f9fd;
+  color: #000;
+  font-size: 2.2rem;
+  outline: none;
+  padding: 6px;
+  -webkit-appearance: none;
+  border-radius: 0px;
+}
+
+.bottom-input:focus {
+  outline: none;
+}

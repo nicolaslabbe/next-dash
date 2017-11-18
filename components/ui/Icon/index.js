@@ -1,4 +1,5 @@
 import React from "react";
+import style from "./style.css";
 
 class Icon extends React.Component {
   render() {
@@ -10,15 +11,18 @@ class Icon extends React.Component {
       this.props.name.length === 1 ? "weather-icons" : "material-icons";
 
     return (
-      <i
-        className={`${className ? className : ""} icon ${classIconName} ${this
-          .props.dark
-          ? "dark"
-          : ""}`}
-        style={style}
-      >
-        {this.props.name}
-      </i>
+      <div className="icon">
+        <i
+          className={`${className ? className : ""} ${classIconName} ${this
+            .props.dark
+            ? "dark"
+            : ""}`}
+          style={style}
+        >
+          {this.props.name}
+        </i>
+        <style jsx>{style}</style>
+      </div>
     );
   }
 }

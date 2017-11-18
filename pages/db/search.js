@@ -89,7 +89,7 @@ class Page extends React.Component {
             items={result[type]}
           />
         ) : null}
-        <MenuBottom current="news" />
+        <MenuBottom />
       </ScrollView>
     );
   }

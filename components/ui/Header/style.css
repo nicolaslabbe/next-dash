@@ -1,0 +1,26 @@
+.header {
+  border-bottom: 1px solid #f7f9fd;
+  height: 30px;
+  padding: 10px 0;
+  position: relative;
+}
+
+.close {
+  position: absolute;
+  left: 5px;
+  width: 30px;
+  height: 30px;
+  top: 50%;
+  transform: translate(0, -50%);
+  font-size: 24px;
+}
+
+.favorite {
+  position: absolute;
+  right: 5px;
+  width: 30px;
+  height: 30px;
+  top: 50%;
+  transform: translate(0, -50%);
+  font-size: 24px;
+}

@@ -3,9 +3,9 @@ import Icon from "./Icon";
 import ButtonIcon from "./ButtonIcon";
 import Text from "./Text";
 import TextIcon from "./TextIcon";
-import TextsIcon from "./TextsIcon";
 import Title from "./Title";
 import DataList from "./DataList";
+import Line from "./Line";
 import BottomInput from "./BottomInput";
 import AppIcon from "./AppIcon";
 import MenuBottom from "./MenuBottom";
@@ -19,9 +19,9 @@ export {
   ButtonIcon,
   Text,
   TextIcon,
-  TextsIcon,
   Title,
   DataList,
+  Line,
   BottomInput,
   AppIcon,
   MenuBottom,
